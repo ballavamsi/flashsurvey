@@ -28,6 +28,8 @@ import { ProgressSpinnerModule } from './progress-spinner/progress-spinner.modul
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material';
 import { SearchPollComponent } from './search-poll/search-poll.component';
+import { CreateSurveyComponent } from './create-survey/create-survey.component';
+import { MaterialFileUploadComponent } from './shared/material-file-upload/material-file-upload.component';
 
 const provide = [
   StatusService,
@@ -48,7 +50,9 @@ const provide = [
       AlertDialogComponent,
       ViewPollComponent,
       ResultPollComponent,
-      SearchPollComponent
+      SearchPollComponent,
+      MaterialFileUploadComponent,
+      CreateSurveyComponent
    ],
    entryComponents: [
       ProgressSpinnerComponent,

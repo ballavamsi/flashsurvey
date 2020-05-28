@@ -1,0 +1,18 @@
+.center-div{
+  display: block;
+  margin-left: calc(8vw);
+  margin-right: calc(10vw);
+  p {
+    padding-top: 10px;
+  }
+
+
+  mat-form-field{
+    width: 100%;
+    align-self: start;
+  }
+}
+
+.stepperbutton{
+  padding-top: 20px;
+}

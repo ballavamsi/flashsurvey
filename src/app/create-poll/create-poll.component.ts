@@ -135,7 +135,8 @@ export class CreatePollComponent {
   }
 
   // drag and drop
-  drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<any[]>) {
+    moveItemInArray(this.options.controls, event.previousIndex, event.currentIndex);
     moveItemInArray(this.options.value, event.previousIndex, event.currentIndex);
   }
 

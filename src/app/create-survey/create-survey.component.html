@@ -1,0 +1,50 @@
+<div class="center-div">
+  <form [formGroup]="fg" (submit)="onSubmit()">
+    <mat-vertical-stepper [linear]="true" #stepper>
+      <mat-step>
+
+        <ng-template matStepLabel>Welcome</ng-template>
+        <mat-form-field>
+          <mat-label>Message</mat-label>
+          <input matInput placeholder="Welcome to {your} survey" formControlName="welcomeMessage" required>
+        </mat-form-field>
+        <mat-slide-toggle color="primary" formControlName="emailIdRequired">Ask user their email address
+        </mat-slide-toggle>
+        <div class="col-md-6 col-sm-6" style="padding-top: 20px; padding-left: 0px;">
+          <mat-label>Background Image:</mat-label>
+          <app-material-file-upload mat-basic-chip (complete)="onFileComplete('welcomeImage',$event)">
+          </app-material-file-upload>
+        </div>
+        <div class="stepperbutton">
+          <button mat-button matStepperNext type="button">Next</button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Fill out your question here</ng-template>
+        <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+          <div class="example-box" *ngFor="let movie of movies" cdkDrag>
+            <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+            {{movie}}
+          </div>
+        </div>
+        <div>
+          <button mat-button matStepperPrevious type="button">Back</button>
+          <button mat-button matStepperNext type="button">Next</button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Ending</ng-template>
+        <mat-form-field>
+          <mat-label>Message</mat-label>
+          <input matInput placeholder="Thank your for your time" formControlName="endMessage" required>
+        </mat-form-field>
+        <p>You are now done.</p>
+        <div>
+          <button mat-button matStepperPrevious type="button">Back</button>
+          <!-- <button mat-button type="submit" (click)="stepper.reset()">Reset</button> -->
+          <button mat-raised-button color="primary" type="submit">Submit</button>
+        </div>
+      </mat-step>
+    </mat-vertical-stepper>
+  </form>
+</div>
