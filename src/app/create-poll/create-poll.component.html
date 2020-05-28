@@ -13,6 +13,10 @@
     <ul class="optionsUL" formArrayName="options" cdkDropList style="list-style: none; padding-left:0px"
       (cdkDropListDropped)="drop($event)">
       <li class="optionsLI" *ngFor="let eachOption of options.controls;let eachIndex = index" cdkDrag>
+
+        <div class="drop-handle" cdkDragHandle>
+          <mat-icon>drag_indicator</mat-icon>
+        </div>
         <mat-form-field>
           <input matInput placeholder="Option goes here" [formControl]="options.controls[eachIndex]">
           <mat-error>Cannot be empty</mat-error>
