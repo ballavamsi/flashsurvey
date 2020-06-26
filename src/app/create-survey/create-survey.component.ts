@@ -33,8 +33,10 @@ export class CreateSurveyComponent implements OnInit {
     console.log(this.fg.value);
   }
 
-  drop(event: CdkDragDrop<string[]>) {
-    //moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
+  // drag and drop
+  drop(event: CdkDragDrop<any[]>) {
+    moveItemInArray(this.questions.controls, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.questions.value, event.previousIndex, event.currentIndex);
   }
 
   newQuestionType(): FormGroup {
