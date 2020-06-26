@@ -21,11 +21,18 @@
       </mat-step>
       <mat-step>
         <ng-template matStepLabel>Fill out your question here</ng-template>
-        <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-          <div class="example-box" *ngFor="let movie of movies" cdkDrag>
-            <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
-            {{movie}}
-          </div>
+        <div >
+          <mat-accordion cdkDropList (cdkDropListDropped)="drop($event)">
+            <div formArrayName="questions" cdkDrag *ngFor="let eachQuestion of questions?.controls;let i=index" class="row container-fluid">
+              <div class="drop-handle" style="padding-top: 26px;" cdkDragHandle>
+                <mat-icon>drag_indicator</mat-icon>
+              </div>
+              <app-survey-question  style="width:90%" [questionForm]="eachQuestion" [formGroupName]="i" [idx]="i" (idxToRemove)="removeQuestion($event)"></app-survey-question>
+            </div>
+          </mat-accordion>
+        </div>
+        <div class="d-flex justify-content-center padding-top-20">
+          <button mat-stroked-button type="button" color="primary" (click)="addNewQuestion()">Add New Question</button>
         </div>
         <div>
           <button mat-button matStepperPrevious type="button">Back</button>

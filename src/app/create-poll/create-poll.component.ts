@@ -62,7 +62,7 @@ export class CreatePollComponent {
   // On Submit
   onSubmit() {
     if (this.fg.valid) {
-      if(this.options.length <= 1)
+      if(this.optionsArray.length <= 1)
       {
         this._snackBar.open('Enter atleast two options','Dismiss');
         return;
@@ -117,7 +117,7 @@ export class CreatePollComponent {
     return this.fg.get('options').value;
   }
 
-  get options(): FormArray {
+  get optionsArray(): FormArray {
     return this.fg.get('options') as FormArray;
   }
   ////
@@ -126,18 +126,18 @@ export class CreatePollComponent {
   addNewOption() {
     const nfg = new FormControl(this.newoptionvalue, [Validators.required, Validators.minLength(2)]);
     this.newoptionvalue = '';
-    this.options.push(nfg);
+    this.optionsArray.push(nfg);
   }
 
   // remove item
   removeItem(removeItem: number) {
-    this.options.removeAt(removeItem);
+    this.optionsArray.removeAt(removeItem);
   }
 
   // drag and drop
   drop(event: CdkDragDrop<any[]>) {
-    moveItemInArray(this.options.controls, event.previousIndex, event.currentIndex);
-    moveItemInArray(this.options.value, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.optionsArray.controls, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.optionsArray.value, event.previousIndex, event.currentIndex);
   }
 
   // open snackbar
