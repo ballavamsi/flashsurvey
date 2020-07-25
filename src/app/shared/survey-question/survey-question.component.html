@@ -16,16 +16,16 @@
     <div class="d-flex justify-content-start">
       <div class="col-md-12">
         <mat-form-field>
-          <textarea formControlName="userQuestion" matInput cdkTextareaAutosize
-            placeholder="Enter your question" style="height: auto;"></textarea>
+          <textarea formControlName="userQuestion" matInput cdkTextareaAutosize placeholder="Enter your question"
+            style="height: auto;"></textarea>
         </mat-form-field>
       </div>
     </div>
     <div class="d-flex justify-content-start">
       <div class="col-md-12">
         <mat-form-field>
-          <textarea formControlName="explanation" matInput cdkTextareaAutosize
-            placeholder="Give your explanation" style="height: auto;"></textarea>
+          <textarea formControlName="explanation" matInput cdkTextareaAutosize placeholder="Give your explanation"
+            style="height: auto;"></textarea>
         </mat-form-field>
       </div>
     </div>
@@ -36,15 +36,68 @@
       <div class="col-md-9">
         <mat-form-field>
           <mat-label>Question Type</mat-label>
-          <mat-select formControlName="questionType">
-              <mat-option *ngFor="let surveyQuestionType of SurveyQuestionTypes" [value]="surveyQuestionType.id">
-                {{surveyQuestionType.name}}
-              </mat-option>
-            </mat-select>
+          <mat-select formControlName="questionType" (selectionChange)="setQuestionType(idx, $event)">
+            <mat-option *ngFor="let surveyQuestionType of SurveyQuestionTypes" [value]="surveyQuestionType.code">
+              {{surveyQuestionType.name}}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
     </div>
+    <div class="d-flex justify-content-start">
+      <div class="col-md-3">
+        {{selectedListQuestionTypes[idx] | uppercase }} Options
+      </div>
+    </div>
+    <hr />
+    <div class="d-flex justify-content-start">
+      <div class="row container-fluid" *ngIf="selectedListQuestionTypes[idx] == 'essay'">
+        <div class="col-md-3">
+          <mat-form-field appearance="fill">
+            <mat-label>Minimum Characters</mat-label>
+            <input matInput type="number" [(ngModel)]="minValue" [ngModelOptions]="{standalone: true}" placeholder="Ex. 12" min="10">
+            <span matSuffix></span>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field appearance="fill">
+            <mat-label>Maximum Characters</mat-label>
+            <input matInput type="number" [(ngModel)]="maxValue" [ngModelOptions]="{standalone: true}" placeholder="Ex. 12" min="10" max="1000">
+            <span matSuffix></span>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row container-fluid" *ngIf="selectedListQuestionTypes[idx] == 'radiobuttons'">
+        <div class="row container-fluid" *ngFor="let item of options;index as i">
+          <div class="col-md-3">
+            <mat-form-field appearance="fill">
+              <mat-label>Option {{i}}</mat-label>
+              <input matInput value="{{item}}">
+              <span matSuffix></span>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row container-fluid">
+          <div class="col-md-3">
+            <mat-form-field appearance="fill">
+              <mat-label>New Option</mat-label>
+              <input matInput [(ngModel)]="newitem" [ngModelOptions]="{standalone: true}">
+              <span matSuffix></span>
+            </mat-form-field>
+          </div>
+          <div class="col-md-3">
+            <button mat-raised-button type="button" (click)="addOption();">Add</button>
+          </div>
+        </div>
+      </div>
+      <div class="row container-fluid" *ngIf="selectedListQuestionTypes[idx] == 'rating'">
+        <div class="col-md-3">
+          min rating
+        </div>
+      </div>
+    </div>
     <div class="d-flex justify-content-end">
+      <button mat-stroked-button color="" align="right" type="button" (click)="SaveEmit(idx)">Save</button>
       <button mat-stroked-button color="warn" align="right" type="button"
         (click)="idxToRemove.emit(idx)">Delete</button>
     </div>
