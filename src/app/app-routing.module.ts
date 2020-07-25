@@ -6,6 +6,7 @@ import { CreatePollComponent } from './create-poll/create-poll.component';
 import { ViewPollComponent } from './view-poll/view-poll.component';
 import { ResultPollComponent } from './result-poll/result-poll.component';
 import { SearchPollComponent } from './search-poll/search-poll.component';
+import { CreateSurveyComponent } from './create-survey/create-survey.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'poll/view/:id', component: ViewPollComponent  },
   { path: 'poll/result/:id', component: ResultPollComponent  },
   { path: 'poll/search', component: SearchPollComponent  },
+  { path: 'survey/new', component: CreateSurveyComponent },
   { path: '', component: DashboardComponent, pathMatch: 'full' }
 ];
 

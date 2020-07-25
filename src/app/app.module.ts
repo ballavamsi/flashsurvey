@@ -28,6 +28,12 @@ import { ProgressSpinnerModule } from './progress-spinner/progress-spinner.modul
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material';
 import { SearchPollComponent } from './search-poll/search-poll.component';
+import { CreateSurveyComponent } from './create-survey/create-survey.component';
+import { MaterialFileUploadComponent } from './shared/material-file-upload/material-file-upload.component';
+import { SurveyQuestionComponent } from './shared/survey-question/survey-question.component';
+import { EssayQuestionTypeComponent } from './question_types/essay-question-type/essay-question-type.component';
+import { RatingQuestionTypeComponent } from './question_types/rating-question-type/rating-question-type.component';
+import { MinMaxControlComponent } from './shared/min-max-control/min-max-control.component';
 
 const provide = [
   StatusService,
@@ -48,7 +54,13 @@ const provide = [
       AlertDialogComponent,
       ViewPollComponent,
       ResultPollComponent,
-      SearchPollComponent
+      SearchPollComponent,
+      MaterialFileUploadComponent,
+      CreateSurveyComponent,
+      SurveyQuestionComponent,
+      EssayQuestionTypeComponent,
+      RatingQuestionTypeComponent,
+      MinMaxControlComponent
    ],
    entryComponents: [
       ProgressSpinnerComponent,

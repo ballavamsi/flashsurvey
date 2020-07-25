@@ -14,6 +14,10 @@ constructor() {
       {name: 'Create', url: 'poll/new', children: []},
       {name: 'Vote / Results', url: 'poll/search', children: []},
     ]},
+    {name: 'Survey', url: '#', children :[
+      {name: 'Create', url: 'survey/new', children: []},
+      {name: 'Give Survey', url: 'survey/search', children: []},
+    ]},
     {name: 'Status', url: 'status', children: []}];
     // {name: 'Home', url: '.'},
     // // {name: 'Dashboard', url: 'dashboard'},

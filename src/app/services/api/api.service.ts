@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { Status } from 'src/app/models/status';
 import { PollModel, PollViewModel, PollVote, PollResult } from 'src/app/models/poll';
+import { SurveyModel } from 'src/app/create-survey/create-survey.component';
 @Injectable({
   providedIn: 'root'
 })
@@ -33,5 +34,10 @@ export class ApiService {
 
   pollResult(pollId: string): Observable<PollResult>{
     return this.http.get<PollResult>(this._API + `poll/result/${pollId}`);
+  }
+
+  //Survey
+  addSurvey(data: SurveyModel): Observable<SurveyModel>{
+    return this.http.put<SurveyModel>(this._API + 'survey/add', data);
   }
 }
