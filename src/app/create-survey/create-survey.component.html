@@ -1,6 +1,6 @@
 <div class="center-div">
   <form [formGroup]="fg" (submit)="onSubmit()">
-    <mat-vertical-stepper [linear]="true" #stepper>
+    <mat-horizontal-stepper [linear]="true" #stepper>
       <mat-step>
 
         <ng-template matStepLabel>Welcome</ng-template>
@@ -52,6 +52,6 @@
           <button mat-raised-button color="primary" type="submit">Submit</button>
         </div>
       </mat-step>
-    </mat-vertical-stepper>
+    </mat-horizontal-stepper>
   </form>
 </div>

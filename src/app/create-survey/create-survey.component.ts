@@ -43,6 +43,7 @@ export class CreateSurveyComponent implements OnInit {
     }
   }
   onSubmit() {
+    this._overlayService.show();
     let data = this.fg.value;
     let modifiedData = this.modifyBody(data);
 
@@ -143,7 +144,7 @@ export class CreateSurveyComponent implements OnInit {
 
   /// Get Values
   generateLink(shareId: string): string {
-    return window.location.origin + `/poll/view/${shareId}`;
+    return window.location.origin + `/survey/view/${shareId}`;
   }
 
   openDialog(_heading: string, _subheading: string, _message: string, _isLinkShare: boolean) {
