@@ -40,4 +40,8 @@ export class ApiService {
   addSurvey(data: SurveyModel): Observable<SurveyModel>{
     return this.http.put<SurveyModel>(this._API + 'survey/add', data);
   }
+
+  getSurvey(surveyguid: string): Observable<SurveyModel>{
+    return this.http.get<SurveyModel>(this._API + `survey/guid/${surveyguid}`);
+  }
 }
