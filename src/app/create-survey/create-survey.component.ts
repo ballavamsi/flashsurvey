@@ -39,7 +39,7 @@ export class CreateSurveyComponent implements OnInit {
 
   onFileComplete(controlType: string, data: any) {
     if (data.success) {
-      this.fg.get(controlType).patchValue(data.link);
+      this.fg.get(controlType).patchValue(data.data.display_url);
     }
   }
   onSubmit() {

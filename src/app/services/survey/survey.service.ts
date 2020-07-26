@@ -13,4 +13,8 @@ export class SurveyService {
     return this.api.addSurvey(data);
   }
 
+  public getSurvey(surveyguid: string) {
+    return this.api.getSurvey(surveyguid);
+  }
+
 }
