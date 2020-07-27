@@ -34,7 +34,7 @@
           </mat-accordion>
         </div>
         <div class="d-flex justify-content-center padding-top-20">
-          <button mat-stroked-button type="button" color="primary" (click)="addNewQuestion()">Add New Question</button>
+          <button mat-stroked-button type="button" color="primary" *ngIf="displayAddQuestion" (click)="addNewQuestion()">Add New Question</button>
         </div>
         <div>
           <!-- <button mat-button matStepperPrevious type="button">Back</button>

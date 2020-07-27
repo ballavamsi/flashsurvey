@@ -35,7 +35,7 @@ export class SurveyQuestionComponent implements OnInit {
   public listQuestionTypes: QuestionType[];
   public options = [];
   public newitem = '';
-  public minValue = 1;
+  public minValue = 10;
   public maxValue = 1000;
   public selectedListQuestionTypes = "";
 
@@ -55,6 +55,7 @@ export class SurveyQuestionComponent implements OnInit {
     console.log(this.questionForm);
     this.selectedListQuestionTypes = this.questionForm.controls['questionType'].value;
     this.formChange.emit(this.questionForm);
+    this.IsSaved.emit(false);
   }
 
   onChanges(): void {
@@ -113,6 +114,7 @@ export class SurveyQuestionComponent implements OnInit {
       this.formChange.emit(this.questionForm);
       this.disableState = false;
       this.expandedPanel = false;
+      this.IsSaved.emit(true);
     }
     else {
       this.openDismiss('All the required details are not filled', 'Dismiss');

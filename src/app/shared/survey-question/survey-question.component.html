@@ -56,7 +56,7 @@
           <mat-form-field appearance="standard">
             <mat-label *ngIf="selectedListQuestionTypes == 'essay'">Minimum Characters</mat-label>
             <mat-label *ngIf="selectedListQuestionTypes == 'rangeslider'">Starting Range</mat-label>
-            <input matInput type="number" [(ngModel)]="minValue" [ngModelOptions]="{standalone: true}" placeholder="Ex. 12" min="10">
+            <input matInput type="number" [(ngModel)]="minValue" [ngModelOptions]="{standalone: true}" placeholder="Ex. 12">
             <span matSuffix></span>
           </mat-form-field>
         </div>
@@ -64,7 +64,7 @@
           <mat-form-field appearance="standard">
             <mat-label *ngIf="selectedListQuestionTypes == 'essay'">Maximum Characters</mat-label>
             <mat-label *ngIf="selectedListQuestionTypes == 'rangeslider'">Ending Range</mat-label>
-            <input matInput type="number" [(ngModel)]="maxValue" [ngModelOptions]="{standalone: true}" placeholder="Ex. 12" min="10" max="1000">
+            <input matInput type="number" [(ngModel)]="maxValue" [ngModelOptions]="{standalone: true}" placeholder="Ex. 12">
             <span matSuffix></span>
           </mat-form-field>
         </div>
