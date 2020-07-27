@@ -40,8 +40,7 @@ export class SurveyQuestionComponent implements OnInit {
   public selectedListQuestionTypes = "";
 
   public expandedPanel = true;
-
-  disableState = false;
+  public disableState = true;
 
   ngOnInit() {
     this.listQuestionTypes = [
@@ -93,6 +92,11 @@ export class SurveyQuestionComponent implements OnInit {
       });
     }
 
+    if (this.selectedListQuestionTypes == 'rangeslider') {
+      emitOptions['min'] = this.minValue;
+      emitOptions['max'] = this.maxValue;
+    }
+
     let emitData = {
       'options': emitOptions,
       'type': this.listQuestionTypes.findIndex(x => x.code == this.selectedListQuestionTypes)
@@ -125,6 +129,22 @@ export class SurveyQuestionComponent implements OnInit {
       }
       if (emitOptions['min'] > 1000) {
         return 'Minimum characters cannot be greater than 1000';
+      }
+
+      if (emitOptions['max'] == '' || emitOptions['max'] == null) {
+        return 'Maximum characters cannot be empty';
+      }
+    }
+
+    if (this.selectedListQuestionTypes == 'rangeslider') {
+      if (emitOptions['min'] == '' || emitOptions['min'] == null) {
+        return 'Starting range cannot be empty';
+      }
+      if (emitOptions['max'] == '' || emitOptions['max'] == null) {
+        return 'Ending range cannot be empty';
+      }
+      if(emitOptions['min'] > emitOptions['max']) {
+        return 'Starting range cannot be greater than ending';
       }
     }
     return '';
