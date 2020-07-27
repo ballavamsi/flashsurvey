@@ -19,7 +19,7 @@ export class CreateSurveyComponent implements OnInit {
   questionTypes = [];
   newSurveyViewModel: SurveyModel;
   constructor(private _formBuilder: FormBuilder,
-    private _surveyService : SurveyService,
+    private _surveyService: SurveyService,
     private _overlayService: OverlayService,
     private _snackBar: MatSnackBar,
     private _router: Router,
@@ -35,7 +35,7 @@ export class CreateSurveyComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   onFileComplete(controlType: string, data: any) {
     if (data.success) {
@@ -44,23 +44,35 @@ export class CreateSurveyComponent implements OnInit {
   }
   onSubmit() {
     this._overlayService.show();
-    let data = this.fg.value;
-    let modifiedData = this.modifyBody(data);
+    const data = this.fg.value;
+    const modifiedData = this.modifyBody(data);
 
-    this._surveyService.addSurvey(modifiedData).subscribe(
-      result => {
-        const returnData: SurveyModel = result;
-        this.newSurveyViewModel = returnData;
+    if (this.fg.valid) {
+      if (modifiedData.surveyQuestions.length == 0) {
         this._overlayService.hide();
-        this.openDialog('Survey Created successfully', 'Click on the link to copy', this.generateLink(returnData.surveyGuid), true);
-      },
-      error => {
-        this.openDismiss('Failed to create survey, please try again', 'Close');
-        this._overlayService.hide();
-      });
+        this.openDismiss('There should be atleast one question', 'Dismiss');
+        return;
+      }
+      this._surveyService.addSurvey(modifiedData).subscribe(
+        result => {
+          const returnData: SurveyModel = result;
+          this.newSurveyViewModel = returnData;
+          this._overlayService.hide();
+          this.openDialog('Survey Created successfully', 'Click on the link to copy', this.generateLink(returnData.surveyGuid), true);
+        },
+        error => {
+          this.openDismiss('Failed to create survey, please try again', 'Close');
+          this._overlayService.hide();
+        });
+    }
+    else {
+      this._overlayService.hide();
+      this.openDismiss("All required details are not filled", 'Dismiss');
+    }
+
   }
 
-  modifyBody(data: any){
+  modifyBody(data: any) {
     let survey = new SurveyModel();
     survey.welcometitle = data['welcomeMessage'];
     survey.welcomeimage = data['welcomeImage'];
@@ -70,10 +82,10 @@ export class CreateSurveyComponent implements OnInit {
     survey.enddate = new Date((new Date().getDate()) + 365).toISOString(); //set next year date default
     survey.surveyQuestions = [];
 
-    data['questions'].forEach((element,index)  => {
+    data['questions'].forEach((element, index) => {
       let eachquestion = new SurveyQuestionsModel();
       eachquestion.surveyQuestionId = 0;
-      eachquestion.questionDisplayOrder = index+1;
+      eachquestion.questionDisplayOrder = index + 1;
       eachquestion.title = element['userQuestion'];
       eachquestion.subtitle = element['explanation'];
       eachquestion.isrequired = element['isRequired'] ? 1 : 0;
@@ -91,7 +103,7 @@ export class CreateSurveyComponent implements OnInit {
     moveItemInArray(this.questions.controls, event.previousIndex, event.currentIndex);
     moveItemInArray(this.questions.value, event.previousIndex, event.currentIndex);
     moveItemInArray(this.questionOptions, event.previousIndex, event.currentIndex);
-    moveItemInArray(this.questionTypes , event.previousIndex, event.currentIndex);
+    moveItemInArray(this.questionTypes, event.previousIndex, event.currentIndex);
   }
 
   newQuestionType(): FormGroup {
@@ -99,13 +111,12 @@ export class CreateSurveyComponent implements OnInit {
       userQuestion: this._formBuilder.control('', [Validators.required]),
       explanation: this._formBuilder.control(''),
       isRequired: this._formBuilder.control(false),
-      questionType: this._formBuilder.control('essay'),
+      questionType: this._formBuilder.control('-1'),
       questionOptions: this._formBuilder.control({})
     });
   }
 
-  addQuestionOptions(data: any, i: any)
-  {
+  addQuestionOptions(data: any, i: any) {
     this.questionOptions[i] = data['options'];
     this.questionTypes[i] = data['type'];
   }
@@ -113,17 +124,16 @@ export class CreateSurveyComponent implements OnInit {
   addNewQuestion() {
     this.questions.push(this.newQuestionType());
     this.questionOptions.push({});
-    this.questionTypes.push(0);
+    this.questionTypes.push();
   }
 
-  removeQuestion(index: number){
+  removeQuestion(index: number) {
     this.questions.removeAt(index);
     this.questionOptions.splice(index, 1);
     this.questionTypes.splice(index, 1);
   }
 
-  gettypeof(data:any)
-  {
+  gettypeof(data: any) {
     console.log(typeof data);
   }
 
@@ -183,7 +193,7 @@ export class SurveyModel {
   surveyGuid: string;
 }
 
-export class SurveyQuestionsModel{
+export class SurveyQuestionsModel {
   surveyId: number;
   surveyQuestionId: number;
   typeId: number; // send type

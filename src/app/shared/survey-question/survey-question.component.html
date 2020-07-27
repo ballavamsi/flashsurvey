@@ -1,5 +1,5 @@
 <div [formGroup]="questionForm" style="padding-top:10px">
-  <mat-expansion-panel style="height: auto;">
+  <mat-expansion-panel #myaccordian [expanded]="expandedPanel" style="height: auto;" [disabled]="disableState" (afterExpand)="emitAfterExpanded($event)">
     <mat-expansion-panel-header class="content-height">
       <mat-panel-title>
         <mat-panel-description>
@@ -44,14 +44,14 @@
         </mat-form-field>
       </div>
     </div>
-    <div class="d-flex justify-content-start">
+    <div class="d-flex justify-content-start" *ngIf="selectedListQuestionTypes!='-1' && selectedListQuestionTypes != ''">
       <div class="col-md-3">
-        {{selectedListQuestionTypes[idx] | uppercase }} Options
+        {{ getOptionName(selectedListQuestionTypes) | uppercase }} Additional Details
       </div>
     </div>
-    <hr />
-    <div class="d-flex justify-content-start">
-      <div class="row container-fluid" *ngIf="selectedListQuestionTypes[idx] == 'essay'">
+    <hr *ngIf="selectedListQuestionTypes!='-1' && selectedListQuestionTypes != ''"/>
+    <div class="d-flex justify-content-start" *ngIf="selectedListQuestionTypes!='-1' && selectedListQuestionTypes != ''">
+      <div class="row container-fluid" *ngIf="selectedListQuestionTypes == 'essay'">
         <div class="col-md-3">
           <mat-form-field appearance="standard">
             <mat-label>Minimum Characters</mat-label>
@@ -67,7 +67,9 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="row container-fluid" *ngIf="selectedListQuestionTypes[idx] == 'radiobuttons'">
+      <div class="row container-fluid"
+      *ngIf="selectedListQuestionTypes == 'radiobuttons' ||
+      selectedListQuestionTypes == 'multiple'">
         <div class="row container-fluid" *ngFor="let item of options;index as i">
           <div class="col-md-3">
             <mat-form-field appearance="standard">
@@ -90,7 +92,7 @@
           </div>
         </div>
       </div>
-      <div class="row container-fluid" *ngIf="selectedListQuestionTypes[idx] == 'rating'">
+      <div class="row container-fluid" *ngIf="selectedListQuestionTypes == 'rating'">
         <div class="col-md-3">
           min rating
         </div>
