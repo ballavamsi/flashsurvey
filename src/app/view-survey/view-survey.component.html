@@ -1,5 +1,5 @@
 <!-- <div>{{surveyData | json}}</div> -->
-<div class="center-div">
+<div class="center-div" style="height: 70%!important;">
 <div *ngIf="loaded">
   <h2 class="mat-h1" align="center" *ngIf="errorMessage != ''">{{errorMessage}}</h2>
   <form class="form" [formGroup]="fg" (ngSubmit)="onSubmit()" *ngIf="errorMessage == ''">
