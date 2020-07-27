@@ -45,7 +45,7 @@
       </div>
     </div>
     <div class="d-flex justify-content-start" *ngIf="selectedListQuestionTypes!='-1' && selectedListQuestionTypes != ''">
-      <div class="col-md-3">
+      <div class="col-md-6">
         {{ getOptionName(selectedListQuestionTypes) | uppercase }} Additional Details
       </div>
     </div>
@@ -73,22 +73,22 @@
         <div class="row container-fluid" *ngFor="let item of options;index as i">
           <div class="col-md-3">
             <mat-form-field appearance="standard">
-              <mat-label>Option {{i}}</mat-label>
+              <mat-label>Option {{i+1}}</mat-label>
               <input matInput value="{{item}}">
               <span matSuffix></span>
             </mat-form-field>
           </div>
         </div>
         <div class="row container-fluid">
-          <div class="col-md-3">
+          <div class="col-md-6">
             <mat-form-field appearance="standard">
               <mat-label>New Option</mat-label>
               <input matInput [(ngModel)]="newitem" [ngModelOptions]="{standalone: true}">
-              <span matSuffix></span>
+              <button matSuffix mat-mini-fab color="accent" [disabled]="newitem == '' || newitem.length < 2" aria-label="Add"
+               type="button" (click)="addOption();">
+                <mat-icon>add</mat-icon>
+              </button>
             </mat-form-field>
-          </div>
-          <div class="col-md-3">
-            <button mat-raised-button type="button" (click)="addOption();">Add</button>
           </div>
         </div>
       </div>
@@ -99,9 +99,13 @@
       </div>
     </div>
     <div class="d-flex justify-content-end">
-      <button mat-stroked-button color="" align="right" type="button" (click)="SaveEmit(idx)">Save</button>
-      <button mat-stroked-button color="warn" align="right" type="button"
-        (click)="idxToRemove.emit(idx)">Delete</button>
+      <button mat-mini-fab color="" style="margin: 10px;" aria-label="Save" align="right" color="accent" type="button" (click)="SaveEmit(idx)">
+        <mat-icon>save</mat-icon>
+      </button>
+      <button mat-mini-fab style="margin: 10px;" aria-label="Delete" color="warn" align="right" type="button"
+        (click)="idxToRemove.emit(idx)">
+        <mat-icon>delete</mat-icon>
+      </button>
     </div>
   </mat-expansion-panel>
 </div>

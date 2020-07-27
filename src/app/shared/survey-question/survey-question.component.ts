@@ -34,7 +34,7 @@ export class SurveyQuestionComponent implements OnInit {
   @Output() IsSaved: EventEmitter<any> = new EventEmitter<any>();
   public listQuestionTypes: QuestionType[];
   public options = [];
-  public newitem: any;
+  public newitem = '';
   public minValue = 1;
   public maxValue = 1000;
   public selectedListQuestionTypes = "";
@@ -99,6 +99,12 @@ export class SurveyQuestionComponent implements OnInit {
     };
 
     if (this.questionForm.valid) {
+      const questionValidationMessages = this.questionValidations(emitOptions);
+      if(questionValidationMessages != '')
+      {
+        this.openDismiss(questionValidationMessages,'Dismiss');
+        return;
+      }
       this.questionAdditionalInfo.emit(emitData);
       this.formChange.emit(this.questionForm);
       this.disableState = false;
@@ -111,16 +117,17 @@ export class SurveyQuestionComponent implements OnInit {
 
   questionValidations(emitOptions: any) {
     if (this.selectedListQuestionTypes == 'essay') {
-      if (emitOptions['min'] == '') {
-        return 'For essay type min value cannot be empty';
+      if (emitOptions['min'] == '' || emitOptions['min'] == null) {
+        return 'Minimum characters cannot be empty';
       }
-      if (emitOptions['min'] == '0') {
-        return 'For essay type min value cannot be';
+      if (emitOptions['min'] < 10) {
+        return 'Minimum characters should be between 10 and 1000';
       }
       if (emitOptions['min'] > 1000) {
-        return 'For essay type min value cannot be greater than 1000';
+        return 'Minimum characters cannot be greater than 1000';
       }
     }
+    return '';
   }
 
   addOption() {
