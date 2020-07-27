@@ -17,7 +17,9 @@ export class CreateSurveyComponent implements OnInit {
   fg: FormGroup;
   questionOptions = [];
   questionTypes = [];
+  questionSaved = [];
   newSurveyViewModel: SurveyModel;
+  displayAddQuestion = false;
   constructor(private _formBuilder: FormBuilder,
     private _surveyService: SurveyService,
     private _overlayService: OverlayService,
@@ -107,6 +109,7 @@ export class CreateSurveyComponent implements OnInit {
   }
 
   newQuestionType(): FormGroup {
+    this.questionSaved.push(false);
     return this._formBuilder.group({
       userQuestion: this._formBuilder.control('', [Validators.required]),
       explanation: this._formBuilder.control(''),
@@ -119,18 +122,33 @@ export class CreateSurveyComponent implements OnInit {
   addQuestionOptions(data: any, i: any) {
     this.questionOptions[i] = data['options'];
     this.questionTypes[i] = data['type'];
+    this.questionSaved[i] = true;
+    this.updateAddNewQuestionVisibility();
   }
 
   addNewQuestion() {
     this.questions.push(this.newQuestionType());
     this.questionOptions.push({});
     this.questionTypes.push();
+    this.updateAddNewQuestionVisibility();
   }
 
   removeQuestion(index: number) {
     this.questions.removeAt(index);
     this.questionOptions.splice(index, 1);
     this.questionTypes.splice(index, 1);
+    this.questionSaved.splice(index, 1);
+    this.updateAddNewQuestionVisibility();
+  }
+
+  updateAddNewQuestionVisibility()
+  {
+    if(this.questionSaved.findIndex(x => x == false) != -1) {
+      this.displayAddQuestion = false;
+    }
+    else {
+    this.displayAddQuestion = true;
+    }
   }
 
   gettypeof(data: any) {

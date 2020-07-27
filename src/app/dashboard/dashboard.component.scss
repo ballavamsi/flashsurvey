@@ -19,12 +19,14 @@
 }
 .headingcolor{
   color: mat-color($accent);
-  font-size: 3.2rem;
+  font-size: 6rem;
+  font-variant: petite-caps;
 }
 
 .middletextcolor{
   color: gray;
   opacity: 0.9;
+  cursor: pointer;
 }
 
 .middletextcolor:hover{

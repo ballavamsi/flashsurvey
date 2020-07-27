@@ -30,8 +30,8 @@
       </div>
     </div>
     <div class="d-flex justify-content-start">
-      <div class="col-md-3">
-        <mat-slide-toggle formControlName="isRequired">Required</mat-slide-toggle>
+      <div class="col-md-3" style="padding-top: 20px;">
+        <mat-slide-toggle formControlName="isRequired">Mandatory Question</mat-slide-toggle>
       </div>
       <div class="col-md-9">
         <mat-form-field appearance="standard">
@@ -45,24 +45,26 @@
       </div>
     </div>
     <div class="d-flex justify-content-start" *ngIf="selectedListQuestionTypes!='-1' && selectedListQuestionTypes != ''">
-      <div class="col-md-3">
+      <div class="col-md-6">
         {{ getOptionName(selectedListQuestionTypes) | uppercase }} Additional Details
       </div>
     </div>
     <hr *ngIf="selectedListQuestionTypes!='-1' && selectedListQuestionTypes != ''"/>
     <div class="d-flex justify-content-start" *ngIf="selectedListQuestionTypes!='-1' && selectedListQuestionTypes != ''">
-      <div class="row container-fluid" *ngIf="selectedListQuestionTypes == 'essay'">
+      <div class="row container-fluid" *ngIf="selectedListQuestionTypes == 'essay' || selectedListQuestionTypes == 'rangeslider'">
         <div class="col-md-3">
           <mat-form-field appearance="standard">
-            <mat-label>Minimum Characters</mat-label>
-            <input matInput type="number" [(ngModel)]="minValue" [ngModelOptions]="{standalone: true}" placeholder="Ex. 12" min="10">
+            <mat-label *ngIf="selectedListQuestionTypes == 'essay'">Minimum Characters</mat-label>
+            <mat-label *ngIf="selectedListQuestionTypes == 'rangeslider'">Starting Range</mat-label>
+            <input matInput type="number" [(ngModel)]="minValue" [ngModelOptions]="{standalone: true}" placeholder="Ex. 12">
             <span matSuffix></span>
           </mat-form-field>
         </div>
         <div class="col-md-3">
           <mat-form-field appearance="standard">
-            <mat-label>Maximum Characters</mat-label>
-            <input matInput type="number" [(ngModel)]="maxValue" [ngModelOptions]="{standalone: true}" placeholder="Ex. 12" min="10" max="1000">
+            <mat-label *ngIf="selectedListQuestionTypes == 'essay'">Maximum Characters</mat-label>
+            <mat-label *ngIf="selectedListQuestionTypes == 'rangeslider'">Ending Range</mat-label>
+            <input matInput type="number" [(ngModel)]="maxValue" [ngModelOptions]="{standalone: true}" placeholder="Ex. 12">
             <span matSuffix></span>
           </mat-form-field>
         </div>
@@ -73,22 +75,22 @@
         <div class="row container-fluid" *ngFor="let item of options;index as i">
           <div class="col-md-3">
             <mat-form-field appearance="standard">
-              <mat-label>Option {{i}}</mat-label>
+              <mat-label>Option {{i+1}}</mat-label>
               <input matInput value="{{item}}">
               <span matSuffix></span>
             </mat-form-field>
           </div>
         </div>
         <div class="row container-fluid">
-          <div class="col-md-3">
+          <div class="col-md-6">
             <mat-form-field appearance="standard">
               <mat-label>New Option</mat-label>
               <input matInput [(ngModel)]="newitem" [ngModelOptions]="{standalone: true}">
-              <span matSuffix></span>
+              <button matSuffix mat-mini-fab color="accent" [disabled]="newitem == '' || newitem.length < 2" aria-label="Add"
+               type="button" (click)="addOption();">
+                <mat-icon>add</mat-icon>
+              </button>
             </mat-form-field>
-          </div>
-          <div class="col-md-3">
-            <button mat-raised-button type="button" (click)="addOption();">Add</button>
           </div>
         </div>
       </div>
@@ -99,9 +101,13 @@
       </div>
     </div>
     <div class="d-flex justify-content-end">
-      <button mat-stroked-button color="" align="right" type="button" (click)="SaveEmit(idx)">Save</button>
-      <button mat-stroked-button color="warn" align="right" type="button"
-        (click)="idxToRemove.emit(idx)">Delete</button>
+      <button mat-mini-fab color="" style="margin: 10px;opacity: 0.8;" aria-label="Save" align="right" color="primary" type="button" (click)="SaveEmit(idx)">
+        <mat-icon>save</mat-icon>
+      </button>
+      <button mat-mini-fab style="margin: 10px;opacity: 0.8;" aria-label="Delete" color="warn" align="right" type="button"
+        (click)="idxToRemove.emit(idx)">
+        <mat-icon>delete</mat-icon>
+      </button>
     </div>
   </mat-expansion-panel>
 </div>

@@ -16,7 +16,9 @@
           </app-material-file-upload>
         </div>
         <div class="stepperbutton">
-          <button mat-button matStepperNext type="button">Next</button>
+          <button mat-mini-fab color="accent" matStepperNext type="button">
+            <mat-icon>arrow_forward</mat-icon>
+          </button>
         </div>
       </mat-step>
       <mat-step>
@@ -32,11 +34,17 @@
           </mat-accordion>
         </div>
         <div class="d-flex justify-content-center padding-top-20">
-          <button mat-stroked-button type="button" color="primary" (click)="addNewQuestion()">Add New Question</button>
+          <button mat-stroked-button type="button" color="primary" *ngIf="displayAddQuestion" (click)="addNewQuestion()">Add New Question</button>
         </div>
         <div>
-          <button mat-button matStepperPrevious type="button">Back</button>
-          <button mat-button matStepperNext type="button">Next</button>
+          <!-- <button mat-button matStepperPrevious type="button">Back</button>
+          <button mat-button matStepperNext type="button">Next</button> -->
+          <button mat-mini-fab color="accent" matStepperPrevious type="button">
+            <mat-icon>arrow_backward</mat-icon>
+          </button>
+          <button mat-mini-fab color="accent" style="margin-left:10px" matStepperNext type="button">
+            <mat-icon>arrow_forward</mat-icon>
+          </button>
         </div>
       </mat-step>
       <mat-step>
@@ -45,11 +53,13 @@
           <mat-label>Message</mat-label>
           <input matInput placeholder="Thank your for your time" formControlName="endMessage" required>
         </mat-form-field>
-        <p>You are now done.</p>
+        <p></p>
         <div>
-          <button mat-button matStepperPrevious type="button">Back</button>
+          <button mat-mini-fab color="accent" matStepperPrevious type="button">
+            <mat-icon>arrow_backward</mat-icon>
+          </button>
           <!-- <button mat-button type="submit" (click)="stepper.reset()">Reset</button> -->
-          <button mat-raised-button color="primary" type="submit">Submit</button>
+          <button mat-raised-button style="margin-left:10px"  color="primary" type="submit">Submit</button>
         </div>
       </mat-step>
     </mat-horizontal-stepper>

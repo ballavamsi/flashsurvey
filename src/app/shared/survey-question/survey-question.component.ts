@@ -34,14 +34,13 @@ export class SurveyQuestionComponent implements OnInit {
   @Output() IsSaved: EventEmitter<any> = new EventEmitter<any>();
   public listQuestionTypes: QuestionType[];
   public options = [];
-  public newitem: any;
-  public minValue = 1;
+  public newitem = '';
+  public minValue = 10;
   public maxValue = 1000;
   public selectedListQuestionTypes = "";
 
   public expandedPanel = true;
-
-  disableState = false;
+  public disableState = true;
 
   ngOnInit() {
     this.listQuestionTypes = [
@@ -56,6 +55,7 @@ export class SurveyQuestionComponent implements OnInit {
     console.log(this.questionForm);
     this.selectedListQuestionTypes = this.questionForm.controls['questionType'].value;
     this.formChange.emit(this.questionForm);
+    this.IsSaved.emit(false);
   }
 
   onChanges(): void {
@@ -93,16 +93,28 @@ export class SurveyQuestionComponent implements OnInit {
       });
     }
 
+    if (this.selectedListQuestionTypes == 'rangeslider') {
+      emitOptions['min'] = this.minValue;
+      emitOptions['max'] = this.maxValue;
+    }
+
     let emitData = {
       'options': emitOptions,
       'type': this.listQuestionTypes.findIndex(x => x.code == this.selectedListQuestionTypes)
     };
 
     if (this.questionForm.valid) {
+      const questionValidationMessages = this.questionValidations(emitOptions);
+      if(questionValidationMessages != '')
+      {
+        this.openDismiss(questionValidationMessages,'Dismiss');
+        return;
+      }
       this.questionAdditionalInfo.emit(emitData);
       this.formChange.emit(this.questionForm);
       this.disableState = false;
       this.expandedPanel = false;
+      this.IsSaved.emit(true);
     }
     else {
       this.openDismiss('All the required details are not filled', 'Dismiss');
@@ -111,16 +123,33 @@ export class SurveyQuestionComponent implements OnInit {
 
   questionValidations(emitOptions: any) {
     if (this.selectedListQuestionTypes == 'essay') {
-      if (emitOptions['min'] == '') {
-        return 'For essay type min value cannot be empty';
+      if (emitOptions['min'] == '' || emitOptions['min'] == null) {
+        return 'Minimum characters cannot be empty';
       }
-      if (emitOptions['min'] == '0') {
-        return 'For essay type min value cannot be';
+      if (emitOptions['min'] < 10) {
+        return 'Minimum characters should be between 10 and 1000';
       }
       if (emitOptions['min'] > 1000) {
-        return 'For essay type min value cannot be greater than 1000';
+        return 'Minimum characters cannot be greater than 1000';
+      }
+
+      if (emitOptions['max'] == '' || emitOptions['max'] == null) {
+        return 'Maximum characters cannot be empty';
       }
     }
+
+    if (this.selectedListQuestionTypes == 'rangeslider') {
+      if (emitOptions['min'] == '' || emitOptions['min'] == null) {
+        return 'Starting range cannot be empty';
+      }
+      if (emitOptions['max'] == '' || emitOptions['max'] == null) {
+        return 'Ending range cannot be empty';
+      }
+      if(emitOptions['min'] > emitOptions['max']) {
+        return 'Starting range cannot be greater than ending';
+      }
+    }
+    return '';
   }
 
   addOption() {
