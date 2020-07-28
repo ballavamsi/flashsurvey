@@ -28,6 +28,7 @@ export class CreateSurveyComponent implements OnInit {
     public dialog: MatDialog) {
     this.fg = this._formBuilder.group({
       welcomeMessage: this._formBuilder.control('Welcome to the survey', [Validators.required]),
+      welcomeDescription: this._formBuilder.control(''),
       welcomeImage: this._formBuilder.control(''),
       emailIdRequired: this._formBuilder.control(false),
       endMessage: this._formBuilder.control('Thank you for your valuable time', [Validators.required]),
@@ -49,12 +50,20 @@ export class CreateSurveyComponent implements OnInit {
     const data = this.fg.value;
     const modifiedData = this.modifyBody(data);
 
+    const additionalValidationsMessage = this.additionalValidations();
     if (this.fg.valid) {
       if (modifiedData.surveyQuestions.length == 0) {
         this._overlayService.hide();
         this.openDismiss('There should be atleast one question', 'Dismiss');
         return;
       }
+
+      if(additionalValidationsMessage != ""){
+        this._overlayService.hide();
+        this.openDismiss(additionalValidationsMessage, 'Dismiss');
+        return;
+      }
+
       this._surveyService.addSurvey(modifiedData).subscribe(
         result => {
           const returnData: SurveyModel = result;
@@ -74,9 +83,20 @@ export class CreateSurveyComponent implements OnInit {
 
   }
 
+  additionalValidations(){
+    if(this.questionSaved.indexOf(false) == -1) {
+      return "";
+    }
+    if(this.questionSaved.indexOf(false) >= 0){
+      return "Few questions are not saved.";
+    }
+
+  }
+
   modifyBody(data: any) {
     let survey = new SurveyModel();
     survey.welcometitle = data['welcomeMessage'];
+    survey.welcomedescription = data['welcomeDescription'];
     survey.welcomeimage = data['welcomeImage'];
     survey.emailidrequired = data['emailIdRequired'] ? 1 : 0;
     survey.endtitle = data['endMessage'];
@@ -106,6 +126,7 @@ export class CreateSurveyComponent implements OnInit {
     moveItemInArray(this.questions.value, event.previousIndex, event.currentIndex);
     moveItemInArray(this.questionOptions, event.previousIndex, event.currentIndex);
     moveItemInArray(this.questionTypes, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.questionSaved, event.previousIndex, event.currentIndex);
   }
 
   newQuestionType(): FormGroup {
@@ -149,6 +170,11 @@ export class CreateSurveyComponent implements OnInit {
     else {
     this.displayAddQuestion = true;
     }
+  }
+
+  IsSavedCheck(data: any,i: number){
+    this.questionSaved[i] = data;
+    this.updateAddNewQuestionVisibility();
   }
 
   gettypeof(data: any) {
@@ -202,6 +228,7 @@ export class CreateSurveyComponent implements OnInit {
 export class SurveyModel {
   surveyId: number;
   welcometitle: string;
+  welcomedescription: string;
   welcomeimage: string;
   emailidrequired: number;
   endtitle: string;

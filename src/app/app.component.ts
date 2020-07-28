@@ -14,6 +14,7 @@ export class AppComponent implements OnDestroy {
 
   fillerNav: NavigationModel[];
   subMenu: NavigationModel[];
+  subMenuTitle: string;
   mobileQuery: MediaQueryList;
   public displayProgressSpinner = false;
   private mobileQueryListener: () => void;
@@ -48,6 +49,7 @@ export class AppComponent implements OnDestroy {
 
   hoverSubMenu(index) {
     this.subMenu =  this.fillerNav[index].children;
+    this.subMenuTitle = this.fillerNav[index].name;
   }
   showSubMenu(index) {
     if (this.fillerNav[index].children.length === 0) {

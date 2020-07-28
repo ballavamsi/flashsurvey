@@ -7,7 +7,7 @@
       <img src="{{surveyData.welcomeimage}}" style="max-height: 300px;max-width: 70%;">
       <h2 style="align-content: center;">{{surveyData.welcometitle}}</h2>
     </div>
-    <div class="inputGroup" style="background-color: transparent;margin-top:30px;">
+    <div class="inputGroup" style="background-color: transparent;margin-top:30px;" *ngIf="surveyData.emailidrequired">
       <mat-form-field appearance="fill" style="width: 60rem;">
         <mat-label>Email ID</mat-label>
         <input matInput formControlName="emailId" type="email"/>
