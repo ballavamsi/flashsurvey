@@ -41,6 +41,7 @@ export class SurveyQuestionComponent implements OnInit {
 
   public expandedPanel = true;
   public disableState = true;
+  invalidForm = false;
 
   ngOnInit() {
     this.listQuestionTypes = [
@@ -56,17 +57,13 @@ export class SurveyQuestionComponent implements OnInit {
     this.selectedListQuestionTypes = this.questionForm.controls['questionType'].value;
     this.formChange.emit(this.questionForm);
     this.IsSaved.emit(false);
-  }
-
-  onChanges(): void {
-    // console.log('MyForm > onChanges', this.questionForm.value);
-    // this.questionForm.valueChanges.subscribe(value => {
-    //   this.formChange.emit(this.questionForm);
-    // });
+    this.invalidForm = true;
   }
 
   setQuestionType(idx, event) {
     this.selectedListQuestionTypes = event.value;
+    this.invalidForm = true;
+    this.IsSaved.emit(false);
   }
 
   SaveEmit(idx) {
@@ -108,6 +105,7 @@ export class SurveyQuestionComponent implements OnInit {
       if(questionValidationMessages != '')
       {
         this.openDismiss(questionValidationMessages,'Dismiss');
+        this.invalidForm = true;
         return;
       }
       this.questionAdditionalInfo.emit(emitData);
@@ -115,9 +113,11 @@ export class SurveyQuestionComponent implements OnInit {
       this.disableState = false;
       this.expandedPanel = false;
       this.IsSaved.emit(true);
+      this.invalidForm = false;
     }
     else {
       this.openDismiss('All the required details are not filled', 'Dismiss');
+      this.invalidForm = true;
     }
   }
 
@@ -149,6 +149,12 @@ export class SurveyQuestionComponent implements OnInit {
         return 'Starting range cannot be greater than ending';
       }
     }
+
+    if (this.selectedListQuestionTypes == 'radiobuttons' || this.selectedListQuestionTypes == 'multiple') {
+      if (emitOptions['value0'] == undefined) {
+        return 'There should be atleast one option.';
+      }
+    }
     return '';
   }
 
@@ -159,6 +165,15 @@ export class SurveyQuestionComponent implements OnInit {
     }
   }
 
+  removeOption(index: number){
+    this.options.splice(index, 1);
+  }
+
+  textChanged(){
+    this.invalidForm = true;
+    this.IsSaved.emit(false);
+  }
+
   getOptionName(key: string) {
     return this.SurveyQuestionTypes.filter(x => x.code === key)[0].name;
   }
@@ -166,6 +181,12 @@ export class SurveyQuestionComponent implements OnInit {
     console.log(event);
     this.disableState = true;
     this.expandedPanel = true;
+  }
+
+  emitAfterCollapsed(event: any) {
+    console.log(event);
+    this.disableState = false;
+    this.expandedPanel = false;
   }
 
   // open snackbar
