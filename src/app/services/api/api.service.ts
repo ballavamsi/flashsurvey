@@ -44,4 +44,8 @@ export class ApiService {
   getSurvey(surveyguid: string): Observable<SurveyModel>{
     return this.http.get<SurveyModel>(this._API + `survey/guid/${surveyguid}`);
   }
+
+  beginSurvey(surveyguid: string, emailId: any): Observable<string>{
+    return this.http.post<string>(this._API+ `survey/begin/${surveyguid}/${emailId}`,'');
+  }
 }

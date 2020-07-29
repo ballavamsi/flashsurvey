@@ -58,7 +58,7 @@ export class CreateSurveyComponent implements OnInit {
         return;
       }
 
-      if(additionalValidationsMessage != ""){
+      if (additionalValidationsMessage != "") {
         this._overlayService.hide();
         this.openDismiss(additionalValidationsMessage, 'Dismiss');
         return;
@@ -83,11 +83,11 @@ export class CreateSurveyComponent implements OnInit {
 
   }
 
-  additionalValidations(){
-    if(this.questionSaved.indexOf(false) == -1) {
+  additionalValidations() {
+    if (this.questionSaved.indexOf(false) == -1) {
       return "";
     }
-    if(this.questionSaved.indexOf(false) >= 0){
+    if (this.questionSaved.indexOf(false) >= 0) {
       return "Few questions are not saved.";
     }
 
@@ -96,7 +96,7 @@ export class CreateSurveyComponent implements OnInit {
   modifyBody(data: any) {
     let survey = new SurveyModel();
     survey.welcometitle = data['welcomeMessage'];
-    survey.welcomedescription = data['welcomeDescription'];
+    survey.welcomeDescription = data['welcomeDescription'];
     survey.welcomeimage = data['welcomeImage'];
     survey.emailidrequired = data['emailIdRequired'] ? 1 : 0;
     survey.endtitle = data['endMessage'];
@@ -162,17 +162,16 @@ export class CreateSurveyComponent implements OnInit {
     this.updateAddNewQuestionVisibility();
   }
 
-  updateAddNewQuestionVisibility()
-  {
-    if(this.questionSaved.findIndex(x => x == false) != -1) {
+  updateAddNewQuestionVisibility() {
+    if (this.questionSaved.findIndex(x => x == false) != -1) {
       this.displayAddQuestion = false;
     }
     else {
-    this.displayAddQuestion = true;
+      this.displayAddQuestion = true;
     }
   }
 
-  IsSavedCheck(data: any,i: number){
+  IsSavedCheck(data: any, i: number) {
     this.questionSaved[i] = data;
     this.updateAddNewQuestionVisibility();
   }
@@ -228,7 +227,7 @@ export class CreateSurveyComponent implements OnInit {
 export class SurveyModel {
   surveyId: number;
   welcometitle: string;
-  welcomedescription: string;
+  welcomeDescription: string;
   welcomeimage: string;
   emailidrequired: number;
   endtitle: string;
@@ -249,4 +248,12 @@ export class SurveyQuestionsModel {
   createdBy: number; // 0 for now
   statusId: number; //0 for now
   options: {};
+  objectOptions: SurveyQuestionOptionsModel[];
+}
+
+export class SurveyQuestionOptionsModel {
+  surveyQuestionOptionId: number;
+  surveyQuestionId: number;
+  optionKey: string;
+  optionValue: string;
 }

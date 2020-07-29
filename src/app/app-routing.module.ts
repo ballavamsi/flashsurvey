@@ -8,6 +8,7 @@ import { ResultPollComponent } from './result-poll/result-poll.component';
 import { SearchPollComponent } from './search-poll/search-poll.component';
 import { CreateSurveyComponent } from './create-survey/create-survey.component';
 import { ViewSurveyComponent } from './view-survey/view-survey.component';
+import { AnswerQuestionsComponent } from './view-survey/answer-questions/answer-questions.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'poll/search', component: SearchPollComponent  },
   { path: 'survey/new', component: CreateSurveyComponent },
   { path: 'survey/view/:id', component: ViewSurveyComponent },
+  { path: 'survey/view/:id/questions', component: AnswerQuestionsComponent },
   { path: '', component: DashboardComponent, pathMatch: 'full' }
 ];
 
