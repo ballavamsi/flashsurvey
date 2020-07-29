@@ -1,0 +1,16 @@
+<mat-card class="card-width-style" *ngIf="loaded">
+  <mat-card-header>
+    <div mat-card-avatar></div>
+    <mat-card-title>{{currentQuestionData.title}}</mat-card-title>
+    <mat-card-subtitle>{{currentQuestionData.subtitle}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p *ngFor="let item of currentQuestionData.objectOptions">
+        {{item.optionValue}}
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button (click)="previousQuestion();" [disabled]="currentQuestion =='0'">Previous</button>
+    <button mat-button (click)="nextQuestion();" align="right" style="margin-left: 85%;" [disabled]="currentQuestion == (totalQuestions - 1)">Next</button>
+  </mat-card-actions>
+</mat-card>

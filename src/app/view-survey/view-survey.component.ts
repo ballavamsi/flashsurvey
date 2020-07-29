@@ -4,7 +4,8 @@ import { SurveyService } from '../services/survey/survey.service';
 import { SurveyModel } from '../create-survey/create-survey.component';
 import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators, PatternValidator } from '@angular/forms';
+import { StorageService } from '../services/storage/storage.service';
 
 @Component({
   selector: 'app-view-survey',
@@ -19,35 +20,58 @@ export class ViewSurveyComponent implements OnInit {
   errorMessage = "";
   fg: FormGroup;
   constructor(private _activateRoute: ActivatedRoute,
-              private _snackBar: MatSnackBar,
-              private _router: Router,
-              private _overlayService: OverlayService,
-              private _surveyService: SurveyService) {
+    private _snackBar: MatSnackBar,
+    private _router: Router,
+    private _overlayService: OverlayService,
+    private _surveyService: SurveyService,
+    private _storageService: StorageService) {
 
-                this.fg = new FormGroup({
-                  emailId: new FormControl('')
-                });
+    this.fg = new FormGroup({
+      emailId: new FormControl('', Validators.pattern(/[\w-]+@([\w-]+\.)+[\w-]+/))
+    });
 
-                this._activateRoute.params.subscribe((data) => {
-                  this.routeGuid = data['id'];
-                  this._overlayService.show();
-                  this._surveyService.getSurvey(this.routeGuid).subscribe((data: SurveyModel) => {
-                    this.surveyData = data;
-                    this.loaded = true;
-                    this._overlayService.hide();
-                  },
-                  error => {
-                    this._overlayService.hide();
-                    //this.openDismiss(error.error,'Dismiss');
-                    this.errorMessage = error.error;
-                  });
-                });
-               }
+    this._activateRoute.params.subscribe((data) => {
+      this.routeGuid = data['id'];
+      this._overlayService.show();
+      this._surveyService.getSurvey(this.routeGuid).subscribe((data: SurveyModel) => {
+        this.surveyData = data;
+        this._surveyService.setCurrentSurvey(this.surveyData);
+        this.loaded = true;
+        this._overlayService.hide();
+        this._storageService.setLocal('Survey_Questions_' + this.routeGuid, data.surveyQuestions.length);
+      },
+        error => {
+          this._overlayService.hide();
+          //this.openDismiss(error.error,'Dismiss');
+          this.errorMessage = error.error;
+        });
+    });
+  }
 
   ngOnInit() { }
 
-  onSubmit(){
+  onSubmit() {
+    if (!this.fg.valid) {
+      this.openDismiss("Invalid form", "Dismiss");
+      return;
+    }
 
+    this._surveyService.beginSurvey(this.routeGuid, this.emailId).subscribe((data) => {
+      this._storageService.setLocal('Survey_Session_' + this.routeGuid, data['surveyUserGuid']);
+      this.loaded = true;
+      this._overlayService.hide();
+      this._router.navigate([`survey/view/${this.routeGuid}/questions`]);
+    },
+      error => {
+        this._overlayService.hide();
+        //this.openDismiss(error.error,'Dismiss');
+        this.errorMessage = error.error;
+      });
+
+  }
+
+  get emailId() {
+    return this.fg.get('emailId').value;
   }
 
   // open snackbar

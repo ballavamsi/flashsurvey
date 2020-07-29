@@ -35,6 +35,7 @@ import { EssayQuestionTypeComponent } from './question_types/essay-question-type
 import { RatingQuestionTypeComponent } from './question_types/rating-question-type/rating-question-type.component';
 import { MinMaxControlComponent } from './shared/min-max-control/min-max-control.component';
 import { ViewSurveyComponent } from './view-survey/view-survey.component';
+import { AnswerQuestionsComponent } from './view-survey/answer-questions/answer-questions.component';
 
 const provide = [
   StatusService,
@@ -62,7 +63,8 @@ const provide = [
       EssayQuestionTypeComponent,
       RatingQuestionTypeComponent,
       MinMaxControlComponent,
-      ViewSurveyComponent
+      ViewSurveyComponent,
+      AnswerQuestionsComponent
    ],
    entryComponents: [
       ProgressSpinnerComponent,
