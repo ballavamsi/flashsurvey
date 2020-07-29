@@ -44,7 +44,7 @@ export class AnswerQuestionsComponent implements OnInit {
 
   getCurrentQuestion() {
     let currentQuestionId = this.currentQuestion;
-    if (currentQuestionId == null || currentQuestionId == undefined) {
+    if (currentQuestionId == null || currentQuestionId == undefined || currentQuestionId == NaN) {
       currentQuestionId = 0;
       this._storageService.setLocal(this.currentQuestionKey, currentQuestionId);
     }
