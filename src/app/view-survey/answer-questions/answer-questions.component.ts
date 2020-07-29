@@ -44,14 +44,14 @@ export class AnswerQuestionsComponent implements OnInit {
 
   getCurrentQuestion() {
     let currentQuestionId = this.currentQuestion;
-    if (currentQuestionId == null || currentQuestionId == undefined || currentQuestionId == "NaN") {
-      currentQuestionId = "0";
+    if (currentQuestionId == null || currentQuestionId == undefined) {
+      currentQuestionId = 0;
       this._storageService.setLocal(this.currentQuestionKey, currentQuestionId);
     }
 
     this._surveyService.getCurrentSurvey().subscribe((data) => {
       this.loaded = true;
-      this.currentQuestionData = data.surveyQuestions[parseInt(currentQuestionId)];
+      this.currentQuestionData = data.surveyQuestions[currentQuestionId];
       this._overlayService.hide();
       console.log(this.currentQuestionData);
 
@@ -60,13 +60,13 @@ export class AnswerQuestionsComponent implements OnInit {
 
   nextQuestion() {
     this._overlayService.show();
-    this._storageService.setLocal(this.currentQuestionKey, parseInt(this.currentQuestion) + 1);
+    this._storageService.setLocal(this.currentQuestionKey, this.currentQuestion + 1);
     this.getCurrentQuestion();
   }
 
   previousQuestion() {
     this._overlayService.show();
-    this._storageService.setLocal(this.currentQuestionKey, parseInt(this.currentQuestion) - 1);
+    this._storageService.setLocal(this.currentQuestionKey, this.currentQuestion - 1);
     this.getCurrentQuestion();
   }
 
@@ -75,7 +75,7 @@ export class AnswerQuestionsComponent implements OnInit {
   }
 
   get currentQuestion() {
-    return this._storageService.getLocal(this.currentQuestionKey);
+    return parseInt(this._storageService.getLocal(this.currentQuestionKey));
   }
 
   get totalQuestionsKey() {
