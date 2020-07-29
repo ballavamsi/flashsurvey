@@ -44,10 +44,6 @@ export class AnswerQuestionsComponent implements OnInit {
 
   getCurrentQuestion() {
     let currentQuestionId = this.currentQuestion;
-    if (currentQuestionId == null || currentQuestionId == undefined || currentQuestionId == NaN) {
-      currentQuestionId = 0;
-      this._storageService.setLocal(this.currentQuestionKey, currentQuestionId);
-    }
 
     this._surveyService.getCurrentSurvey().subscribe((data) => {
       this.loaded = true;
@@ -75,7 +71,15 @@ export class AnswerQuestionsComponent implements OnInit {
   }
 
   get currentQuestion() {
-    return parseInt(this._storageService.getLocal(this.currentQuestionKey));
+    var val = this._storageService.getLocal(this.currentQuestionKey);
+    var nu = parseInt(val);
+    if (isNaN(nu) || nu == undefined || nu == null) {
+      this._storageService.setLocal(this.currentQuestionKey, 0);
+      return 0;
+    }
+    else {
+      return nu;
+    }
   }
 
   get totalQuestionsKey() {
