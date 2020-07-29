@@ -35,7 +35,9 @@
       <div class="col-md-3" style="padding-top: 20px;">
         <mat-slide-toggle formControlName="isRequired">Mandatory Question</mat-slide-toggle>
       </div>
-      <div class="col-md-9">
+    </div>
+    <div class="d-flex justify-content-start">
+      <div class="col-md-9" style="padding-top: 20px;">
         <mat-form-field appearance="standard">
           <mat-label>Question Type</mat-label>
           <mat-select formControlName="questionType" (selectionChange)="setQuestionType(idx, $event)" required>
@@ -48,7 +50,8 @@
     </div>
     <div class="d-flex justify-content-start" *ngIf="selectedListQuestionTypes!='-1' && selectedListQuestionTypes != ''">
       <div class="col-md-6">
-        {{ getOptionName(selectedListQuestionTypes) | uppercase }} Additional Details
+        <!-- {{ getOptionName(selectedListQuestionTypes) | uppercase }}  -->
+        Additional Details
       </div>
     </div>
     <hr *ngIf="selectedListQuestionTypes!='-1' && selectedListQuestionTypes != ''"/>

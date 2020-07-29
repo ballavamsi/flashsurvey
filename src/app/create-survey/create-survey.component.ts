@@ -27,11 +27,11 @@ export class CreateSurveyComponent implements OnInit {
     private _router: Router,
     public dialog: MatDialog) {
     this.fg = this._formBuilder.group({
-      welcomeMessage: this._formBuilder.control('Welcome to the survey', [Validators.required]),
+      welcomeMessage: this._formBuilder.control('', [Validators.required]),
       welcomeDescription: this._formBuilder.control(''),
       welcomeImage: this._formBuilder.control(''),
       emailIdRequired: this._formBuilder.control(false),
-      endMessage: this._formBuilder.control('Thank you for your valuable time', [Validators.required]),
+      endMessage: this._formBuilder.control('', [Validators.required]),
       questions: this._formBuilder.array([
         this.newQuestionType()
       ])

@@ -5,7 +5,7 @@
 
         <ng-template matStepLabel>Welcome</ng-template>
         <mat-form-field>
-          <mat-label>Message</mat-label>
+          <mat-label>Welcome Message</mat-label>
           <input matInput placeholder="Welcome to {your} survey" formControlName="welcomeMessage" required>
         </mat-form-field>
         <mat-form-field>
@@ -29,11 +29,11 @@
         <ng-template matStepLabel>Fill out your question here</ng-template>
         <div >
           <mat-accordion cdkDropList (cdkDropListDropped)="drop($event)">
-            <div formArrayName="questions" cdkDrag *ngFor="let eachQuestion of questions?.controls;let i=index" class="row container-fluid">
+            <div formArrayName="questions" style="padding-right: 0px;padding-left: 0px;" cdkDrag *ngFor="let eachQuestion of questions?.controls;let i=index" class="row container-fluid">
               <div class="drop-handle" style="padding-top: 26px;" cdkDragHandle>
                 <mat-icon>drag_indicator</mat-icon>
               </div>
-              <app-survey-question  style="width:97%" [questionForm]="eachQuestion" (questionAdditionalInfo)="addQuestionOptions($event,i)" [formGroupName]="i" [idx]="i" (idxToRemove)="removeQuestion($event)" (IsSaved)="IsSavedCheck($event,i);"></app-survey-question>
+              <app-survey-question  style="width:95%" [questionForm]="eachQuestion" (questionAdditionalInfo)="addQuestionOptions($event,i)" [formGroupName]="i" [idx]="i" (idxToRemove)="removeQuestion($event)" (IsSaved)="IsSavedCheck($event,i);"></app-survey-question>
             </div>
           </mat-accordion>
         </div>
@@ -54,8 +54,8 @@
       <mat-step>
         <ng-template matStepLabel>Ending</ng-template>
         <mat-form-field>
-          <mat-label>Message</mat-label>
-          <input matInput placeholder="Thank your for your time" formControlName="endMessage" required>
+          <mat-label>Thanking Message</mat-label>
+          <input matInput placeholder="Thank {user} for his time" formControlName="endMessage" required>
         </mat-form-field>
         <p></p>
         <div>
