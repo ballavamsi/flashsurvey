@@ -1,16 +1,50 @@
-<mat-card class="card-width-style" *ngIf="loaded">
+<div class="d-flex justify-content-center">
+  <mat-progress-bar style="width: 80%;height: 13px;border-radius: 10px;" color="greenyellow" mode="determinate" [value]="progressPercentage"></mat-progress-bar>
+</div>
+<mat-card class="card-width-style" *ngIf="loaded && !finalPage">
   <mat-card-header>
-    <div mat-card-avatar></div>
+    <div mat-card-avatar style="font-size: 20px;font-weight: bold;text-align: center;">
+      {{currentQuestionData.questionDisplayOrder+1}}
+      <i *ngIf="currentQuestionData.isrequired" style="color: red;">*</i>
+    </div>
     <mat-card-title>{{currentQuestionData.title}}</mat-card-title>
     <mat-card-subtitle>{{currentQuestionData.subtitle}}</mat-card-subtitle>
   </mat-card-header>
-  <mat-card-content>
-    <p *ngFor="let item of currentQuestionData.objectOptions">
-        {{item.optionValue}}
-    </p>
+  <mat-card-content style="width: 100%; margin-top:20px">
+    <div *ngIf="questionType == 'essay'">
+      <mat-form-field class="w-100">
+        <mat-label>Your answer goes here..</mat-label>
+        <textarea matInput [(ngModel)]="essayAnswer" placeholder="You can do it."
+          minlength="currentQuestionData.options.min" maxlength="currentQuestionData.options.max"></textarea>
+      </mat-form-field>
+    </div>
+    <div *ngIf="questionType == 'multiple'">
+      <li *ngFor="let item of currentQuestionData.objectOptions;let i=index" style="list-style:none">
+        <mat-checkbox value="{{item.surveyQuestionOptionId}}"
+          [(ngModel)]="currentQuestionData.objectOptions[i].isChecked">
+          {{item.optionValue}}
+        </mat-checkbox>
+      </li>
+    </div>
+    <div *ngIf="questionType == 'radiobuttons'">
+      <mat-radio-group [(ngModel)]="singleOption">
+        <li *ngFor="let item of currentQuestionData.objectOptions;let i=index" style="list-style:none">
+          <mat-radio-button value="{{item.surveyQuestionOptionId}}">
+            {{item.optionValue}}
+          </mat-radio-button>
+        </li>
+      </mat-radio-group>
+    </div>
   </mat-card-content>
-  <mat-card-actions>
-    <button mat-button (click)="previousQuestion();" [disabled]="currentQuestion ==0">Previous</button>
-    <button mat-button (click)="nextQuestion();" align="right" style="margin-left: 85%;" [disabled]="currentQuestion == (totalQuestions - 1)">Next</button>
+  <mat-card-actions align="end">
+    <button mat-button type="button" (click)="previousQuestion();" [disabled]="currentQuestionNumber <= 0">Previous</button>
+    <div style="flex: 1 1 auto;"></div>
+    <button mat-button type="button" (click)="nextQuestion();" align="end"
+      *ngIf="currentQuestionNumber != totalQuestions-1">Next</button>
+    <button mat-raised-button type="button" color="primary" align="end"
+      *ngIf="currentQuestionNumber == (totalQuestions - 1)" (click)="onSubmit();">Submit</button>
   </mat-card-actions>
+</mat-card>
+<mat-card class="card-width-style" *ngIf="loaded && finalPage">
+    <h3 style="text-align: center;width:100%;opacity: 0.8;" >{{surveyData.endtitle}}</h3>
 </mat-card>

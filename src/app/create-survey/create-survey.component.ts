@@ -256,4 +256,7 @@ export class SurveyQuestionOptionsModel {
   surveyQuestionId: number;
   optionKey: string;
   optionValue: string;
+  isChecked: boolean;
+  createdBy: number;
+  displayOrder: number;
 }
