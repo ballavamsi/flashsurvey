@@ -19,4 +19,16 @@ removeLocal(key){
   window.localStorage.removeItem(key);
 }
 
+setSession(key: any,  value: any) {
+  window.sessionStorage.setItem(key,value);
+}
+
+getSession(key) {
+  return window.sessionStorage.getItem(key);
+}
+
+removeSession(key){
+  window.sessionStorage.removeItem(key);
+}
+
 }

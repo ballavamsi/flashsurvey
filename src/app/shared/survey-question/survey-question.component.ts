@@ -1,6 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatAccordion, MatSnackBar } from '@angular/material';
+import { SurveyService } from 'src/app/services/survey/survey.service';
+import { ApiService } from 'src/app/services/api/api.service';
+import { QuestionType } from 'src/app/models/question-type';
+import { StorageService } from 'src/app/services/storage/storage.service';
 
 @Component({
   selector: 'app-survey-question',
@@ -10,7 +14,9 @@ import { MatAccordion, MatSnackBar } from '@angular/material';
 
 
 export class SurveyQuestionComponent implements OnInit {
-  constructor(private _snackBar: MatSnackBar) {
+  constructor(private _snackBar: MatSnackBar,
+    private _apiService: ApiService,
+    private _storageService: StorageService) {
   }
 
   get isRequired() {
@@ -44,14 +50,17 @@ export class SurveyQuestionComponent implements OnInit {
   invalidForm = false;
 
   ngOnInit() {
-    this.listQuestionTypes = [
-      new QuestionType('-1', '--Select--'),
-      new QuestionType('essay', 'Essay'),
-      new QuestionType('radiobuttons', 'Radiobutton Options'),
-      new QuestionType('multiple', 'Multiselect Options'),
-      new QuestionType('rangeslider', 'Range Slider'),
-      new QuestionType('rating', 'Rating')
-    ];
+
+    var questionTypes = this._storageService.getSession('questiontypes');
+    if (questionTypes == null) {
+      this._apiService.getQuestionTypes().subscribe((data) => {
+        this._storageService.setSession('questiontypes', JSON.stringify(data));
+        this.listQuestionTypes = data;
+      });
+    }
+    else{
+      this.listQuestionTypes = JSON.parse(questionTypes) as QuestionType[];
+    }
     console.log(this.idx);
     console.log(this.questionForm);
     this.selectedListQuestionTypes = this.questionForm.controls['questionType'].value;
@@ -81,7 +90,7 @@ export class SurveyQuestionComponent implements OnInit {
       emitOptions['max'] = this.maxValue;
     }
 
-    if (this.selectedListQuestionTypes == 'radiobuttons') {
+    if (this.selectedListQuestionTypes == 'radiobuttons' || this.selectedListQuestionTypes == 'multiple') {
       let i = 0;
       this.options.forEach(element => {
         let valueText = 'value' + i;
@@ -97,14 +106,13 @@ export class SurveyQuestionComponent implements OnInit {
 
     let emitData = {
       'options': emitOptions,
-      'type': this.listQuestionTypes.findIndex(x => x.code == this.selectedListQuestionTypes)
+      'type': this.listQuestionTypes.find(x => x.code == this.selectedListQuestionTypes).id
     };
 
     if (this.questionForm.valid) {
       const questionValidationMessages = this.questionValidations(emitOptions);
-      if(questionValidationMessages != '')
-      {
-        this.openDismiss(questionValidationMessages,'Dismiss');
+      if (questionValidationMessages != '') {
+        this.openDismiss(questionValidationMessages, 'Dismiss');
         this.invalidForm = true;
         return;
       }
@@ -145,7 +153,7 @@ export class SurveyQuestionComponent implements OnInit {
       if (emitOptions['max'] == '' || emitOptions['max'] == null) {
         return 'Ending range cannot be empty';
       }
-      if(emitOptions['min'] > emitOptions['max']) {
+      if (emitOptions['min'] > emitOptions['max']) {
         return 'Starting range cannot be greater than ending';
       }
     }
@@ -165,11 +173,11 @@ export class SurveyQuestionComponent implements OnInit {
     }
   }
 
-  removeOption(index: number){
+  removeOption(index: number) {
     this.options.splice(index, 1);
   }
 
-  textChanged(){
+  textChanged() {
     this.invalidForm = true;
     this.IsSaved.emit(false);
   }
@@ -196,8 +204,4 @@ export class SurveyQuestionComponent implements OnInit {
     });
   }
 
-}
-
-export class QuestionType {
-  constructor(public code: string, public name: string) { }
 }

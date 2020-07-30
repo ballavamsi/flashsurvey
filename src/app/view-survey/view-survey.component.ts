@@ -10,7 +10,7 @@ import { StorageService } from '../services/storage/storage.service';
 @Component({
   selector: 'app-view-survey',
   templateUrl: './view-survey.component.html',
-  styleUrls: ['./view-survey.component.css']
+  styleUrls: ['./view-survey.component.scss']
 })
 export class ViewSurveyComponent implements OnInit {
 
@@ -38,7 +38,7 @@ export class ViewSurveyComponent implements OnInit {
         this._surveyService.setCurrentSurvey(this.surveyData);
         this.loaded = true;
         this._overlayService.hide();
-        this._storageService.setLocal('Survey_Questions_' + this.routeGuid, data.surveyQuestions.length);
+        this._storageService.setSession('Survey_Questions_' + this.routeGuid, data.surveyQuestions.length);
       },
         error => {
           this._overlayService.hide();
@@ -55,9 +55,10 @@ export class ViewSurveyComponent implements OnInit {
       this.openDismiss("Invalid form", "Dismiss");
       return;
     }
+    this._overlayService.show();
 
     this._surveyService.beginSurvey(this.routeGuid, this.emailId).subscribe((data) => {
-      this._storageService.setLocal('Survey_Session_' + this.routeGuid, data['surveyUserGuid']);
+      this._storageService.setSession('Survey_Session_' + this.routeGuid, data['surveyUserGuid']);
       this.loaded = true;
       this._overlayService.hide();
       this._router.navigate([`survey/view/${this.routeGuid}/questions`]);

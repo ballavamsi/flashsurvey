@@ -31,8 +31,6 @@ import { SearchPollComponent } from './search-poll/search-poll.component';
 import { CreateSurveyComponent } from './create-survey/create-survey.component';
 import { MaterialFileUploadComponent } from './shared/material-file-upload/material-file-upload.component';
 import { SurveyQuestionComponent } from './shared/survey-question/survey-question.component';
-import { EssayQuestionTypeComponent } from './question_types/essay-question-type/essay-question-type.component';
-import { RatingQuestionTypeComponent } from './question_types/rating-question-type/rating-question-type.component';
 import { MinMaxControlComponent } from './shared/min-max-control/min-max-control.component';
 import { ViewSurveyComponent } from './view-survey/view-survey.component';
 import { AnswerQuestionsComponent } from './view-survey/answer-questions/answer-questions.component';
@@ -60,8 +58,6 @@ const provide = [
       MaterialFileUploadComponent,
       CreateSurveyComponent,
       SurveyQuestionComponent,
-      EssayQuestionTypeComponent,
-      RatingQuestionTypeComponent,
       MinMaxControlComponent,
       ViewSurveyComponent,
       AnswerQuestionsComponent
