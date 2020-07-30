@@ -25,7 +25,7 @@ export class AnswerQuestionsComponent implements OnInit {
   questionType = '';
   progressPercentage = 0;
   finalPage = false;
-  private surveyData: SurveyModel;
+  surveyData: SurveyModel;
 
   // answers data
   essayAnswer = '';
