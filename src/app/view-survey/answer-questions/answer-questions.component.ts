@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { SurveyService } from 'src/app/services/survey/survey.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StorageService } from 'src/app/services/storage/storage.service';
@@ -8,6 +8,7 @@ import { error } from 'util';
 import { ApiService } from 'src/app/services/api/api.service';
 import { QuestionAnswersBody, QuestionType, QuestionAnswerRequest } from 'src/app/models/question-type';
 import { ThrowStmt } from '@angular/compiler';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-answer-questions',
@@ -36,7 +37,8 @@ export class AnswerQuestionsComponent implements OnInit {
     private _storageService: StorageService,
     private _overlayService: OverlayService,
     private _route: Router,
-    private _apiService: ApiService) {
+    private _apiService: ApiService,
+    private _snackBar: MatSnackBar) {
 
     this._overlayService.show();
     var questionTypes = this._storageService.getSession('questiontypes');
@@ -44,35 +46,35 @@ export class AnswerQuestionsComponent implements OnInit {
       this._apiService.getQuestionTypes().subscribe((data) => {
         this._storageService.setSession('questiontypes', JSON.stringify(data));
         this.lstQuestionTypes = data;
+        this.callSurveyAPI();
       });
     }
-    else{
+    else {
       this.lstQuestionTypes = JSON.parse(questionTypes) as QuestionType[];
+      this.callSurveyAPI();
     }
 
+
+  }
+
+  callSurveyAPI() {
     let dataLoaded = false;
-    this._surveyService.getCurrentSurvey().subscribe((data) => {
-      this.surveyData = data;
-      if (data === undefined) {
-        this._activateRoute.params.subscribe((data) => {
-          this.routeGuid = data.id;
-          const sess = this._storageService.getSession(this.sessionKey);
-          if (sess != null) {
-            this._surveyService.getSurvey(this.routeGuid).subscribe((surveyData) => {
-              this.surveyData = surveyData;
-              this._surveyService.setCurrentSurvey(surveyData);
-              this.getCurrentQuestion();
-              dataLoaded = true;
-            },
-              error => {
-                this._overlayService.hide();
-              });
-          } else {
-            this._route.navigate([`survey/view/${this.routeGuid}`]);
-          }
-        });
+    this._activateRoute.params.subscribe((data) => {
+      this.routeGuid = data.id;
+      this._storageService.setSession("SurveyGUID", data.id);
+      const sess = this._storageService.getSession(this.sessionKey);
+      if (sess != null) {
+        this._surveyService.getSurvey(this.routeGuid).subscribe((surveyData) => {
+          this.surveyData = surveyData;
+          this._surveyService.setCurrentSurvey(surveyData);
+          this.getCurrentQuestion();
+          dataLoaded = true;
+        },
+          error => {
+            this._overlayService.hide();
+          });
       } else {
-        this.getCurrentQuestion();
+        this._route.navigate([`survey/view/${this.routeGUIDValue}`]);
       }
     });
   }
@@ -81,10 +83,12 @@ export class AnswerQuestionsComponent implements OnInit {
   }
 
   onSubmit() {
+
+    this._overlayService.show();
     this.setAnswerToQuestion();
 
     let data = '';
-    let dataToSend =[];
+    let dataToSend = [];
     let dataToRequest = new QuestionAnswerRequest();
     this.surveyData.surveyQuestions.forEach((element, index) => {
 
@@ -106,9 +110,15 @@ export class AnswerQuestionsComponent implements OnInit {
 
     dataToRequest.data = dataToSend;
 
-    this._surveyService.submitSurvey(this.routeGuid, this.sessionValue(), dataToRequest).subscribe(() => {
+    this._surveyService.submitSurvey(this.routeGUIDValue, this.sessionValue(), dataToRequest).subscribe(() => {
       this.finalPage = true;
-    });
+      this.clearSurveySession();
+      this._overlayService.hide();
+    },
+      error => {
+        this.openDismiss("Something went wrong, please try again", "Dismiss");
+        this._overlayService.hide();
+      });
   }
 
   updateProgressBar() {
@@ -132,15 +142,24 @@ export class AnswerQuestionsComponent implements OnInit {
 
       this.updateUIWithAnswers();
       this.updateProgressBar();
+      this.currentQuestionNumberValue();
     });
   }
 
   nextQuestion() {
+
     this.currentQuestionNumberValue();
-    this._overlayService.show();
-    this.setAnswerToQuestion();
-    this._storageService.setSession(this.currentQuestionKey, this.currentQuestionNumber + 1);
-    this.getCurrentQuestion();
+
+    if (this.currentQuestionNumber != this.totalQuestions - 1) {
+      this._overlayService.show();
+      this.setAnswerToQuestion();
+      this._storageService.setSession(this.currentQuestionKey, this.currentQuestionNumber + 1);
+      this.getCurrentQuestion();
+    }
+    else {
+      this.currentQuestionNumberValue();
+      return;
+    }
   }
 
   previousQuestion() {
@@ -158,10 +177,15 @@ export class AnswerQuestionsComponent implements OnInit {
     this._storageService.removeSession(this.sessionKey);
     this._storageService.removeSession(this.totalQuestionsKey);
     this._storageService.removeSession(this.currentQuestionKey);
+    this._storageService.removeSession("SurveyGUID");
+  }
+
+  private get routeGUIDValue() {
+    return this.routeGuid == undefined || this.routeGuid == null ? this._storageService.getSession("SurveyGUID") : this.routeGuid;
   }
 
   private get sessionKey() {
-    return `Survey_Session_${this.routeGuid}`;
+    return `Survey_Session_${this.routeGUIDValue}`;
   }
 
   private sessionValue() {
@@ -183,7 +207,7 @@ export class AnswerQuestionsComponent implements OnInit {
             break;
           case 'multiple':
             this.currentQuestionData.objectOptions.forEach((element) => {
-              if (this.lstAnswers[this.currentQuestionNumber].indexOf(element.surveyQuestionOptionId.toString()) != -1) {
+              if (this.lstAnswers[this.currentQuestionNumber] != undefined && this.lstAnswers[this.currentQuestionNumber].indexOf(element.surveyQuestionOptionId.toString()) != -1) {
                 element.isChecked = true;
               }
             });
@@ -234,7 +258,7 @@ export class AnswerQuestionsComponent implements OnInit {
   }
 
   get currentQuestionKey() {
-    return 'Survey_Current_Question_' + this.routeGuid;
+    return 'Survey_Current_Question_' + this.routeGUIDValue;
   }
 
   currentQuestionNumberValue() {
@@ -250,12 +274,19 @@ export class AnswerQuestionsComponent implements OnInit {
 
 
   get totalQuestionsKey() {
-    return 'Survey_Questions_' + this.routeGuid;
+    return 'Survey_Questions_' + this.routeGUIDValue;
   }
 
   get totalQuestions() {
     var questionCount = parseInt(this._storageService.getSession(this.totalQuestionsKey));
     return questionCount == 0 ? 10 : questionCount;
+  }
+
+  // open snackbar
+  openDismiss(message: string, buttontext: string) {
+    this._snackBar.open(message, buttontext, {
+      duration: 3000,
+    });
   }
 
 }

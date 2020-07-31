@@ -58,7 +58,7 @@ export class SurveyQuestionComponent implements OnInit {
         this.listQuestionTypes = data;
       });
     }
-    else{
+    else {
       this.listQuestionTypes = JSON.parse(questionTypes) as QuestionType[];
     }
     console.log(this.idx);
@@ -90,7 +90,8 @@ export class SurveyQuestionComponent implements OnInit {
       emitOptions['max'] = this.maxValue;
     }
 
-    if (this.selectedListQuestionTypes == 'radiobuttons' || this.selectedListQuestionTypes == 'multiple') {
+    if (this.selectedListQuestionTypes == 'radiobuttons' || this.selectedListQuestionTypes == 'multiple'
+      || this.selectedListQuestionTypes == 'imageradiobuttons' || this.selectedListQuestionTypes == 'imagemultiple') {
       let i = 0;
       this.options.forEach(element => {
         let valueText = 'value' + i;
@@ -158,7 +159,8 @@ export class SurveyQuestionComponent implements OnInit {
       }
     }
 
-    if (this.selectedListQuestionTypes == 'radiobuttons' || this.selectedListQuestionTypes == 'multiple') {
+    if (this.selectedListQuestionTypes == 'radiobuttons' || this.selectedListQuestionTypes == 'multiple' ||
+        this.selectedListQuestionTypes == 'imageradiobuttons' || this.selectedListQuestionTypes == 'imagemultiple') {
       if (emitOptions['value0'] == undefined) {
         return 'There should be atleast one option.';
       }
@@ -167,9 +169,25 @@ export class SurveyQuestionComponent implements OnInit {
   }
 
   addOption() {
-    if (this.newitem != '' && !this.options.includes(this.newitem)) {
-      this.options.push(this.newitem);
-      this.newitem = '';
+
+    if (this.newitem == '' || this.newitem == undefined || this.newitem == null) {
+      this.openDismiss("Option cannot be empty","Dismiss");
+      return;
+    }
+
+    if (this.options.includes(this.newitem)) {
+      this.openDismiss("Option already exists in the list","Dismiss");
+      return;
+    }
+
+    this.options.push(this.newitem);
+    this.newitem = '';
+  }
+
+  onFileComplete(data: any) {
+    if (data.success) {
+      this.newitem = data.data.display_url;
+      this.addOption();
     }
   }
 

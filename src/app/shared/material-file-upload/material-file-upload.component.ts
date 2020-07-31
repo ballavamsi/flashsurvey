@@ -33,6 +33,7 @@ export class MaterialFileUploadComponent implements OnInit {
   @Input() accept = 'image/*';
   /** Allow you to add handler after its completion. Bubble up response text from remote. */
   @Output() complete = new EventEmitter<string>();
+  @Input() clearFileAfterUpload = false;
 
   public files: Array<FileUploadModel> = [];
 
@@ -100,6 +101,9 @@ export class MaterialFileUploadComponent implements OnInit {
           file.canCancel = false;
           file.uploaded = true;
           this.complete.emit(event.body);
+          if (this.clearFileAfterUpload) {
+            this.removeFileFromArray(file);
+          }
         }
       }
     );
