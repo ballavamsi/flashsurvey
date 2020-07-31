@@ -65,8 +65,7 @@ export class CreateSurveyComponent implements OnInit {
       }
 
       this._surveyService.addSurvey(modifiedData).subscribe(
-        result => {
-          const returnData: SurveyModel = result.value;
+       (returnData: SurveyModel) =>{
           this.newSurveyViewModel = returnData;
           this._overlayService.hide();
           this.openDialog('Survey Created successfully', 'Click on the link to copy', this.generateLink(returnData.surveyGuid), true);
