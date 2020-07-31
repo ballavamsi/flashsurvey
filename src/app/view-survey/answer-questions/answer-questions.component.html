@@ -21,7 +21,7 @@
     </div>
     <div *ngIf="questionType == 'multiple'">
       <li *ngFor="let item of currentQuestionData.objectOptions;let i=index" style="list-style:none">
-        <mat-checkbox value="{{item.surveyQuestionOptionId}}"
+        <mat-checkbox [value]="item.surveyQuestionOptionId"
           [(ngModel)]="currentQuestionData.objectOptions[i].isChecked">
           {{item.optionValue}}
         </mat-checkbox>
@@ -30,7 +30,7 @@
     <div *ngIf="questionType == 'radiobuttons'">
       <mat-radio-group [(ngModel)]="singleOption">
         <li *ngFor="let item of currentQuestionData.objectOptions;let i=index" style="list-style:none">
-          <mat-radio-button value="{{item.surveyQuestionOptionId}}">
+          <mat-radio-button [value]="item.surveyQuestionOptionId">
             {{item.optionValue}}
           </mat-radio-button>
         </li>
@@ -38,7 +38,7 @@
     </div>
     <div *ngIf="questionType == 'imagemultiple'">
       <li *ngFor="let item of currentQuestionData.objectOptions;let i=index" class="li-image-option">
-        <mat-checkbox value="{{item.surveyQuestionOptionId}}"
+        <mat-checkbox [value]="item.surveyQuestionOptionId"
           [(ngModel)]="currentQuestionData.objectOptions[i].isChecked">
           <img src="{{item.optionValue}}" alt="{{item.optionValue}}" style="margin-left:5px;width: 300px;" />
         </mat-checkbox>
@@ -47,7 +47,7 @@
     <div *ngIf="questionType == 'imageradiobuttons'">
       <mat-radio-group [(ngModel)]="singleOption">
         <li *ngFor="let item of currentQuestionData.objectOptions;let i=index" class="li-image-option">
-          <mat-radio-button value="{{item.surveyQuestionOptionId}}">
+          <mat-radio-button [value]="item.surveyQuestionOptionId">
             <img src="{{item.optionValue}}" alt="{{item.optionValue}}" style="width: 300px;"/>
           </mat-radio-button>
         </li>
