@@ -31,7 +31,7 @@ export class AnswerQuestionsComponent implements OnInit {
   // answers data
   essayAnswer = '';
   singleOption = 0;
-  selectedRange = {"range": [ 2, 8 ]};
+  someRange = [1,1000000000];
 
   constructor(private _surveyService: SurveyService,
     private _activateRoute: ActivatedRoute,
@@ -55,6 +55,10 @@ export class AnswerQuestionsComponent implements OnInit {
       this.callSurveyAPI();
     }
 
+
+  }
+
+  onChange(data: any) {
 
   }
 
@@ -174,6 +178,10 @@ export class AnswerQuestionsComponent implements OnInit {
     this.getCurrentQuestion();
   }
 
+  convertInt(data: string){
+    return parseInt(data);
+  }
+
   private clearSurveySession() {
     this._storageService.removeSession(this.sessionKey);
     this._storageService.removeSession(this.totalQuestionsKey);
@@ -223,6 +231,16 @@ export class AnswerQuestionsComponent implements OnInit {
               }
             });
             break;
+          case 'rangeslider':
+            var rangeValues = this.lstAnswers[this.currentQuestionNumber];
+            if (rangeValues != undefined) {
+              this.someRange = [ parseInt(rangeValues[0]), parseInt(rangeValues[1])];
+            }
+            else {
+              this.someRange = [ parseInt(this.currentQuestionData.options['min']), parseInt(this.currentQuestionData.options['max'])]
+              this.lstAnswers[this.currentQuestionNumber] = [this.currentQuestionData.options['min'],this.currentQuestionData.options['max'] ];
+            }
+            break;
           default:
             break;
         }
@@ -252,6 +270,8 @@ export class AnswerQuestionsComponent implements OnInit {
         case 'imagemultiple':
           answerData = this.currentQuestionData.objectOptions.filter(x => x.isChecked).map(x => x.surveyQuestionOptionId.toString());
           break;
+        case 'rangeslider':
+            answerData = [this.someRange[0].toString(), this.someRange[1].toString()];
         default:
           break;
       }

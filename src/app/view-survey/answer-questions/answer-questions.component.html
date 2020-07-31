@@ -36,6 +36,25 @@
         </li>
       </mat-radio-group>
     </div>
+    <div *ngIf="questionType == 'imagemultiple'">
+      <li *ngFor="let item of currentQuestionData.objectOptions;let i=index" class="li-image-option">
+        <mat-checkbox value="{{item.surveyQuestionOptionId}}"
+          [(ngModel)]="currentQuestionData.objectOptions[i].isChecked">
+          <img src="{{item.optionValue}}" alt="{{item.optionValue}}" style="margin-left:5px;width: 300px;" />
+        </mat-checkbox>
+      </li>
+    </div>
+    <div *ngIf="questionType == 'imageradiobuttons'">
+      <mat-radio-group [(ngModel)]="singleOption">
+        <li *ngFor="let item of currentQuestionData.objectOptions;let i=index" class="li-image-option">
+          <mat-radio-button value="{{item.surveyQuestionOptionId}}">
+            <img src="{{item.optionValue}}" alt="{{item.optionValue}}" style="width: 300px;"/>
+          </mat-radio-button>
+        </li>
+      </mat-radio-group>
+    </div>
+    <div *ngIf="questionType == 'rangeslider'">
+      <nouislider [connect]="true" [min]="convertInt(currentQuestionData.options['min'])" [max]="convertInt(currentQuestionData.options['max'])" [step]="1" [(ngModel)]="someRange" [tooltips]="[ true, true ]" (ngModelChange)="onChange($event)"></nouislider>
     </div>
   </mat-card-content>
   <mat-card-actions align="end">
