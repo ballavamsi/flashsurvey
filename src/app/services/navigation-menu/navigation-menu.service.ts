@@ -18,7 +18,8 @@ constructor() {
       {name: 'Create', url: 'survey/new', children: []},
       {name: 'Give Survey', url: 'survey/search', children: []},
     ]},
-    {name: 'Status', url: 'status', children: []}];
+    //{name: 'Status', url: 'status', children: []},
+    {name: 'About Us', url: 'about-us', children:[]}];
     // {name: 'Home', url: '.'},
     // // {name: 'Dashboard', url: 'dashboard'},
     // {name: 'New Poll', url: 'poll/new'},

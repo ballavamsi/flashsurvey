@@ -13,12 +13,13 @@
       <div class="col-sm-3 col-md-3">
       <ul class="menuul">
         <li *ngFor="let eachmenu of fillerNav;let i = index;">
-          <a [routerLink]="eachmenu.url" (mouseenter)="hoverSubMenu(i)"
+          <a [routerLink]="eachmenu.url" (click)="hoverSubMenu(i)"
             (click)="showSubMenu(i)">{{eachmenu.name}} <mat-hint *ngIf="eachmenu.children.length > 0"> ></mat-hint></a>
         </li>
       </ul>
     </div>
     <div class="col-sm-3 col-md-3">
+      <a aria-disabled="true" class="subheadingOnOverlay" *ngIf="subMenu.length>0">{{subMenuTitle}}</a>
       <ul class="menuul">
         <li *ngFor="let eachmenu of subMenu;let i = index;">
           <a [routerLink]="eachmenu.url"

@@ -1,0 +1,37 @@
+.card-width-style{
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 3%;
+  min-height: max-content;
+}
+
+.mat-card-header-text {
+  margin-left: -33px!important;
+}
+
+.finalmessage {
+  width: 100%;
+}
+
+.finalmessage div {
+  text-align: center!important;
+  width:100%!important;
+  border:1px solid red;
+}
+
+.li-image-option{
+  list-style: none;
+  padding: 10px;
+  border-radius: 29px;
+  height: 50%;
+  width: 350px;
+  display: inline-block;
+  border: 1px dotted gray;
+  margin:5px 5px 5px 5px;
+
+  .mat-radio-label-content{
+    max-width: 50%;
+  }
+}
+

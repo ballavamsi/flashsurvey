@@ -1,12 +1,16 @@
 <div class="center-div">
   <form [formGroup]="fg" (submit)="onSubmit()">
-    <mat-vertical-stepper [linear]="true" #stepper>
+    <mat-horizontal-stepper [linear]="true" #stepper>
       <mat-step>
 
         <ng-template matStepLabel>Welcome</ng-template>
         <mat-form-field>
-          <mat-label>Message</mat-label>
+          <mat-label>Welcome Message</mat-label>
           <input matInput placeholder="Welcome to {your} survey" formControlName="welcomeMessage" required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Description</mat-label>
+          <textarea matInput placeholder="" formControlName="welcomeDescription"></textarea>
         </mat-form-field>
         <mat-slide-toggle color="primary" formControlName="emailIdRequired">Ask user their email address
         </mat-slide-toggle>
@@ -16,35 +20,52 @@
           </app-material-file-upload>
         </div>
         <div class="stepperbutton">
-          <button mat-button matStepperNext type="button">Next</button>
+          <button mat-mini-fab color="accent" matStepperNext type="button">
+            <mat-icon>arrow_forward</mat-icon>
+          </button>
         </div>
       </mat-step>
       <mat-step>
         <ng-template matStepLabel>Fill out your question here</ng-template>
-        <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-          <div class="example-box" *ngFor="let movie of movies" cdkDrag>
-            <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
-            {{movie}}
-          </div>
+        <div >
+          <mat-accordion cdkDropList (cdkDropListDropped)="drop($event)">
+            <div formArrayName="questions" style="padding-right: 0px;padding-left: 0px;" cdkDrag *ngFor="let eachQuestion of questions?.controls;let i=index" class="row container-fluid">
+              <div class="drop-handle" style="padding-top: 26px;" cdkDragHandle>
+                <mat-icon>drag_indicator</mat-icon>
+              </div>
+              <app-survey-question  style="width:95%" [questionForm]="eachQuestion" (questionAdditionalInfo)="addQuestionOptions($event,i)" [formGroupName]="i" [idx]="i" (idxToRemove)="removeQuestion($event)" (IsSaved)="IsSavedCheck($event,i);"></app-survey-question>
+            </div>
+          </mat-accordion>
+        </div>
+        <div class="d-flex justify-content-center padding-top-20">
+          <button mat-stroked-button type="button" color="primary" *ngIf="displayAddQuestion" (click)="addNewQuestion()">Add New Question</button>
         </div>
         <div>
-          <button mat-button matStepperPrevious type="button">Back</button>
-          <button mat-button matStepperNext type="button">Next</button>
+          <!-- <button mat-button matStepperPrevious type="button">Back</button>
+          <button mat-button matStepperNext type="button">Next</button> -->
+          <button mat-mini-fab color="accent" matStepperPrevious type="button">
+            <mat-icon>arrow_backward</mat-icon>
+          </button>
+          <button mat-mini-fab color="accent" style="margin-left:10px" matStepperNext type="button">
+            <mat-icon>arrow_forward</mat-icon>
+          </button>
         </div>
       </mat-step>
       <mat-step>
         <ng-template matStepLabel>Ending</ng-template>
         <mat-form-field>
-          <mat-label>Message</mat-label>
-          <input matInput placeholder="Thank your for your time" formControlName="endMessage" required>
+          <mat-label>Thanking Message</mat-label>
+          <input matInput placeholder="Thank {user} for his time" formControlName="endMessage" required>
         </mat-form-field>
-        <p>You are now done.</p>
+        <p></p>
         <div>
-          <button mat-button matStepperPrevious type="button">Back</button>
+          <button mat-mini-fab color="accent" matStepperPrevious type="button">
+            <mat-icon>arrow_backward</mat-icon>
+          </button>
           <!-- <button mat-button type="submit" (click)="stepper.reset()">Reset</button> -->
-          <button mat-raised-button color="primary" type="submit">Submit</button>
+          <button mat-raised-button style="margin-left:10px"  color="primary" type="submit" [disabled]="fg.invalid || additionalValidations() != ''">Submit</button>
         </div>
       </mat-step>
-    </mat-vertical-stepper>
+    </mat-horizontal-stepper>
   </form>
 </div>

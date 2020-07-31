@@ -213,8 +213,10 @@ $bv-theme: mat-light-theme($primary, $accent);
 // include the custom theme object into the angular material theme
 @include angular-material-theme($bv-theme);
 
-
 //end
+
+$navbar-color: black;
+$navbar-fontcolor: white;
 
 html, body { height: 100%; }
 body {
@@ -242,3 +244,16 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+.padding-top-20{
+  padding-top:20px
+}
+
+.content-height{
+  height: auto!important;
+  min-height: 5vh;
+  padding-bottom: 10px!important;
+  padding-top:15px!important;
+}
+
+@import "~nouislider/distribute/nouislider.min.css";

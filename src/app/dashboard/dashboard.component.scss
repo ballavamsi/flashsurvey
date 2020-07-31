@@ -18,13 +18,15 @@
   color:mat-color($accent);
 }
 .headingcolor{
-  color: mat-color($accent);
-  font-size: 3.2rem;
+  color: white;//mat-color($accent);
+  font-size: 5.2rem;
+  font-variant: petite-caps;
 }
 
 .middletextcolor{
   color: gray;
   opacity: 0.9;
+  cursor: pointer;
 }
 
 .middletextcolor:hover{

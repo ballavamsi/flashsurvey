@@ -30,7 +30,12 @@ import { MatProgressSpinnerModule } from '@angular/material';
 import { SearchPollComponent } from './search-poll/search-poll.component';
 import { CreateSurveyComponent } from './create-survey/create-survey.component';
 import { MaterialFileUploadComponent } from './shared/material-file-upload/material-file-upload.component';
-
+import { SurveyQuestionComponent } from './shared/survey-question/survey-question.component';
+import { MinMaxControlComponent } from './shared/min-max-control/min-max-control.component';
+import { ViewSurveyComponent } from './view-survey/view-survey.component';
+import { AnswerQuestionsComponent } from './view-survey/answer-questions/answer-questions.component';
+import { NouisliderModule } from 'ng2-nouislider';
+import { AboutUsComponent } from './about-us/about-us.component';
 const provide = [
   StatusService,
   NavigationMenuService,
@@ -52,7 +57,12 @@ const provide = [
       ResultPollComponent,
       SearchPollComponent,
       MaterialFileUploadComponent,
-      CreateSurveyComponent
+      CreateSurveyComponent,
+      SurveyQuestionComponent,
+      MinMaxControlComponent,
+      ViewSurveyComponent,
+      AnswerQuestionsComponent,
+      AboutUsComponent
    ],
    entryComponents: [
       ProgressSpinnerComponent,
@@ -61,6 +71,7 @@ const provide = [
    ],
    imports: [
       CommonModule,
+      NouisliderModule,
       MatProgressSpinnerModule,
       ProgressSpinnerModule,
       BrowserModule,

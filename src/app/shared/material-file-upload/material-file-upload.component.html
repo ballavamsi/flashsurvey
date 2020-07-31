@@ -1,6 +1,5 @@
-<button mat-button color="primary" (click)="onClick()" type="button">
+<button mat-mini-fab color="primary" style="margin-left:10px; margin-right:10px" (click)="onClick()" type="button">
   <mat-icon>file_upload</mat-icon>
-  {{text}}
 </button>
 <br/>
 <ul>
@@ -17,5 +16,5 @@
         </span>
   </li>
 </ul>
-<mat-hint style="opacity: 0.6; font-size: 0.8rem;">Note: Images will display only for 14 days from date of upload</mat-hint>
+<!-- <mat-hint style="opacity: 0.6; font-size: 0.8rem;">Note: Images will display only for 14 days from date of upload</mat-hint> -->
 <input type="file" id="fileUpload" name="fileUpload" accept="{{accept}}" style="display:none;"/>
