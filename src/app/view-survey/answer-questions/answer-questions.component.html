@@ -1,5 +1,6 @@
 <div class="d-flex justify-content-center">
-  <mat-progress-bar style="width: 80%;height: 13px;border-radius: 10px;" color="greenyellow" mode="determinate" [value]="progressPercentage"></mat-progress-bar>
+  <mat-progress-bar style="width: 80%;height: 13px;border-radius: 10px;" color="greenyellow" mode="determinate"
+    [value]="progressPercentage"></mat-progress-bar>
 </div>
 <mat-card class="card-width-style" *ngIf="loaded && !finalPage">
   <mat-card-header>
@@ -35,9 +36,11 @@
         </li>
       </mat-radio-group>
     </div>
+    </div>
   </mat-card-content>
   <mat-card-actions align="end">
-    <button mat-button type="button" (click)="previousQuestion();" [disabled]="currentQuestionNumber <= 0">Previous</button>
+    <button mat-button type="button" (click)="previousQuestion();"
+      [disabled]="currentQuestionNumber <= 0">Previous</button>
     <div style="flex: 1 1 auto;"></div>
     <button mat-button type="button" (click)="nextQuestion();" align="end"
       *ngIf="currentQuestionNumber != totalQuestions-1">Next</button>
@@ -46,5 +49,5 @@
   </mat-card-actions>
 </mat-card>
 <mat-card class="card-width-style" *ngIf="loaded && finalPage">
-    <h3 style="text-align: center;width:100%;opacity: 0.8;" >{{surveyData.endtitle}}</h3>
+  <h3 style="text-align: center;width:100%;opacity: 0.8;">{{surveyData.endtitle}}</h3>
 </mat-card>

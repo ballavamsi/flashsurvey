@@ -20,3 +20,18 @@
   border:1px solid red;
 }
 
+.li-image-option{
+  list-style: none;
+  padding: 10px;
+  border-radius: 29px;
+  height: 50%;
+  width: 350px;
+  display: inline-block;
+  border: 1px dotted gray;
+  margin:5px 5px 5px 5px;
+
+  .mat-radio-label-content{
+    max-width: 50%;
+  }
+}
+
