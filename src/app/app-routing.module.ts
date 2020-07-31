@@ -9,9 +9,11 @@ import { SearchPollComponent } from './search-poll/search-poll.component';
 import { CreateSurveyComponent } from './create-survey/create-survey.component';
 import { ViewSurveyComponent } from './view-survey/view-survey.component';
 import { AnswerQuestionsComponent } from './view-survey/answer-questions/answer-questions.component';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 
 const routes: Routes = [
+  { path: 'about-us', component: AboutUsComponent },
   { path: 'status', component: StatusListComponent },
   { path: 'poll/new', component: CreatePollComponent },
   { path: 'poll/view/:id', component: ViewPollComponent  },

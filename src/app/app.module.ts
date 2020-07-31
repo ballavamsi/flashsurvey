@@ -35,6 +35,7 @@ import { MinMaxControlComponent } from './shared/min-max-control/min-max-control
 import { ViewSurveyComponent } from './view-survey/view-survey.component';
 import { AnswerQuestionsComponent } from './view-survey/answer-questions/answer-questions.component';
 import { NouisliderModule } from 'ng2-nouislider';
+import { AboutUsComponent } from './about-us/about-us.component';
 const provide = [
   StatusService,
   NavigationMenuService,
@@ -60,7 +61,8 @@ const provide = [
       SurveyQuestionComponent,
       MinMaxControlComponent,
       ViewSurveyComponent,
-      AnswerQuestionsComponent
+      AnswerQuestionsComponent,
+      AboutUsComponent
    ],
    entryComponents: [
       ProgressSpinnerComponent,
