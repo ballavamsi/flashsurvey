@@ -31,6 +31,7 @@ export class AnswerQuestionsComponent implements OnInit {
   // answers data
   essayAnswer = '';
   singleOption = 0;
+  selectedRange = {"range": [ 2, 8 ]};
 
   constructor(private _surveyService: SurveyService,
     private _activateRoute: ActivatedRoute,
@@ -212,6 +213,16 @@ export class AnswerQuestionsComponent implements OnInit {
               }
             });
             break;
+          case 'imageradiobuttons':
+            this.singleOption = parseInt(this.lstAnswers[this.currentQuestionNumber]);
+            break;
+          case 'imagemultiple':
+            this.currentQuestionData.objectOptions.forEach((element) => {
+              if (this.lstAnswers[this.currentQuestionNumber] != undefined && this.lstAnswers[this.currentQuestionNumber].indexOf(element.surveyQuestionOptionId.toString()) != -1) {
+                element.isChecked = true;
+              }
+            });
+            break;
           default:
             break;
         }
@@ -233,6 +244,12 @@ export class AnswerQuestionsComponent implements OnInit {
           answerData = this.singleOption;
           break;
         case 'multiple':
+          answerData = this.currentQuestionData.objectOptions.filter(x => x.isChecked).map(x => x.surveyQuestionOptionId.toString());
+          break;
+        case 'imageradiobuttons':
+          answerData = this.singleOption;
+          break;
+        case 'imagemultiple':
           answerData = this.currentQuestionData.objectOptions.filter(x => x.isChecked).map(x => x.surveyQuestionOptionId.toString());
           break;
         default:
