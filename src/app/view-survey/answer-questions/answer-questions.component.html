@@ -57,7 +57,7 @@
       <nouislider [config]="sliderconfig" class="slider-padding" [min]="convertInt(currentQuestionData.options['min'])" [max]="convertInt(currentQuestionData.options['max'])" [step]="1" [(ngModel)]="singleOption" [tooltips]="[true]" (ngModelChange)="onChange($event)"></nouislider>
     </div>
     <div *ngIf="questionType == 'rangeslider'">
-      <nouislider [config]="sliderconfig" class="slider-padding" [connect]="true" [min]="convertInt(currentQuestionData.options['min'])" [max]="convertInt(currentQuestionData.options['max'])" [step]="1" [(ngModel)]="someRange" [tooltips]="[ true, true ]" (ngModelChange)="onChange($event)"></nouislider>
+      <nouislider [connect]="true" [min]="convertInt(currentQuestionData.options['min'])" [max]="convertInt(currentQuestionData.options['max'])" [step]="1" [(ngModel)]="someRange" [tooltips]="[ true, true ]" (ngModelChange)="onChange($event)"></nouislider>
     </div>
   </mat-card-content>
   <mat-card-actions align="end">

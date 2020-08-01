@@ -73,12 +73,14 @@ export class AnswerQuestionsComponent implements OnInit {
   }
 
   callSurveyAPI() {
+
     let dataLoaded = false;
     this._activateRoute.params.subscribe((data) => {
       this.routeGuid = data.id;
       this._storageService.setSession("SurveyGUID", data.id);
       const sess = this._storageService.getSession(this.sessionKey);
-      if (sess != null) {
+      this.refreshCurrentQuestionNumberValue();
+      if (sess != null && this.currentQuestionNumber == 0) {
         this._surveyService.getSurvey(this.routeGuid).subscribe((surveyData) => {
           this.surveyData = surveyData;
           this._surveyService.setCurrentSurvey(surveyData);
@@ -110,13 +112,19 @@ export class AnswerQuestionsComponent implements OnInit {
       let q = new QuestionAnswersBody();
       q.key = element.surveyQuestionId.toString();
 
-      if (typeof (this.lstAnswers[index]) == "number") {
+      if(isNaN(this.lstAnswers[index])){
+        q.number = 0;
+      }
+      if(this.lstAnswers[index] == undefined){
+        q.selected = [];
+      }
+      if (typeof (this.lstAnswers[index]) == "number" && !isNaN(this.lstAnswers[index])) {
         q.number = this.lstAnswers[index];
       }
       if (typeof (this.lstAnswers[index]) == "string") {
         q.text = this.lstAnswers[index];
       }
-      if (typeof (this.lstAnswers[index]) == "object") {
+      if (typeof (this.lstAnswers[index]) == "object" && this.lstAnswers[index] != undefined) {
         q.selected = this.lstAnswers[index];
       }
       dataToSend.push(q);
@@ -141,7 +149,7 @@ export class AnswerQuestionsComponent implements OnInit {
   }
 
   getCurrentQuestion() {
-    this.currentQuestionNumberValue();
+    this.refreshCurrentQuestionNumberValue();
     const currentQuestionId = this.currentQuestionNumber;
 
     this._surveyService.getCurrentSurvey().subscribe((data) => {
@@ -157,13 +165,13 @@ export class AnswerQuestionsComponent implements OnInit {
 
       this.updateUIWithAnswers();
       this.updateProgressBar();
-      this.currentQuestionNumberValue();
+      this.refreshCurrentQuestionNumberValue();
     });
   }
 
   nextQuestion() {
 
-    this.currentQuestionNumberValue();
+    this.refreshCurrentQuestionNumberValue();
 
     if (this.currentQuestionNumber != this.totalQuestions - 1) {
       this._overlayService.show();
@@ -172,13 +180,13 @@ export class AnswerQuestionsComponent implements OnInit {
       this.getCurrentQuestion();
     }
     else {
-      this.currentQuestionNumberValue();
+      this.refreshCurrentQuestionNumberValue();
       return;
     }
   }
 
   previousQuestion() {
-    this.currentQuestionNumberValue();
+    this.refreshCurrentQuestionNumberValue();
     if (this.currentQuestionNumber <= 0) {
       return;
     }
@@ -212,7 +220,7 @@ export class AnswerQuestionsComponent implements OnInit {
   }
 
   updateUIWithAnswers() {
-    this.currentQuestionNumberValue();
+    this.refreshCurrentQuestionNumberValue();
     this._surveyService.getCurrentSurveyAnswers().subscribe((data) => {
 
       if (data.length > 0) {
@@ -268,7 +276,7 @@ export class AnswerQuestionsComponent implements OnInit {
   }
 
   setAnswerToQuestion() {
-    this.currentQuestionNumberValue();
+    this.refreshCurrentQuestionNumberValue();
 
     this._surveyService.getCurrentSurveyAnswers().subscribe((data) => {
 
@@ -289,7 +297,7 @@ export class AnswerQuestionsComponent implements OnInit {
         case 'imagemultiple':
           answerData = this.currentQuestionData.objectOptions.filter(x => x.isChecked).map(x => x.surveyQuestionOptionId.toString());
           break;
-        case 'rangeslider':
+        case 'slider':
           answerData = this.singleOption;
           break;
         case 'rangeslider':
@@ -321,7 +329,7 @@ export class AnswerQuestionsComponent implements OnInit {
     return 'Survey_Current_Question_' + this.routeGUIDValue;
   }
 
-  currentQuestionNumberValue() {
+  refreshCurrentQuestionNumberValue() {
     let val = this._storageService.getSession(this.currentQuestionKey);
     let nu = parseInt(val);
     if (isNaN(nu) || nu == undefined || nu == null || nu < 0) {
