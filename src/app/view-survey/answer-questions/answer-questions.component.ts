@@ -31,7 +31,17 @@ export class AnswerQuestionsComponent implements OnInit {
   // answers data
   essayAnswer = '';
   singleOption = 0;
-  someRange = [1,1000000000];
+  someRange = [1, 1000000000];
+
+  //slider config
+  sliderconfig: any = {
+    behaviour: 'drag',
+    margin: 1,
+    pips: {
+      mode: 'steps',
+      density: 1
+    }
+  };
 
   constructor(private _surveyService: SurveyService,
     private _activateRoute: ActivatedRoute,
@@ -178,7 +188,7 @@ export class AnswerQuestionsComponent implements OnInit {
     this.getCurrentQuestion();
   }
 
-  convertInt(data: string){
+  convertInt(data: string) {
     return parseInt(data);
   }
 
@@ -231,14 +241,23 @@ export class AnswerQuestionsComponent implements OnInit {
               }
             });
             break;
+          case 'slider':
+            var ansValue = this.lstAnswers[this.currentQuestionNumber];
+            if(ansValue != undefined){
+              this.singleOption = parseInt(ansValue);
+            }
+            else{
+              this.singleOption = parseInt(this.currentQuestionData.options['min']);
+            }
+            break;
           case 'rangeslider':
             var rangeValues = this.lstAnswers[this.currentQuestionNumber];
             if (rangeValues != undefined) {
-              this.someRange = [ parseInt(rangeValues[0]), parseInt(rangeValues[1])];
+              this.someRange = [parseInt(rangeValues[0]), parseInt(rangeValues[1])];
             }
             else {
-              this.someRange = [ parseInt(this.currentQuestionData.options['min']), parseInt(this.currentQuestionData.options['max'])]
-              this.lstAnswers[this.currentQuestionNumber] = [this.currentQuestionData.options['min'],this.currentQuestionData.options['max'] ];
+              this.someRange = [parseInt(this.currentQuestionData.options['min']), parseInt(this.currentQuestionData.options['max'])]
+              this.lstAnswers[this.currentQuestionNumber] = [this.currentQuestionData.options['min'], this.currentQuestionData.options['max']];
             }
             break;
           default:
@@ -271,7 +290,11 @@ export class AnswerQuestionsComponent implements OnInit {
           answerData = this.currentQuestionData.objectOptions.filter(x => x.isChecked).map(x => x.surveyQuestionOptionId.toString());
           break;
         case 'rangeslider':
-            answerData = [this.someRange[0].toString(), this.someRange[1].toString()];
+          answerData = this.singleOption;
+          break;
+        case 'rangeslider':
+          answerData = [this.someRange[0].toString(), this.someRange[1].toString()];
+          break;
         default:
           break;
       }

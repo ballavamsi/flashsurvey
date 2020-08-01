@@ -23,6 +23,14 @@
   font-variant: petite-caps;
 }
 
+.dashboard-background{
+  height: 90vh;
+  margin-top: -21px;
+  z-index: 100;
+  position: relative;
+  background: repeating-linear-gradient(45deg, #89e9e1, black 800px);
+}
+
 .middletextcolor{
   color: gray;
   opacity: 0.9;
@@ -34,4 +42,11 @@
   opacity: 0.9;
 }
 .gridbackground {
+}
+
+
+@media screen and (max-width: 400px) {
+  .headingcolor{
+    font-size: 3.5rem;
+  }
 }
