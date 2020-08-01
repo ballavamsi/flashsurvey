@@ -59,7 +59,7 @@
   </mat-card-content>
   <mat-card-actions align="end">
     <button mat-button type="button" (click)="previousQuestion();"
-      [disabled]="currentQuestionNumber <= 0">Previous</button>
+      [disabled]="currentQuestionNumber <= 0 || !surveyData.enableprevious">Previous</button>
     <div style="flex: 1 1 auto;"></div>
     <button mat-button type="button" (click)="nextQuestion();" align="end"
       *ngIf="currentQuestionNumber != totalQuestions-1">Next</button>
