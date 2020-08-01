@@ -38,6 +38,8 @@ export class ViewSurveyComponent implements OnInit {
         this._surveyService.setCurrentSurvey(this.surveyData);
         this.loaded = true;
         this._overlayService.hide();
+
+        window.sessionStorage.clear();
         this._storageService.setSession('Survey_Questions_' + this.routeGuid, data.surveyQuestions.length);
       },
         error => {
@@ -55,11 +57,9 @@ export class ViewSurveyComponent implements OnInit {
       this.openDismiss("Invalid form", "Dismiss");
       return;
     }
-    if (this.surveyData.emailidrequired){
-      if(this.emailId == "") {
+    if (this.surveyData.emailidrequired && this.emailId == ""){
         this.openDismiss("Email Id is required", "Dismiss");
         return;
-      }
     }
     this._overlayService.show();
 

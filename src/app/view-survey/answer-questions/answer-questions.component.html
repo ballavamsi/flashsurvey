@@ -53,6 +53,9 @@
         </li>
       </mat-radio-group>
     </div>
+    <div *ngIf="questionType == 'slider'">
+      <nouislider [config]="sliderconfig" class="slider-padding" [min]="convertInt(currentQuestionData.options['min'])" [max]="convertInt(currentQuestionData.options['max'])" [step]="1" [(ngModel)]="singleOption" [tooltips]="[true]" (ngModelChange)="onChange($event)"></nouislider>
+    </div>
     <div *ngIf="questionType == 'rangeslider'">
       <nouislider [connect]="true" [min]="convertInt(currentQuestionData.options['min'])" [max]="convertInt(currentQuestionData.options['max'])" [step]="1" [(ngModel)]="someRange" [tooltips]="[ true, true ]" (ngModelChange)="onChange($event)"></nouislider>
     </div>
