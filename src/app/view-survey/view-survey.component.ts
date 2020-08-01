@@ -55,11 +55,9 @@ export class ViewSurveyComponent implements OnInit {
       this.openDismiss("Invalid form", "Dismiss");
       return;
     }
-    if (this.surveyData.emailidrequired){
-      if(this.emailId == "") {
+    if (this.surveyData.emailidrequired && this.emailId == ""){
         this.openDismiss("Email Id is required", "Dismiss");
         return;
-      }
     }
     this._overlayService.show();
 
