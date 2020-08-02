@@ -32,6 +32,7 @@ export class CreateSurveyComponent implements OnInit {
       welcomeImage: this._formBuilder.control(''),
       emailIdRequired: this._formBuilder.control(false),
       askEmail: this._formBuilder.control(false),
+      enablePrevious: this._formBuilder.control(false),
       endMessage: this._formBuilder.control('', [Validators.required]),
       questions: this._formBuilder.array([
         this.newQuestionType()
@@ -100,6 +101,7 @@ export class CreateSurveyComponent implements OnInit {
     survey.welcomeimage = data['welcomeImage'];
     survey.emailidrequired = data['emailIdRequired'] ? 1 : 0;
     survey.askemail = data['askEmail'] ? 1 : 0;
+    survey.enableprevious = data['enablePrevious'] ? 1 : 0;
     survey.endtitle = data['endMessage'];
     survey.allowduplicate = 0; //default 0
     survey.enddate = new Date((new Date().getDate()) + 365).toISOString(); //set next year date default
@@ -232,6 +234,7 @@ export class SurveyModel {
   welcomeimage: string;
   emailidrequired: number;
   askemail: number;
+  enableprevious: number;
   endtitle: string;
   allowduplicate: number; //default 0
   enddate: string; //set next year date default
