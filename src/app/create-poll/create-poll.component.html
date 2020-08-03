@@ -28,6 +28,7 @@
     </ul>
     <p>
       <mat-form-field>
+        <mat-label>New Option</mat-label>
         <input matInput id="newOption" [(ngModel)]="newoptionvalue" [ngModelOptions]="{standalone: true}"
           placeholder="Type option and click on plus">
         <mat-error *ngIf="newoptionvalue == ''">Cannot be empty</mat-error>
