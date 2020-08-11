@@ -20,6 +20,7 @@ export class CreateSurveyComponent implements OnInit {
   questionSaved = [];
   newSurveyViewModel: SurveyModel;
   displayAddQuestion = false;
+  askemailprop = false;
   constructor(private _formBuilder: FormBuilder,
     private _surveyService: SurveyService,
     private _overlayService: OverlayService,
@@ -92,6 +93,19 @@ export class CreateSurveyComponent implements OnInit {
       return "Few questions are not saved.";
     }
 
+  }
+
+  onChange() {
+      this.askemailprop = true; 
+  }
+
+  onChangeaskemail()
+  {
+    if(this.askemailprop == true)
+    {
+      this.askemailprop = false;
+    }
+    
   }
 
   modifyBody(data: any) {

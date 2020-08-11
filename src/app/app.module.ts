@@ -36,6 +36,9 @@ import { ViewSurveyComponent } from './view-survey/view-survey.component';
 import { AnswerQuestionsComponent } from './view-survey/answer-questions/answer-questions.component';
 import { NouisliderModule } from 'ng2-nouislider';
 import { AboutUsComponent } from './about-us/about-us.component';
+import {SearchSurveyComponent} from './search-survey/search-survey.component';
+
+
 const provide = [
   StatusService,
   NavigationMenuService,
@@ -58,10 +61,11 @@ const provide = [
       SearchPollComponent,
       MaterialFileUploadComponent,
       CreateSurveyComponent,
-      SurveyQuestionComponent,
       MinMaxControlComponent,
       ViewSurveyComponent,
       AnswerQuestionsComponent,
+      SurveyQuestionComponent,
+      SearchSurveyComponent,
       AboutUsComponent
    ],
    entryComponents: [
