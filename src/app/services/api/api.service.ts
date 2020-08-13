@@ -1,3 +1,4 @@
+import { Staroptions } from './../../models/staroptions';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
@@ -19,6 +20,10 @@ export class ApiService {
 
   getQuestionTypes(): Observable<QuestionType[]> {
     return this.http.get<QuestionType[]>(this._API + 'survey/questiontypes');
+  }
+
+  getDataStarOptions(): Observable<Staroptions[]> {
+    return this.http.get<Staroptions[]>(this._API + 'survey/data/staroptions');
   }
 
   getStatus(): Observable<Status[]> {
