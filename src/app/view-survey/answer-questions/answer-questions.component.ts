@@ -148,6 +148,14 @@ export class AnswerQuestionsComponent implements OnInit {
     this.progressPercentage = ((this.currentQuestionNumber + 1) / this.totalQuestions) * 100;
   }
 
+  onRatingChanged(rating){
+    this.singleOption = rating;
+  }
+
+  onRatingChangedForEach(i,rating){
+    this.currentQuestionData.objectOptions[i].selectedRating = rating;
+  }
+
   getCurrentQuestion() {
     this.refreshCurrentQuestionNumberValue();
     const currentQuestionId = this.currentQuestionNumber;
@@ -268,6 +276,9 @@ export class AnswerQuestionsComponent implements OnInit {
               this.lstAnswers[this.currentQuestionNumber] = [this.currentQuestionData.options['min'], this.currentQuestionData.options['max']];
             }
             break;
+          case 'starrating':
+            this.singleOption = parseInt(this.lstAnswers[this.currentQuestionNumber]);
+            break;
           default:
             break;
         }
@@ -302,6 +313,12 @@ export class AnswerQuestionsComponent implements OnInit {
           break;
         case 'rangeslider':
           answerData = [this.someRange[0].toString(), this.someRange[1].toString()];
+          break;
+        case 'starrating':
+          answerData = this.singleOption;
+          break;
+        case 'multiplerating':
+          answerData = this.currentQuestionData.objectOptions.map(x => x.selectedRating);
           break;
         default:
           break;

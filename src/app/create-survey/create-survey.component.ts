@@ -96,7 +96,7 @@ export class CreateSurveyComponent implements OnInit {
   }
 
   onChange() {
-      this.askemailprop = true; 
+      this.askemailprop = true;
   }
 
   onChangeaskemail()
@@ -105,7 +105,7 @@ export class CreateSurveyComponent implements OnInit {
     {
       this.askemailprop = false;
     }
-    
+
   }
 
   modifyBody(data: any) {
@@ -276,6 +276,7 @@ export class SurveyQuestionOptionsModel {
   optionKey: string;
   optionValue: string;
   isChecked: boolean;
+  selectedRating: number;
   createdBy: number;
   displayOrder: number;
 }
