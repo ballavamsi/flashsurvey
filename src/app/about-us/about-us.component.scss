@@ -8,9 +8,11 @@
   height: 300px;
   margin: 20px;
   padding: 20px;
+  height: auto;
+  width: auto;
 }
 
 .gridDivFlex{
-  display: flex;
+  display: inline-grid;
   flex: flex-wrap;
 }
