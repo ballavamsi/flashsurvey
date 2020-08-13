@@ -42,7 +42,9 @@ export class SurveyQuestionComponent implements OnInit {
   public listQuestionTypes: QuestionType[];
   public listStarOptions: Staroptions[];
   public options = [];
+  public options_x = [];
   public newitem = '';
+  public newitem_x = '';
   public minValue = 10;
   public maxValue = 1000;
   public selectedListQuestionTypes = "";
@@ -91,7 +93,7 @@ export class SurveyQuestionComponent implements OnInit {
   }
 
   customRatingValuesChange(idx, event) {
-    this.options = event.value.split('|');
+    this.options_x = event.value.split('|');
     this.invalidForm = true;
     this.IsSaved.emit(false);
   }
@@ -100,10 +102,15 @@ export class SurveyQuestionComponent implements OnInit {
     this.options[i] = event.target.value;
   }
 
+  updateOption_X(i, event){
+    this.options_x[i] = event.target.value;
+  }
+
   SaveEmit(idx) {
     //this.questionOptions.emit({ 'min': 10, 'max': 100 });
 
     let emitOptions = {};
+    let emitOptions_x = {};
 
     if (this.selectedListQuestionTypes == '-1') {
       this.openDismiss('Select question type', 'Dismiss');
@@ -123,9 +130,22 @@ export class SurveyQuestionComponent implements OnInit {
         this.openDismiss('Options cannot be empty', 'Dismiss');
         return;
       }
+
+      if(this.selectedListQuestionTypes == 'customrating' && this.options_x.indexOf('') != -1){
+        this.openDismiss('Custom rating headers cannot be empty', 'Dismiss');
+        return;
+      }
+
       let i = 0;
       this.options.forEach(element => {
         let valueText = 'value' + i;
+        emitOptions[valueText] = element;
+        i++;
+      });
+
+      i = 0;
+      this.options_x.forEach(element => {
+        let valueText = 'x_value' + i;
         emitOptions[valueText] = element;
         i++;
       });
@@ -215,6 +235,22 @@ export class SurveyQuestionComponent implements OnInit {
     this.newitem = '';
   }
 
+  addOption_X() {
+
+    if (this.newitem_x == '' || this.newitem_x == undefined || this.newitem_x == null) {
+      this.openDismiss("Option cannot be empty", "Dismiss");
+      return;
+    }
+
+    if (this.options_x.includes(this.newitem_x)) {
+      this.openDismiss("Option already exists in the list", "Dismiss");
+      return;
+    }
+
+    this.options_x.push(this.newitem_x);
+    this.newitem_x = '';
+  }
+
   onFileComplete(data: any) {
     if (data.success) {
       this.newitem = data.data.display_url;
@@ -224,6 +260,10 @@ export class SurveyQuestionComponent implements OnInit {
 
   removeOption(index: number) {
     this.options.splice(index, 1);
+  }
+
+  removeOption_X(index: number) {
+    this.options_x.splice(index, 1);
   }
 
   textChanged() {

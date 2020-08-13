@@ -1,3 +1,4 @@
+import { StarRatingComponent } from './shared/star-rating/star-rating.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -68,7 +69,8 @@ const provide = [
       SurveyQuestionComponent,
       SearchSurveyComponent,
       AboutUsComponent,
-      ThankYouComponent
+      ThankYouComponent,
+      StarRatingComponent
    ],
    entryComponents: [
       ProgressSpinnerComponent,
