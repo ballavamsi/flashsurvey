@@ -1,3 +1,4 @@
+import { Staroptions } from './../../models/staroptions';
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatAccordion, MatSnackBar } from '@angular/material';
@@ -39,6 +40,7 @@ export class SurveyQuestionComponent implements OnInit {
   @Output() questionAdditionalInfo: EventEmitter<any> = new EventEmitter<any>();
   @Output() IsSaved: EventEmitter<any> = new EventEmitter<any>();
   public listQuestionTypes: QuestionType[];
+  public listStarOptions: Staroptions[];
   public options = [];
   public newitem = '';
   public minValue = 10;
@@ -51,6 +53,14 @@ export class SurveyQuestionComponent implements OnInit {
 
   ngOnInit() {
 
+    this.loadDefaultData();
+    this.selectedListQuestionTypes = this.questionForm.controls['questionType'].value;
+    this.formChange.emit(this.questionForm);
+    this.IsSaved.emit(false);
+    this.invalidForm = true;
+  }
+
+  loadDefaultData() {
     var questionTypes = this._storageService.getSession('questiontypes');
     if (questionTypes == null) {
       this._apiService.getQuestionTypes().subscribe((data) => {
@@ -61,18 +71,33 @@ export class SurveyQuestionComponent implements OnInit {
     else {
       this.listQuestionTypes = JSON.parse(questionTypes) as QuestionType[];
     }
-    console.log(this.idx);
-    console.log(this.questionForm);
-    this.selectedListQuestionTypes = this.questionForm.controls['questionType'].value;
-    this.formChange.emit(this.questionForm);
-    this.IsSaved.emit(false);
-    this.invalidForm = true;
+
+    var starOptions = this._storageService.getSession('starOptions');
+    if (starOptions == null) {
+      this._apiService.getDataStarOptions().subscribe((data) => {
+        this._storageService.setSession('starOptions', JSON.stringify(data));
+        this.listStarOptions = data;
+      });
+    }
+    else {
+      this.listStarOptions = JSON.parse(starOptions) as Staroptions[];
+    }
   }
 
   setQuestionType(idx, event) {
     this.selectedListQuestionTypes = event.value;
     this.invalidForm = true;
     this.IsSaved.emit(false);
+  }
+
+  customRatingValuesChange(idx, event) {
+    this.options = event.value.split('|');
+    this.invalidForm = true;
+    this.IsSaved.emit(false);
+  }
+
+  updateOption(i, event){
+    this.options[i] = event.target.value;
   }
 
   SaveEmit(idx) {
@@ -91,7 +116,13 @@ export class SurveyQuestionComponent implements OnInit {
     }
 
     if (this.selectedListQuestionTypes == 'radiobuttons' || this.selectedListQuestionTypes == 'multiple'
-      || this.selectedListQuestionTypes == 'imageradiobuttons' || this.selectedListQuestionTypes == 'imagemultiple') {
+      || this.selectedListQuestionTypes == 'imageradiobuttons' || this.selectedListQuestionTypes == 'imagemultiple'
+      || this.selectedListQuestionTypes == 'customrating' || this.selectedListQuestionTypes == 'multiplerating') {
+
+      if (this.options.indexOf('') != -1) {
+        this.openDismiss('Options cannot be empty', 'Dismiss');
+        return;
+      }
       let i = 0;
       this.options.forEach(element => {
         let valueText = 'value' + i;
@@ -160,7 +191,7 @@ export class SurveyQuestionComponent implements OnInit {
     }
 
     if (this.selectedListQuestionTypes == 'radiobuttons' || this.selectedListQuestionTypes == 'multiple' ||
-        this.selectedListQuestionTypes == 'imageradiobuttons' || this.selectedListQuestionTypes == 'imagemultiple') {
+      this.selectedListQuestionTypes == 'imageradiobuttons' || this.selectedListQuestionTypes == 'imagemultiple') {
       if (emitOptions['value0'] == undefined) {
         return 'There should be atleast one option.';
       }
@@ -171,12 +202,12 @@ export class SurveyQuestionComponent implements OnInit {
   addOption() {
 
     if (this.newitem == '' || this.newitem == undefined || this.newitem == null) {
-      this.openDismiss("Option cannot be empty","Dismiss");
+      this.openDismiss("Option cannot be empty", "Dismiss");
       return;
     }
 
     if (this.options.includes(this.newitem)) {
-      this.openDismiss("Option already exists in the list","Dismiss");
+      this.openDismiss("Option already exists in the list", "Dismiss");
       return;
     }
 

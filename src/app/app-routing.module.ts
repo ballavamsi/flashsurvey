@@ -25,7 +25,7 @@ const routes: Routes = [
   { path: 'survey/new', component: CreateSurveyComponent },
   { path: 'survey/view/:id', component: ViewSurveyComponent },
   { path: 'survey/view/:id/questions', component: AnswerQuestionsComponent },
-  { path: 'survey/search', component :SearchSurveyComponent},
+  { path: 'survey/search', component: SearchSurveyComponent},
   { path: '', component: DashboardComponent, pathMatch: 'full' }
 ];
 
