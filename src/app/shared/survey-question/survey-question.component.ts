@@ -151,7 +151,7 @@ export class SurveyQuestionComponent implements OnInit {
       });
     }
 
-    if (this.selectedListQuestionTypes == 'rangeslider') {
+    if (this.selectedListQuestionTypes == 'rangeslider' || this.selectedListQuestionTypes == 'slider') {
       emitOptions['min'] = this.minValue;
       emitOptions['max'] = this.maxValue;
     }
@@ -198,7 +198,7 @@ export class SurveyQuestionComponent implements OnInit {
       }
     }
 
-    if (this.selectedListQuestionTypes == 'rangeslider') {
+    if (this.selectedListQuestionTypes == 'rangeslider' || this.selectedListQuestionTypes == 'slider') {
       if (emitOptions['min'] == '' || emitOptions['min'] == null) {
         return 'Starting range cannot be empty';
       }

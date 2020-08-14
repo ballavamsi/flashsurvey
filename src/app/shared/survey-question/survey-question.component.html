@@ -101,7 +101,7 @@
           <div class="col-md-12">
             <mat-form-field appearance="standard">
               <mat-label>Option {{i+1}}</mat-label>
-              <input matInput #option{{i}} [value]="options_x[i]" required minlength="1" (keyup)="updateOption_X(i,$event)">
+              <input matInput #option{{i}} [value]="options_x[i]" required minlength="1" (focusout)="updateOption_X(i,$event)">
               <button matSuffix mat-icon-button color="accent" aria-label="Remove" type="button"
                 (click)="removeOption_X(i);">
                 <mat-icon>close</mat-icon>
@@ -131,7 +131,7 @@
           <div class="col-md-12">
             <mat-form-field appearance="standard">
               <mat-label>Option {{i+1}}</mat-label>
-              <input matInput #option{{i}} [value]="options[i]" required minlength="1" (keyup)="updateOption(i,$event)">
+              <input matInput #option{{i}} [value]="options[i]" required minlength="1" (focusout)="updateOption(i,$event)">
               <button matSuffix mat-icon-button color="accent" aria-label="Remove" type="button"
                 (click)="removeOption(i);">
                 <mat-icon>close</mat-icon>
