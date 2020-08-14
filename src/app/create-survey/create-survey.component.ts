@@ -96,16 +96,7 @@ export class CreateSurveyComponent implements OnInit {
   }
 
   onChange() {
-      this.askemailprop = true;
-  }
-
-  onChangeaskemail()
-  {
-    if(this.askemailprop == true)
-    {
-      this.askemailprop = false;
-    }
-
+    this.fg.get('askEmail').patchValue(true);
   }
 
   modifyBody(data: any) {
