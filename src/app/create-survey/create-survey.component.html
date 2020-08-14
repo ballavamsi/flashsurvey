@@ -92,7 +92,7 @@
             <mat-icon>arrow_backward</mat-icon>
           </button>
           <!-- <button mat-button type="submit" (click)="stepper.reset()">Reset</button> -->
-          <button mat-raised-button style="margin-left:10px"  color="primary" type="submit" >Submit</button>
+          <button mat-raised-button style="margin-left:10px"  color="primary" type="submit" [disabled]="fg.invalid || additionalValidations() != ''">Submit</button>
         </div>
       </mat-step>
     </mat-horizontal-stepper>
