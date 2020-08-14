@@ -20,6 +20,7 @@ export class AnswerQuestionsComponent implements OnInit {
   routeGuid: string;
   loaded = false;
   currentQuestionData: SurveyQuestionsModel;
+  x_options = {};
   currentQuestionNumber = 0;
   lstQuestionTypes: QuestionType[];
   lstAnswers = [];
@@ -156,6 +157,14 @@ export class AnswerQuestionsComponent implements OnInit {
     this.currentQuestionData.objectOptions[i].selectedRating = rating;
   }
 
+  get getXValueOptions(){
+    return this.currentQuestionData.objectOptions.filter(x=> x.optionKey.startsWith("x_"));
+  }
+
+  get getValueOptions(){
+    return this.currentQuestionData.objectOptions.filter(x=> !x.optionKey.startsWith("x_"));
+  }
+
   getCurrentQuestion() {
     this.refreshCurrentQuestionNumberValue();
     const currentQuestionId = this.currentQuestionNumber;
@@ -241,8 +250,10 @@ export class AnswerQuestionsComponent implements OnInit {
             this.singleOption = parseInt(this.lstAnswers[this.currentQuestionNumber]);
             break;
           case 'multiple':
+            let data = this.lstAnswers[this.currentQuestionNumber];
+            let multipleData = data.split(',');
             this.currentQuestionData.objectOptions.forEach((element) => {
-              if (this.lstAnswers[this.currentQuestionNumber] != undefined && this.lstAnswers[this.currentQuestionNumber].indexOf(element.surveyQuestionOptionId.toString()) != -1) {
+              if (multipleData != undefined && multipleData.includes(element.surveyQuestionOptionId.toString())) {
                 element.isChecked = true;
               }
             });
@@ -251,8 +262,10 @@ export class AnswerQuestionsComponent implements OnInit {
             this.singleOption = parseInt(this.lstAnswers[this.currentQuestionNumber]);
             break;
           case 'imagemultiple':
+            let data_imagemultiple = this.lstAnswers[this.currentQuestionNumber];
+            let imagemultipleData = data_imagemultiple.split(',');
             this.currentQuestionData.objectOptions.forEach((element) => {
-              if (this.lstAnswers[this.currentQuestionNumber] != undefined && this.lstAnswers[this.currentQuestionNumber].indexOf(element.surveyQuestionOptionId.toString()) != -1) {
+              if (imagemultipleData != undefined && imagemultipleData.includes(element.surveyQuestionOptionId.toString())) {
                 element.isChecked = true;
               }
             });
@@ -278,6 +291,22 @@ export class AnswerQuestionsComponent implements OnInit {
             break;
           case 'starrating':
             this.singleOption = parseInt(this.lstAnswers[this.currentQuestionNumber]);
+            break;
+          case 'multiplerating':
+            let multipleratings = this.lstAnswers[this.currentQuestionNumber];
+            this.currentQuestionData.objectOptions.forEach((element,i) => {
+              if (multipleratings != undefined) {
+                element.selectedRating = parseInt(multipleratings[i]);
+              }
+            });
+            break;
+          case 'multiplerating':
+            let customratings = this.lstAnswers[this.currentQuestionNumber];
+            this.currentQuestionData.objectOptions.forEach((element,i) => {
+              if (customratings != undefined) {
+                element.selectedRating = parseInt(customratings[i]);
+              }
+            });
             break;
           default:
             break;
@@ -318,7 +347,10 @@ export class AnswerQuestionsComponent implements OnInit {
           answerData = this.singleOption;
           break;
         case 'multiplerating':
-          answerData = this.currentQuestionData.objectOptions.map(x => x.selectedRating);
+          answerData = this.currentQuestionData.objectOptions.map(x => x.selectedRating.toString());
+          break;
+        case 'customrating':
+          answerData = this.currentQuestionData.objectOptions.map(x => x.selectedRating.toString());
           break;
         default:
           break;
