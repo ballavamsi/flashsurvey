@@ -74,11 +74,11 @@
         </div>
       </div>
       <div class="row container-fluid"
-        *ngIf="selectedListQuestionTypes == 'essay' || selectedListQuestionTypes == 'rangeslider'">
+        *ngIf="selectedListQuestionTypes == 'essay' || selectedListQuestionTypes == 'rangeslider' || selectedListQuestionTypes == 'slider'">
         <div class="col-md-3">
           <mat-form-field appearance="standard">
             <mat-label *ngIf="selectedListQuestionTypes == 'essay'">Minimum Characters</mat-label>
-            <mat-label *ngIf="selectedListQuestionTypes == 'rangeslider'">Starting Range</mat-label>
+            <mat-label *ngIf="selectedListQuestionTypes == 'rangeslider'  || selectedListQuestionTypes == 'slider'">Starting Range</mat-label>
             <input matInput type="number" [(ngModel)]="minValue" [ngModelOptions]="{standalone: true}"
               placeholder="Ex. 12">
             <span matSuffix></span>
@@ -87,7 +87,7 @@
         <div class="col-md-3">
           <mat-form-field appearance="standard">
             <mat-label *ngIf="selectedListQuestionTypes == 'essay'">Maximum Characters</mat-label>
-            <mat-label *ngIf="selectedListQuestionTypes == 'rangeslider'">Ending Range</mat-label>
+            <mat-label *ngIf="selectedListQuestionTypes == 'rangeslider' || selectedListQuestionTypes == 'slider'">Ending Range</mat-label>
             <input matInput type="number" [(ngModel)]="maxValue" [ngModelOptions]="{standalone: true}"
               placeholder="Ex. 12">
             <span matSuffix></span>
