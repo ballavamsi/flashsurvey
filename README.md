@@ -1,4 +1,4 @@
-# FreepollUi
+# Flash Survey
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/8ff72a9a-8728-4de8-867f-150914653292/deploy-status)](https://app.netlify.com/sites/freepoll-ui/deploys)
 
@@ -13,6 +13,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
 ## Build
+Run `npm install` to install the required plugins.
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
