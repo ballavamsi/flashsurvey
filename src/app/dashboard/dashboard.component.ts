@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import lax from 'lax.js'
 
 @Component({
   selector: 'app-dashboard',
