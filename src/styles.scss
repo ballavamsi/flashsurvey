@@ -73,35 +73,66 @@ $bv-primary: (
   //     A700 : #000000,
   // )
 
-  50 : #f1fcfb,
-    100 : #dcf8f6,
-    200 : #c4f4f0,
-    300 : #acf0ea,
-    400 : #9bece6,
-    500 : #89e9e1,
-    600 : #81e6dd,
-    700 : #76e3d9,
-    800 : #6cdfd5,
-    900 : #59d9cd,
-    A100 : #ffffff,
-    A200 : #ffffff,
-    A400 : #d9fffb,
-    A700 : #bffff9,
+  // 50 : #f1fcfb,
+  //   100 : #dcf8f6,
+  //   200 : #c4f4f0,
+  //   300 : #acf0ea,
+  //   400 : #9bece6,
+  //   500 : #89e9e1,
+  //   600 : #81e6dd,
+  //   700 : #76e3d9,
+  //   800 : #6cdfd5,
+  //   900 : #59d9cd,
+  //   A100 : #ffffff,
+  //   A200 : #ffffff,
+  //   A400 : #d9fffb,
+  //   A700 : #bffff9,
+  //   contrast: (
+  //       50 : #000000,
+  //       100 : #000000,
+  //       200 : #000000,
+  //       300 : #000000,
+  //       400 : #000000,
+  //       500 : #000000,
+  //       600 : #000000,
+  //       700 : #000000,
+  //       800 : #000000,
+  //       900 : #000000,
+  //       A100 : #000000,
+  //       A200 : #000000,
+  //       A400 : #000000,
+  //       A700 : #000000,
+  //   )
+
+  50 : #e0e0e0,
+    100 : #b3b3b3,
+    200 : #808080,
+    300 : #4d4d4d,
+    400 : #262626,
+    500 : #000000,
+    600 : #000000,
+    700 : #000000,
+    800 : #000000,
+    900 : #000000,
+    A100 : #a6a6a6,
+    A200 : #8c8c8c,
+    A400 : #737373,
+    A700 : #666666,
     contrast: (
         50 : #000000,
         100 : #000000,
         200 : #000000,
-        300 : #000000,
-        400 : #000000,
-        500 : #000000,
-        600 : #000000,
-        700 : #000000,
-        800 : #000000,
-        900 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
         A100 : #000000,
         A200 : #000000,
-        A400 : #000000,
-        A700 : #000000,
+        A400 : #ffffff,
+        A700 : #ffffff,
     )
 );
 
@@ -167,36 +198,98 @@ $bv-secondary: (
   //       A400 : #000000,
   //       A700 : #000000,
   //   )
-  50 : #faf8f6,
-    100 : #f3efe8,
-    200 : #ece4d9,
-    300 : #e4d9ca,
-    400 : #ded0be,
-    500 : #d8c8b3,
-    600 : #d4c2ac,
-    700 : #cebba3,
-    800 : #c8b49a,
-    900 : #bfa78b,
+  // 50 : #faf8f6,
+  //   100 : #f3efe8,
+  //   200 : #ece4d9,
+  //   300 : #e4d9ca,
+  //   400 : #ded0be,
+  //   500 : #d8c8b3,
+  //   600 : #d4c2ac,
+  //   700 : #cebba3,
+  //   800 : #c8b49a,
+  //   900 : #bfa78b,
+  //   A100 : #ffffff,
+  //   A200 : #ffffff,
+  //   A400 : #fff6eb,
+  //   A700 : #ffead2,
+  //   contrast: (
+  //       50 : #000000,
+  //       100 : #000000,
+  //       200 : #000000,
+  //       300 : #000000,
+  //       400 : #000000,
+  //       500 : #000000,
+  //       600 : #000000,
+  //       700 : #000000,
+  //       800 : #000000,
+  //       900 : #000000,
+  //       A100 : #000000,
+  //       A200 : #000000,
+  //       A400 : #000000,
+  //       A700 : #000000,
+  //   )
+
+  50 : #fce8e6,
+    100 : #f8c5c0,
+    200 : #f39e96,
+    300 : #ee776b,
+    400 : #eb5a4c,
+    500 : #e73d2c,
+    600 : #e43727,
+    700 : #e02f21,
+    800 : #dd271b,
+    900 : #d71a10,
     A100 : #ffffff,
-    A200 : #ffffff,
-    A400 : #fff6eb,
-    A700 : #ffead2,
+    A200 : #ffd3d1,
+    A400 : #ffa19e,
+    A700 : #ff8985,
     contrast: (
         50 : #000000,
         100 : #000000,
         200 : #000000,
         300 : #000000,
         400 : #000000,
-        500 : #000000,
-        600 : #000000,
-        700 : #000000,
-        800 : #000000,
-        900 : #000000,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
         A100 : #000000,
         A200 : #000000,
         A400 : #000000,
         A700 : #000000,
     )
+
+    // 50 : #fefde1,
+    // 100 : #fefbb5,
+    // 200 : #fdf883,
+    // 300 : #fcf551,
+    // 400 : #fbf22c,
+    // 500 : #faf007,
+    // 600 : #f9ee06,
+    // 700 : #f9ec05,
+    // 800 : #f8e904,
+    // 900 : #f6e502,
+    // A100 : #ffffff,
+    // A200 : #fffdea,
+    // A400 : #fff9b7,
+    // A700 : #fff79d,
+    // contrast: (
+    //     50 : #000000,
+    //     100 : #000000,
+    //     200 : #000000,
+    //     300 : #000000,
+    //     400 : #000000,
+    //     500 : #000000,
+    //     600 : #000000,
+    //     700 : #000000,
+    //     800 : #000000,
+    //     900 : #000000,
+    //     A100 : #000000,
+    //     A200 : #000000,
+    //     A400 : #000000,
+    //     A700 : #000000,
+    // )
 );
 
 // mandatory stuff for theming
@@ -215,13 +308,13 @@ $bv-theme: mat-light-theme($primary, $accent);
 
 //end
 
-$navbar-color: black;
+$navbar-color:black;
 $navbar-fontcolor: white;
 
 html, body { height: 100%; }
 body {
    margin: 0;
-   font-family: Roboto, "Helvetica Neue", sans-serif;
+   font-family: 'rubikmedium',Roboto, "Helvetica Neue", sans-serif;
   .mat-button-toggle-checked {
     background-color: mat-color($accent);
     //color: mat-color($accent,contrast-500)!important;
@@ -257,3 +350,7 @@ body {
 }
 
 @import "~nouislider/distribute/nouislider.min.css";
+
+body{
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
