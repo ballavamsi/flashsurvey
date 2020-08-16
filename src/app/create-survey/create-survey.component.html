@@ -12,7 +12,7 @@
         <mat-form-field>
           <mat-label>Description</mat-label>
           <textarea matInput placeholder="" formControlName="welcomeDescription"></textarea>
-        </mat-form-field>    
+        </mat-form-field>
 
         <div class="col-md-6 col-sm-6" style="padding-top: 20px; padding-left: 0px;">
           <mat-label>Background Image:</mat-label>
@@ -57,7 +57,7 @@
         <ng-template matStepLabel>Extra Information</ng-template>
         <h3 style="font-size:15 px; color:gray;">Extra Information</h3>
         <div class="col-md-6 col-sm-6" style="padding-top: 20px; padding-left: 0px;">
-          <mat-slide-toggle color="primary" formControlName="askEmail" [checked]="askemailprop" (change)="onChangeaskemail()">Ask user their email address 
+          <mat-slide-toggle color="primary" formControlName="askEmail">Ask user their email address
           </mat-slide-toggle>
         </div>
         <div class="col-md-6 col-sm-6" style="padding-top: 20px; padding-left: 0px;">
@@ -78,7 +78,7 @@
             <mat-icon>arrow_forward</mat-icon>
           </button>
         </div>
-    </mat-step>   
+    </mat-step>
       <mat-step>
         <ng-template matStepLabel>Ending</ng-template>
         <h3 style="font-size:15 px; color:gray;">Ending</h3>

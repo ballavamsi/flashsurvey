@@ -9,6 +9,11 @@
   right: 0;
 }
 
+.logoimage{
+  overflow: hidden;
+  width: 200px;
+}
+
 .freepoll-is-mobile .freepoll-toolbar {
   position: fixed;
   /* Make sure the toolbar will stay on top of the content as it scrolls past. */
@@ -22,9 +27,9 @@
   z-index: 98;
   background-color: $navbar-color!important;
   color: $navbar-fontcolor!important;
-  -moz-box-shadow: 3px 3px 5px 6px #ccc;
-  -webkit-box-shadow: 3px 3px 5px 6px #ccc;
-  box-shadow: 3px 3px 5px 6px #ccc;
+  // -moz-box-shadow: 3px 3px 5px 0px #ccc;
+  // -webkit-box-shadow: 3px 3px 5px 0px #ccc;
+  // box-shadow: 3px 3px 5px 0px #ccc;
 }
 
 .freepoll-app-name {
@@ -96,15 +101,7 @@
   font-size: 60px;
 }
 
-/* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
-@media screen and (max-height: 450px) {
-  .overlay a {font-size: 20px}
-  .overlay .closebtn {
-    font-size: 40px;
-    top: 0;
-    left: 20px;
-  }
-}
+
 
 .mainrouter{
   background-color: white !important;
@@ -123,4 +120,20 @@
   text-decoration: underline;
   font-variant: small-caps;
   color: gray;
+}
+
+/* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
+@media screen and (max-height: 450px) {
+  .overlay a {font-size: 20px}
+  .overlay .closebtn {
+    font-size: 40px;
+    top: 0;
+    left: 20px;
+  }
+}
+
+@media screen and (max-width:400px){
+  .overlay a{
+    font-size: 1.5rem;
+  }
 }

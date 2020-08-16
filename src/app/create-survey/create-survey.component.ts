@@ -107,16 +107,7 @@ export class CreateSurveyComponent implements OnInit {
   }
 
   onChange() {
-      this.askemailprop = true; 
-  }
-
-  onChangeaskemail()
-  {
-    if(this.askemailprop == true)
-    {
-      this.askemailprop = false;
-    }
-    
+    this.fg.get('askEmail').patchValue(true);
   }
 
   
@@ -289,6 +280,7 @@ export class SurveyQuestionOptionsModel {
   optionKey: string;
   optionValue: string;
   isChecked: boolean;
+  selectedRating: number;
   createdBy: number;
   displayOrder: number;
 }

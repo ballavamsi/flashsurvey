@@ -38,6 +38,8 @@ export class ViewSurveyComponent implements OnInit {
         this._surveyService.setCurrentSurvey(this.surveyData);
         this.loaded = true;
         this._overlayService.hide();
+
+        window.sessionStorage.clear();
         this._storageService.setSession('Survey_Questions_' + this.routeGuid, data.surveyQuestions.length);
       },
         error => {

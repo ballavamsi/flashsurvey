@@ -1,3 +1,4 @@
+import { StarRatingComponent } from './shared/star-rating/star-rating.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -37,7 +38,7 @@ import { AnswerQuestionsComponent } from './view-survey/answer-questions/answer-
 import { NouisliderModule } from 'ng2-nouislider';
 import { AboutUsComponent } from './about-us/about-us.component';
 import {SearchSurveyComponent} from './search-survey/search-survey.component';
-import {ThankYouComponent} from './thank-you/thank-you.component';
+import { ThankYouComponent } from './thank-you/thank-you.component';
 
 const provide = [
   StatusService,
@@ -66,8 +67,9 @@ const provide = [
       AnswerQuestionsComponent,
       SurveyQuestionComponent,
       SearchSurveyComponent,
+      AboutUsComponent,
       ThankYouComponent,
-      AboutUsComponent
+      StarRatingComponent
    ],
    entryComponents: [
       ProgressSpinnerComponent,

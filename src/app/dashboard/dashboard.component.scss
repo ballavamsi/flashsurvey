@@ -18,9 +18,69 @@
   color:mat-color($accent);
 }
 .headingcolor{
-  color: white;//mat-color($accent);
+  color: black;//mat-color($accent);
   font-size: 5.2rem;
+  opacity: 0.7;
   font-variant: petite-caps;
+}
+
+.dashboard-background{
+  height: 150vh;
+  margin-top: 0px;
+  z-index: 97;
+  position: relative;
+  //background: repeating-linear-gradient(45deg, #89e9e1, black 800px);
+}
+
+.mainbackground{
+  float: left;
+  //clip-path: polygon(0px 0px, 0px 0px, 0px 0px, 0px 0px, 1px 400px, 322px 498px, 600px 329px, 864px 433px ,1400px 224px, 1400px 0px);
+  //background: linear-gradient(to bottom left, #67D7F5, #86F7CC);
+  float: left;
+  //background: linear-gradient(to top right, #67D7F5, #86F7CC);
+  background: url("~/assets/images/banner-bg.svg");
+  background-repeat-y: no-repeat;
+  width: 100%;
+  height: 800px;
+  margin-top: -10.9%;
+}
+
+.dashboardimage{
+  margin-top: -64px;
+    margin-left: -4px;
+  img{
+    width: 400px;
+    height: 370px;
+
+  }
+}
+
+.btn-poll{
+  background-color: orange;
+}
+.btn-survey{
+  margin-left:20px;
+  background-color:orangered;
+}
+
+.leftbanner{
+  padding: 20px;
+  background: dimgray;
+  border-radius: 40px;
+  height: 40%;
+}
+.banner-title{
+  color:white;
+}
+
+
+.mt-3{
+  color:white;
+  font-weight: 1.2rem;
+}
+.font-weight-medium{
+  font-weight: 500;
+  font-size:1.8rem;
 }
 
 .middletextcolor{
@@ -35,3 +95,114 @@
 }
 .gridbackground {
 }
+
+
+@media screen and (min-width: 200px) and (max-width: 350px) {
+  .dashboardimage{
+    img{
+      width: 265px;
+      height: 250px;
+      margin-top: 50%;
+      margin-left: 6%;
+    }
+  }
+  .leftbanner{
+    padding: 23px;
+    background: #696969;
+    height: 33%;
+    border-radius: 0px;
+  }
+
+  .processRow{
+    margin-top:110vh;
+  }
+}
+
+@media screen and (min-width: 350px) and (max-width: 500px) {
+  .headingcolor{
+    font-size: 3.5rem;
+  }
+
+  .leftbanner{
+    padding: 23px;
+    background: #696969;
+    height: 33%;
+    border-radius: 0px;
+  }
+  .dashboardimage{
+    img{
+      width: 300px;
+      height: 282px;
+      margin-top: 35%;
+      margin-left: 6%;
+    }
+  }
+  .processRow{
+    margin-top:90vh;
+  }
+}
+
+@media screen and (min-width:800px){
+  .col-md-4{
+    display: inline-flex;
+  }
+
+  .processRow{
+    margin-top:0vh;
+  }
+}
+
+@media screen and (min-width: 500px) and (max-width: 800px) {
+  .dashboardimage{
+    img{
+      width: 300px;
+      height: 297px;
+      margin-top: 27%;
+      margin-left: -5%;
+    }
+  }
+  .processRow{
+    margin-top:90vh;
+  }
+}
+
+.eachRow{
+  padding-top:20px;
+  height:70vh;
+}
+
+.second-stage-card {
+  max-width: 400px;
+  border-radius: 21px;
+  margin-top:30px;
+  border:0px;
+  padding: 33px;
+  height: 300px;
+  color:white;
+
+  .cardp{
+    color:gray;opacity:0.7
+  }
+  .iconsize{
+    font-size:100px;opacity:0.7
+  }
+  h4{
+
+  }
+}
+
+.eachstepli{
+  padding-top:20px;
+  .liicon{
+    font-size:40px;
+    color: greenyellow;
+  }
+
+  .data{
+    padding-left:20px;
+    font-size:30px;
+    margin-top:1px;
+    color: gray;
+  }
+}
+

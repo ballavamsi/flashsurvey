@@ -21,7 +21,7 @@
     </div>
     <div *ngIf="questionType == 'multiple'">
       <li *ngFor="let item of currentQuestionData.objectOptions;let i=index" style="list-style:none">
-        <mat-checkbox value="{{item.surveyQuestionOptionId}}"
+        <mat-checkbox [value]="item.surveyQuestionOptionId"
           [(ngModel)]="currentQuestionData.objectOptions[i].isChecked">
           {{item.optionValue}}
         </mat-checkbox>
@@ -30,7 +30,7 @@
     <div *ngIf="questionType == 'radiobuttons'">
       <mat-radio-group [(ngModel)]="singleOption">
         <li *ngFor="let item of currentQuestionData.objectOptions;let i=index" style="list-style:none">
-          <mat-radio-button value="{{item.surveyQuestionOptionId}}">
+          <mat-radio-button [value]="item.surveyQuestionOptionId">
             {{item.optionValue}}
           </mat-radio-button>
         </li>
@@ -38,7 +38,7 @@
     </div>
     <div *ngIf="questionType == 'imagemultiple'">
       <li *ngFor="let item of currentQuestionData.objectOptions;let i=index" class="li-image-option">
-        <mat-checkbox value="{{item.surveyQuestionOptionId}}"
+        <mat-checkbox [value]="item.surveyQuestionOptionId"
           [(ngModel)]="currentQuestionData.objectOptions[i].isChecked">
           <img src="{{item.optionValue}}" alt="{{item.optionValue}}" style="margin-left:5px;width: 300px;" />
         </mat-checkbox>
@@ -47,14 +47,52 @@
     <div *ngIf="questionType == 'imageradiobuttons'">
       <mat-radio-group [(ngModel)]="singleOption">
         <li *ngFor="let item of currentQuestionData.objectOptions;let i=index" class="li-image-option">
-          <mat-radio-button value="{{item.surveyQuestionOptionId}}">
-            <img src="{{item.optionValue}}" alt="{{item.optionValue}}" style="width: 300px;"/>
+          <mat-radio-button [value]="item.surveyQuestionOptionId">
+            <img src="{{item.optionValue}}" alt="{{item.optionValue}}" style="width: 300px;" />
           </mat-radio-button>
         </li>
       </mat-radio-group>
     </div>
+    <div *ngIf="questionType == 'slider'">
+      <nouislider [config]="sliderconfig" class="slider-padding" [min]="convertInt(currentQuestionData.options['min'])"
+        [max]="convertInt(currentQuestionData.options['max'])" [step]="1" [(ngModel)]="singleOption" [tooltips]="[true]"
+        (ngModelChange)="onChange($event)"></nouislider>
+    </div>
     <div *ngIf="questionType == 'rangeslider'">
-      <nouislider [connect]="true" [min]="convertInt(currentQuestionData.options['min'])" [max]="convertInt(currentQuestionData.options['max'])" [step]="1" [(ngModel)]="someRange" [tooltips]="[ true, true ]" (ngModelChange)="onChange($event)"></nouislider>
+      <nouislider [connect]="true" [min]="convertInt(currentQuestionData.options['min'])"
+        [max]="convertInt(currentQuestionData.options['max'])" [step]="1" [(ngModel)]="someRange"
+        [tooltips]="[ true, true ]" (ngModelChange)="onChange($event)"></nouislider>
+    </div>
+    <div *ngIf="questionType == 'starrating'" style="padding-left:40%">
+      <app-star-rating [rating]="singleOption" [starCount]="5" [color]="'primary'"
+        (ratingUpdated)="onRatingChanged($event)"></app-star-rating>
+    </div>
+    <div *ngIf="questionType == 'multiplerating'">
+      <li *ngFor="let item of currentQuestionData.objectOptions;let i=index" class="li-image-option">
+        <div>{{item.optionValue}}</div>
+        <div>
+          <app-star-rating [rating]="item.selectedRating" [starCount]="5" [color]="'primary'"
+            (ratingUpdated)="onRatingChangedForEach(i,$event)"></app-star-rating>
+        </div>
+      </li>
+    </div>
+    <div *ngIf="questionType == 'customrating'">
+      <div class="divTable customRatingTable">
+        <div class="divTableHeading">
+          <mat-radio-group class="divTableRow">
+            <div class="divTableHead" style="width:40%">Options</div>
+            <div class="divTableHead" *ngFor="let item of getXValueOptions;let i=index">{{item.optionValue}}</div>
+          </mat-radio-group>
+        </div>
+        <div class="divTableBody">
+          <mat-radio-group class="divTableRow" *ngFor="let item of getValueOptions;let i=index" [(ngModel)]="item.selectedRating">
+            <div class="divTableCell">{{item.optionValue}}</div>
+            <div class="divTableCell" *ngFor="let item2 of getXValueOptions;let i=index">
+              <mat-radio-button [value]="item2.surveyQuestionOptionId"></mat-radio-button>
+            </div>
+          </mat-radio-group>
+        </div>
+      </div>
     </div>
   </mat-card-content>
   <mat-card-actions align="end">

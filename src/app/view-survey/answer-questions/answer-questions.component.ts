@@ -20,6 +20,7 @@ export class AnswerQuestionsComponent implements OnInit {
   routeGuid: string;
   loaded = false;
   currentQuestionData: SurveyQuestionsModel;
+  x_options = {};
   currentQuestionNumber = 0;
   lstQuestionTypes: QuestionType[];
   lstAnswers = [];
@@ -31,7 +32,17 @@ export class AnswerQuestionsComponent implements OnInit {
   // answers data
   essayAnswer = '';
   singleOption = 0;
-  someRange = [1,1000000000];
+  someRange = [1, 1000000000];
+
+  //slider config
+  sliderconfig: any = {
+    behaviour: 'drag',
+    margin: 1,
+    pips: {
+      mode: 'steps',
+      density: 1
+    }
+  };
 
   constructor(private _surveyService: SurveyService,
     private _activateRoute: ActivatedRoute,
@@ -63,12 +74,14 @@ export class AnswerQuestionsComponent implements OnInit {
   }
 
   callSurveyAPI() {
+
     let dataLoaded = false;
     this._activateRoute.params.subscribe((data) => {
       this.routeGuid = data.id;
       this._storageService.setSession("SurveyGUID", data.id);
       const sess = this._storageService.getSession(this.sessionKey);
-      if (sess != null) {
+      this.refreshCurrentQuestionNumberValue();
+      if (sess != null && this.currentQuestionNumber == 0) {
         this._surveyService.getSurvey(this.routeGuid).subscribe((surveyData) => {
           this.surveyData = surveyData;
           this._surveyService.setCurrentSurvey(surveyData);
@@ -100,13 +113,19 @@ export class AnswerQuestionsComponent implements OnInit {
       let q = new QuestionAnswersBody();
       q.key = element.surveyQuestionId.toString();
 
-      if (typeof (this.lstAnswers[index]) == "number") {
+      if(isNaN(this.lstAnswers[index])){
+        q.number = 0;
+      }
+      if(this.lstAnswers[index] == undefined){
+        q.selected = [];
+      }
+      if (typeof (this.lstAnswers[index]) == "number" && !isNaN(this.lstAnswers[index])) {
         q.number = this.lstAnswers[index];
       }
       if (typeof (this.lstAnswers[index]) == "string") {
         q.text = this.lstAnswers[index];
       }
-      if (typeof (this.lstAnswers[index]) == "object") {
+      if (typeof (this.lstAnswers[index]) == "object" && this.lstAnswers[index] != undefined) {
         q.selected = this.lstAnswers[index];
       }
       dataToSend.push(q);
@@ -130,8 +149,24 @@ export class AnswerQuestionsComponent implements OnInit {
     this.progressPercentage = ((this.currentQuestionNumber + 1) / this.totalQuestions) * 100;
   }
 
+  onRatingChanged(rating){
+    this.singleOption = rating;
+  }
+
+  onRatingChangedForEach(i,rating){
+    this.currentQuestionData.objectOptions[i].selectedRating = rating;
+  }
+
+  get getXValueOptions(){
+    return this.currentQuestionData.objectOptions.filter(x=> x.optionKey.startsWith("x_"));
+  }
+
+  get getValueOptions(){
+    return this.currentQuestionData.objectOptions.filter(x=> !x.optionKey.startsWith("x_"));
+  }
+
   getCurrentQuestion() {
-    this.currentQuestionNumberValue();
+    this.refreshCurrentQuestionNumberValue();
     const currentQuestionId = this.currentQuestionNumber;
 
     this._surveyService.getCurrentSurvey().subscribe((data) => {
@@ -147,13 +182,13 @@ export class AnswerQuestionsComponent implements OnInit {
 
       this.updateUIWithAnswers();
       this.updateProgressBar();
-      this.currentQuestionNumberValue();
+      this.refreshCurrentQuestionNumberValue();
     });
   }
 
   nextQuestion() {
 
-    this.currentQuestionNumberValue();
+    this.refreshCurrentQuestionNumberValue();
 
     if (this.currentQuestionNumber != this.totalQuestions - 1) {
       this._overlayService.show();
@@ -162,13 +197,13 @@ export class AnswerQuestionsComponent implements OnInit {
       this.getCurrentQuestion();
     }
     else {
-      this.currentQuestionNumberValue();
+      this.refreshCurrentQuestionNumberValue();
       return;
     }
   }
 
   previousQuestion() {
-    this.currentQuestionNumberValue();
+    this.refreshCurrentQuestionNumberValue();
     if (this.currentQuestionNumber <= 0) {
       return;
     }
@@ -178,7 +213,7 @@ export class AnswerQuestionsComponent implements OnInit {
     this.getCurrentQuestion();
   }
 
-  convertInt(data: string){
+  convertInt(data: string) {
     return parseInt(data);
   }
 
@@ -202,7 +237,7 @@ export class AnswerQuestionsComponent implements OnInit {
   }
 
   updateUIWithAnswers() {
-    this.currentQuestionNumberValue();
+    this.refreshCurrentQuestionNumberValue();
     this._surveyService.getCurrentSurveyAnswers().subscribe((data) => {
 
       if (data.length > 0) {
@@ -215,8 +250,10 @@ export class AnswerQuestionsComponent implements OnInit {
             this.singleOption = parseInt(this.lstAnswers[this.currentQuestionNumber]);
             break;
           case 'multiple':
+            let data = this.lstAnswers[this.currentQuestionNumber];
+            let multipleData = data.split(',');
             this.currentQuestionData.objectOptions.forEach((element) => {
-              if (this.lstAnswers[this.currentQuestionNumber] != undefined && this.lstAnswers[this.currentQuestionNumber].indexOf(element.surveyQuestionOptionId.toString()) != -1) {
+              if (multipleData != undefined && multipleData.includes(element.surveyQuestionOptionId.toString())) {
                 element.isChecked = true;
               }
             });
@@ -225,21 +262,51 @@ export class AnswerQuestionsComponent implements OnInit {
             this.singleOption = parseInt(this.lstAnswers[this.currentQuestionNumber]);
             break;
           case 'imagemultiple':
+            let data_imagemultiple = this.lstAnswers[this.currentQuestionNumber];
+            let imagemultipleData = data_imagemultiple.split(',');
             this.currentQuestionData.objectOptions.forEach((element) => {
-              if (this.lstAnswers[this.currentQuestionNumber] != undefined && this.lstAnswers[this.currentQuestionNumber].indexOf(element.surveyQuestionOptionId.toString()) != -1) {
+              if (imagemultipleData != undefined && imagemultipleData.includes(element.surveyQuestionOptionId.toString())) {
                 element.isChecked = true;
               }
             });
             break;
+          case 'slider':
+            var ansValue = this.lstAnswers[this.currentQuestionNumber];
+            if(ansValue != undefined){
+              this.singleOption = parseInt(ansValue);
+            }
+            else{
+              this.singleOption = parseInt(this.currentQuestionData.options['min']);
+            }
+            break;
           case 'rangeslider':
             var rangeValues = this.lstAnswers[this.currentQuestionNumber];
             if (rangeValues != undefined) {
-              this.someRange = [ parseInt(rangeValues[0]), parseInt(rangeValues[1])];
+              this.someRange = [parseInt(rangeValues[0]), parseInt(rangeValues[1])];
             }
             else {
-              this.someRange = [ parseInt(this.currentQuestionData.options['min']), parseInt(this.currentQuestionData.options['max'])]
-              this.lstAnswers[this.currentQuestionNumber] = [this.currentQuestionData.options['min'],this.currentQuestionData.options['max'] ];
+              this.someRange = [parseInt(this.currentQuestionData.options['min']), parseInt(this.currentQuestionData.options['max'])]
+              this.lstAnswers[this.currentQuestionNumber] = [this.currentQuestionData.options['min'], this.currentQuestionData.options['max']];
             }
+            break;
+          case 'starrating':
+            this.singleOption = parseInt(this.lstAnswers[this.currentQuestionNumber]);
+            break;
+          case 'multiplerating':
+            let multipleratings = this.lstAnswers[this.currentQuestionNumber];
+            this.currentQuestionData.objectOptions.forEach((element,i) => {
+              if (multipleratings != undefined) {
+                element.selectedRating = parseInt(multipleratings[i]);
+              }
+            });
+            break;
+          case 'multiplerating':
+            let customratings = this.lstAnswers[this.currentQuestionNumber];
+            this.currentQuestionData.objectOptions.forEach((element,i) => {
+              if (customratings != undefined) {
+                element.selectedRating = parseInt(customratings[i]);
+              }
+            });
             break;
           default:
             break;
@@ -249,7 +316,7 @@ export class AnswerQuestionsComponent implements OnInit {
   }
 
   setAnswerToQuestion() {
-    this.currentQuestionNumberValue();
+    this.refreshCurrentQuestionNumberValue();
 
     this._surveyService.getCurrentSurveyAnswers().subscribe((data) => {
 
@@ -270,8 +337,21 @@ export class AnswerQuestionsComponent implements OnInit {
         case 'imagemultiple':
           answerData = this.currentQuestionData.objectOptions.filter(x => x.isChecked).map(x => x.surveyQuestionOptionId.toString());
           break;
+        case 'slider':
+          answerData = this.singleOption;
+          break;
         case 'rangeslider':
-            answerData = [this.someRange[0].toString(), this.someRange[1].toString()];
+          answerData = [this.someRange[0].toString(), this.someRange[1].toString()];
+          break;
+        case 'starrating':
+          answerData = this.singleOption;
+          break;
+        case 'multiplerating':
+          answerData = this.currentQuestionData.objectOptions.map(x => x.selectedRating.toString());
+          break;
+        case 'customrating':
+          answerData = this.currentQuestionData.objectOptions.map(x => x.selectedRating.toString());
+          break;
         default:
           break;
       }
@@ -298,7 +378,7 @@ export class AnswerQuestionsComponent implements OnInit {
     return 'Survey_Current_Question_' + this.routeGUIDValue;
   }
 
-  currentQuestionNumberValue() {
+  refreshCurrentQuestionNumberValue() {
     let val = this._storageService.getSession(this.currentQuestionKey);
     let nu = parseInt(val);
     if (isNaN(nu) || nu == undefined || nu == null || nu < 0) {
