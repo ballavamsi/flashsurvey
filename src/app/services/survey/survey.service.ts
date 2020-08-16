@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../api/api.service';
 import { SurveyModel } from 'src/app/create-survey/create-survey.component';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { QuestionAnswersBody, QuestionAnswerRequest } from 'src/app/models/question-type';
 
 @Injectable({
@@ -11,11 +11,14 @@ export class SurveyService {
 
   private _emptySurvey: SurveyModel;
   private _emptyAnswers = [];
+ _messageforsuccess : string;
+
   constructor(public api: ApiService) { }
 
   $currentSurvey: BehaviorSubject<SurveyModel> = new BehaviorSubject(this._emptySurvey);
   $currentSurveyAnswers: BehaviorSubject<any[]> = new BehaviorSubject(this._emptyAnswers);
   $previewSurvey: BehaviorSubject<SurveyModel> = new BehaviorSubject(this._emptySurvey);
+  $messageSuccess: BehaviorSubject<string> = new BehaviorSubject(this._messageforsuccess);
 
   public addSurvey(data: SurveyModel) {
     return this.api.addSurvey(data);
@@ -69,6 +72,14 @@ export class SurveyService {
     this.$previewSurvey.next(this._emptySurvey);
   }
 
+   public storeurl(data: string)
+   {
+     this.$messageSuccess.next(data);
+   }
+
+   public getStoredUrl(): Observable<string> {
+    return this.$messageSuccess.asObservable();
+  }
 
 
 }

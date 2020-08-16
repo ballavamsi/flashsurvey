@@ -40,7 +40,6 @@ import { AboutUsComponent } from './about-us/about-us.component';
 import {SearchSurveyComponent} from './search-survey/search-survey.component';
 import { ThankYouComponent } from './thank-you/thank-you.component';
 
-
 const provide = [
   StatusService,
   NavigationMenuService,
