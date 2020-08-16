@@ -6,6 +6,7 @@ import { OverlayService } from '../overlay/overlay.module';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { AlertDialogComponent } from '../alert-dialog/alert-dialog.component';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-create-survey',
@@ -21,11 +22,13 @@ export class CreateSurveyComponent implements OnInit {
   newSurveyViewModel: SurveyModel;
   displayAddQuestion = false;
   askemailprop = false;
+  thankyoulink : Subject<string> = new Subject<string>();
+  thankyoulinkstring : string;
   constructor(private _formBuilder: FormBuilder,
     private _surveyService: SurveyService,
     private _overlayService: OverlayService,
     private _snackBar: MatSnackBar,
-    private _router: Router,
+    private _router: Router, 
     public dialog: MatDialog) {
     this.fg = this._formBuilder.group({
       welcomeMessage: this._formBuilder.control('', [Validators.required]),
@@ -71,8 +74,14 @@ export class CreateSurveyComponent implements OnInit {
        (returnData: SurveyModel) =>{
           this.newSurveyViewModel = returnData;
           this._overlayService.hide();
-          this.openDialog('Survey Created successfully', 'Click on the link to copy', this.generateLink(returnData.surveyGuid), true);
-        },
+     // this.openDialog('Survey Created successfully', 'Click on the link to copy', this.generateLink(returnData.surveyGuid), true);
+    //  this.thankyoulink.subscribe((value) => {
+    //   this.thankyoulinkstring = this.generateLink(returnData.surveyGuid);
+    // });
+    this.thankyoulinkstring = this.generateLink(returnData.surveyGuid);
+    this._surveyService.storeurl(this.thankyoulinkstring);
+     this._router.navigate([`survey/thankyou`]); 
+      },
         error => {
           this.openDismiss('Failed to create survey, please try again', 'Close');
           this._overlayService.hide();
@@ -83,7 +92,9 @@ export class CreateSurveyComponent implements OnInit {
       this.openDismiss("All required details are not filled", 'Dismiss');
     }
 
+    
   }
+
 
   additionalValidations() {
     if (this.questionSaved.indexOf(false) == -1) {
@@ -107,6 +118,8 @@ export class CreateSurveyComponent implements OnInit {
     }
     
   }
+
+  
 
   modifyBody(data: any) {
     let survey = new SurveyModel();
