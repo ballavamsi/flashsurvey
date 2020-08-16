@@ -320,6 +320,7 @@ body {
     //color: mat-color($accent,contrast-500)!important;
     color: mat-color($accent,50)!important;
   }
+  //background-color: #efefef!important;
 }
 
 .loadingSpinner{
@@ -347,6 +348,13 @@ body {
   min-height: 5vh;
   padding-bottom: 10px!important;
   padding-top:15px!important;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }
 
 @import "~nouislider/distribute/nouislider.min.css";

@@ -38,8 +38,7 @@ import { AnswerQuestionsComponent } from './view-survey/answer-questions/answer-
 import { NouisliderModule } from 'ng2-nouislider';
 import { AboutUsComponent } from './about-us/about-us.component';
 import {SearchSurveyComponent} from './search-survey/search-survey.component';
-import { ThankYouComponent } from './thank-you/thank-you.component';
-
+import { SuccessComponent } from './success/success.component';
 
 const provide = [
   StatusService,
@@ -69,7 +68,7 @@ const provide = [
       SurveyQuestionComponent,
       SearchSurveyComponent,
       AboutUsComponent,
-      ThankYouComponent,
+      SuccessComponent,
       StarRatingComponent
    ],
    entryComponents: [

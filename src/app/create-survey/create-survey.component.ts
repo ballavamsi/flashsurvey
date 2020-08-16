@@ -6,6 +6,7 @@ import { OverlayService } from '../overlay/overlay.module';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { AlertDialogComponent } from '../alert-dialog/alert-dialog.component';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-create-survey',
@@ -21,6 +22,8 @@ export class CreateSurveyComponent implements OnInit {
   newSurveyViewModel: SurveyModel;
   displayAddQuestion = false;
   askemailprop = false;
+  thankyoulink: Subject<string> = new Subject<string>();
+  successlink: string;
   constructor(private _formBuilder: FormBuilder,
     private _surveyService: SurveyService,
     private _overlayService: OverlayService,
@@ -68,10 +71,11 @@ export class CreateSurveyComponent implements OnInit {
       }
 
       this._surveyService.addSurvey(modifiedData).subscribe(
-       (returnData: SurveyModel) =>{
+        (returnData: SurveyModel) => {
           this.newSurveyViewModel = returnData;
           this._overlayService.hide();
-          this.openDialog('Survey Created successfully', 'Click on the link to copy', this.generateLink(returnData.surveyGuid), true);
+          this.successlink = this.generateLink(returnData.surveyGuid);
+          this._router.navigate([`ps/success/survey/${returnData.surveyGuid}`]);
         },
         error => {
           this.openDismiss('Failed to create survey, please try again', 'Close');
@@ -83,7 +87,9 @@ export class CreateSurveyComponent implements OnInit {
       this.openDismiss("All required details are not filled", 'Dismiss');
     }
 
+
   }
+
 
   additionalValidations() {
     if (this.questionSaved.indexOf(false) == -1) {
@@ -98,6 +104,8 @@ export class CreateSurveyComponent implements OnInit {
   onChange() {
     this.fg.get('askEmail').patchValue(true);
   }
+
+
 
   modifyBody(data: any) {
     let survey = new SurveyModel();
