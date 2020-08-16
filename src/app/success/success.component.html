@@ -1,8 +1,11 @@
 <div class="container">
   <div class="row" style="background-color: transparent;margin-top:30px;height:200px">
     <div class="col-md-4"></div>
-    <div class="col-md-4">
-      <img src="assets/tick1.png" class="center">
+    <div class="col-md-4 icondiv">
+      <!-- <img src="assets/tick1.png" class="center"> -->
+      <span class="material-icons center liicon">
+        check_circle_outline
+        </span>
     </div>
     <div class="col-md-4"></div>
   </div>
@@ -16,7 +19,7 @@
     <div class="col-md-2"></div>
     <div class="col-md-8" style="background-color: white;margin-top:30px;cursor: pointer;">
       <mat-form-field appearance="outline" style="width: 100%;cursor: pointer;" (click)="onCopyClick()">
-        <input matInput type="text" [value]="sharinglink" readonly style="cursor: pointer;letter-spacing: 2px;" />
+        <input matInput type="text" [value]="sharinglink" readonly style="cursor: pointer;letter-spacing: 2px;text-align: center;" />
         <svg style="" matSuffix xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
           version="1.1" x="0px" y="0px" viewBox="0 0 488.3 488.3" width="24px" height="24px" xml:space="preserve">
           <g>
