@@ -206,3 +206,37 @@
   }
 }
 
+.card1{
+  background-image: linear-gradient(30deg, #0d7377, yellow);
+  .iconsize{
+    color:white;
+    transition:all 2s;
+  }
+  color:white;
+}
+
+.card2{
+  background-image: linear-gradient(0deg, #323232, orange);
+  .iconsize{
+    color:white;
+    transition:all 2s;
+  }
+  color:white;
+}
+
+.card3{
+  background-image: linear-gradient(330deg, #212121, orangered);
+
+  .iconsize{
+    color:white;
+    transition:all 2s;
+  }
+  color:white;
+}
+
+.second-stage-card:hover{
+  //border:3px solid gray;
+  .iconsize{
+    color:black!important;
+  }
+}
