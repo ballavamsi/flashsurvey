@@ -11,7 +11,7 @@ import { ViewSurveyComponent } from './view-survey/view-survey.component';
 import { AnswerQuestionsComponent } from './view-survey/answer-questions/answer-questions.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import {SearchSurveyComponent} from './search-survey/search-survey.component';
-import {ThankYouComponent} from './thank-you/thank-you.component';
+import {SuccessComponent} from './success/success.component';
 import {} from './search-survey/search-survey.component';
 
 
@@ -27,7 +27,7 @@ const routes: Routes = [
   { path: 'survey/view/:id', component: ViewSurveyComponent },
   { path: 'survey/view/:id/questions', component: AnswerQuestionsComponent },
   { path: 'survey/search', component :SearchSurveyComponent},
-  { path: 'survey/thankyou', component :ThankYouComponent},
+  { path: 'ps/success/:type/:id', component :SuccessComponent},
   { path: '', component: DashboardComponent, pathMatch: 'full' }
 ];
 

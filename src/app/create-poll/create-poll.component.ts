@@ -79,7 +79,7 @@ export class CreatePollComponent {
           const returnData: PollViewModel = result;
           this.newPollViewModel = returnData;
           this._overlayService.hide();
-          this.openDialog('Poll Created successfully', 'Click on the link to copy', this.generateLink(returnData.pollGuid), true);
+          this._router.navigate([`ps/success/poll/${returnData.pollGuid}`]);
         },
         error => {
           this.openDismiss('Failed to create poll, please try again', 'Close');
