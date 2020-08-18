@@ -220,7 +220,7 @@
 @include media-breakpoint-down(md) {
     .navbar-nav {
         .nav-link {
-            padding: .625rem 0;
+            padding: .625rem 1rem 0;
             color: theme-color("default") !important;
         }
 

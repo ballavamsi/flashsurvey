@@ -27,20 +27,41 @@
       </div>
       <ul class="navbar-nav navbar-nav-hover align-items-lg-center ml-lg-auto">
         <li class="nav-item  d-block d-lg-none">
-          <a _ngcontent-c1="" class="nav-link nav-link-icon" data-toggle="tooltip"
-          [routerLink]="['/login']" 
-            title="Star us on Github">
-            <i _ngcontent-c1="" class="fa fa-github"></i>
-            <span _ngcontent-c1=""
-              class="nav-link-inner--text d-lg-none">SignIn</span>
+          <a class="nav-link nav-link-icon" data-toggle="tooltip"
+          [routerLink]="['/home']" 
+            title="Go to Home">
+            <span class="btn-inner--icon">
+            <i class="fa fa-lg fa-home mr-2"></i>
+            </span>
+            <span class="nav-link-inner--text d-lg-none">HOME</span>
             </a>
           </li>
+        <li class="nav-item  d-block d-lg-none">
+          <a class="nav-link nav-link-icon" data-toggle="tooltip"
+          [routerLink]="['/login']" 
+            title="sign in">
+            <span class="btn-inner--icon">
+            <i class="fa-lg fa-lock fa mr-2"></i>
+            </span>
+            <span class="nav-link-inner--text d-lg-none">SIGN IN</span>
+            </a>
+          </li>
+          <li class="nav-item  d-block d-lg-none">
+            <a class="nav-link nav-link-icon" data-toggle="tooltip"
+            [routerLink]="['/register']" 
+              title="register">
+              <span class="btn-inner--icon">
+              <i class="fa-lg fa fa-user mr-2"></i>
+              </span>
+              <span class="nav-link-inner--text d-lg-none">REGISTER</span>
+              </a>
+            </li>
         <li class="nav-item d-none d-lg-block">
           <a class="nav-link" [routerLink]="['/login']" class="btn btn-neutral btn-icon">
             <span class="btn-inner--icon">
-              <i class="ni ni-circle-08 mr-2"></i>
+              <i class="fa-lg fa-lock fa mr-2"></i>
             </span>
-            <span class="nav-link-inner--text">SignIn</span>
+            <span class="nav-link-inner--text">Sign In</span>
           </a>
         </li>
       </ul>

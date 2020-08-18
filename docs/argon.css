@@ -14628,7 +14628,7 @@ textarea[resize=horizontal] {
 }
 
 .navbar-horizontal .navbar-nav .nav-link {
-    font-size: 1.2rem;
+    font-size: 0.9rem;
     font-weight: 400;
     transition: all .15s linear;
     letter-spacing: 0;
