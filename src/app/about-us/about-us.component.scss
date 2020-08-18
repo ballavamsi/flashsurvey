@@ -3,16 +3,6 @@
   background-size: cover;
 }
 
-.gridMatCard{
-  width: 400px;
-  height: 300px;
-  margin: 20px;
-  padding: 20px;
-  height: auto;
-  width: auto;
-}
-
-.gridDivFlex{
-  display: inline-grid;
-  flex: flex-wrap;
+.shape-color-orangered{
+  background: linear-gradient(150deg, #f87021 15%, #f5bd46 70%, #e77223 94%) !important;
 }
