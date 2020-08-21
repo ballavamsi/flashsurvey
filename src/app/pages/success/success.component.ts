@@ -27,7 +27,7 @@ export class SuccessComponent implements OnInit {
           break;
         case 'poll':
           this.sharinglink = this.generatePollLink('view',this.routeGuid);
-          this.resultsLink = this.generateSurveyLink('results',this.routeGuid);
+          this.resultsLink = this.generatePollLink('results',this.routeGuid);
           break;
         default:
           this.sharinglink = this.generateSurveyLink('view',this.routeGuid);

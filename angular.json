@@ -105,7 +105,7 @@
         }
       }
     },
-    "freepoll-ui-e2e": {
+    "freepoll-ui": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
