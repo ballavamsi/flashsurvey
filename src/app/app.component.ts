@@ -7,7 +7,7 @@ import { OverlayService } from './components/overlay/overlay.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'freepoll-ui';
+  title = 'flashsurvey';
   public displayProgressSpinner = false;
   constructor(overlayService: OverlayService) {
     overlayService.progressBarVisibility.subscribe((data) => {
