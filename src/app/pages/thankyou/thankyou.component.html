@@ -19,12 +19,12 @@
                       <div class="col-md-auto">
                         <p class="lead">
                          Thank you for completing the <b class="text-capitalize">{{type}}</b>
-                         <label *ngIf="type == 'poll'">now you can view {{type}} results here.</label>.
+                         <label *ngIf="type == 'poll'">, now you can view {{type}} results here.</label>.
                         </p>
                       </div>
                     </div>
                     <div class="row">
-                      <button type="button" placement="bottom" ngbTooltip="Click here to copy" class="btn btn-outline-default btn-lg btn-block" (click)="onCopyClick()"
+                      <button type="button" placement="bottom" ngbTooltip="Click here to copy" class="text-unwrap-normal btn btn-outline-default btn-lg btn-block" (click)="onCopyClick()"
                         style="letter-spacing: 2px;">
                         <span class="btn-inner--text">{{sharinglink}}</span>
                         <span class="btn-inner--icon right-0 pl-5"><svg style="" matSuffix xmlns="http://www.w3.org/2000/svg"

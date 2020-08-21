@@ -5,7 +5,7 @@
     "outDir": "./dist/flashsurvey",
     "sourceMap": true,
     "declaration": false,
-    "target": "es2015",
+    "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,

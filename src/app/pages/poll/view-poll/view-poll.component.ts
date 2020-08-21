@@ -121,7 +121,7 @@ export class ViewPollComponent implements OnInit, OnDestroy {
         if(data) {
           this._overlayService.hide();
           this.openDismiss('You have voted','Dismiss');
-          this._router.navigate([`poll/result/${this.routeGuid}`]);
+          this._router.navigate([`thankyou/poll/${this.routeGuid}`]);
         }
       },
       error=>{

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { SocialAuthService, GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 
 @Component({
   selector: 'app-login',
@@ -19,11 +20,17 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(private snackBar: MatSnackBar,
     private router: Router,
-    private storageService: StorageService) {
+    private storageService: StorageService,
+    private _socialAuthService: SocialAuthService) {
     this.fg = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.maxLength(255)]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     });
+
+    this._socialAuthService.authState.subscribe((user) => {
+      console.log(user);
+    });
+
   }
 
 
@@ -38,6 +45,14 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   changedData() {
     this.errorMessage = '';
+  }
+
+  googleSignIn(){
+    this._socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  }
+
+  fbSignIn(){
+    this._socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 
   onSubmit() {
