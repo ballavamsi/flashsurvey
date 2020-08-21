@@ -1,360 +1,55 @@
-/* You can add global styles to this file, and also import other style files */
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
 @import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
 @include mat-core();
 
-// $primary: mat-palette($mat-indigo);
-// $accent: mat-palette($mat-pink, A200, A100, A400);
-// //$accentOppostite: mat-palette($mat-white);
-// $theme: mat-light-theme($primary, $accent);
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$freepoll-ui-primary: mat-palette($mat-indigo);
+$freepoll-ui-accent: mat-palette($mat-pink, A200, A100, A400);
 
-// @include angular-material-theme($theme);
+// The warn palette is optional (defaults to red).
+$freepoll-ui-warn: mat-palette($mat-red);
 
-//start
-$bv-primary: (
-  // 50 : #ededed,
-  //   100 : #d2d1d1,
-  //   200 : #b4b3b2,
-  //   300 : #969593,
-  //   400 : #807e7c,
-  //   500 : #696765,
-  //   600 : #615f5d,
-  //   700 : #565453,
-  //   800 : #4c4a49,
-  //   900 : #3b3937,
-  //   A100 : #f6ba9c,
-  //   A200 : #f2996d,
-  //   A400 : #ff732d,
-  //   A700 : #ff6214,
-  //   contrast: (
-  //       50 : #000000,
-  //       100 : #000000,
-  //       200 : #000000,
-  //       300 : #000000,
-  //       400 : #ffffff,
-  //       500 : #ffffff,
-  //       600 : #ffffff,
-  //       700 : #ffffff,
-  //       800 : #ffffff,
-  //       900 : #ffffff,
-  //       A100 : #000000,
-  //       A200 : #000000,
-  //       A400 : #000000,
-  //       A700 : #000000,
-  //   )
+// Create the theme object (a Sass map containing all of the palettes).
+$freepoll-ui-theme: mat-light-theme($freepoll-ui-primary, $freepoll-ui-accent, $freepoll-ui-warn);
 
-  // 50 : #ecedec,
-  // 100 : #cfd1cf,
-  // 200 : #b0b2b0,
-  // 300 : #909390,
-  // 400 : #787c78,
-  // 500 : #606560,
-  // 600 : #585d58,
-  // 700 : #4e534e,
-  // 800 : #444944,
-  // 900 : #333733,
-  // A100 : #95f795,
-  // A200 : #66f366,
-  // A400 : #27ff27,
-  // A700 : #0eff0e,
-  // contrast: (
-  //     50 : #000000,
-  //     100 : #000000,
-  //     200 : #000000,
-  //     300 : #000000,
-  //     400 : #ffffff,
-  //     500 : #ffffff,
-  //     600 : #ffffff,
-  //     700 : #ffffff,
-  //     800 : #ffffff,
-  //     900 : #ffffff,
-  //     A100 : #000000,
-  //     A200 : #000000,
-  //     A400 : #000000,
-  //     A700 : #000000,
-  // )
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($freepoll-ui-theme);
 
-  // 50 : #f1fcfb,
-  //   100 : #dcf8f6,
-  //   200 : #c4f4f0,
-  //   300 : #acf0ea,
-  //   400 : #9bece6,
-  //   500 : #89e9e1,
-  //   600 : #81e6dd,
-  //   700 : #76e3d9,
-  //   800 : #6cdfd5,
-  //   900 : #59d9cd,
-  //   A100 : #ffffff,
-  //   A200 : #ffffff,
-  //   A400 : #d9fffb,
-  //   A700 : #bffff9,
-  //   contrast: (
-  //       50 : #000000,
-  //       100 : #000000,
-  //       200 : #000000,
-  //       300 : #000000,
-  //       400 : #000000,
-  //       500 : #000000,
-  //       600 : #000000,
-  //       700 : #000000,
-  //       800 : #000000,
-  //       900 : #000000,
-  //       A100 : #000000,
-  //       A200 : #000000,
-  //       A400 : #000000,
-  //       A700 : #000000,
-  //   )
-
-  50 : #e0e0e0,
-    100 : #b3b3b3,
-    200 : #808080,
-    300 : #4d4d4d,
-    400 : #262626,
-    500 : #000000,
-    600 : #000000,
-    700 : #000000,
-    800 : #000000,
-    900 : #000000,
-    A100 : #a6a6a6,
-    A200 : #8c8c8c,
-    A400 : #737373,
-    A700 : #666666,
-    contrast: (
-        50 : #000000,
-        100 : #000000,
-        200 : #000000,
-        300 : #ffffff,
-        400 : #ffffff,
-        500 : #ffffff,
-        600 : #ffffff,
-        700 : #ffffff,
-        800 : #ffffff,
-        900 : #ffffff,
-        A100 : #000000,
-        A200 : #000000,
-        A400 : #ffffff,
-        A700 : #ffffff,
-    )
-);
-
-$bv-secondary: (
-  // 50 : #fcefed,
-  // 100 : #f8d7d3,
-  // 200 : #f3bdb6,
-  // 300 : #eea298,
-  // 400 : #eb8e82,
-  // 500 : #e77a6c,
-  // 600 : #e47264,
-  // 700 : #e06759,
-  // 800 : #dd5d4f,
-  // 900 : #d74a3d,
-  // A100 : #ffffff,
-  // A200 : #fff2f1,
-  // A400 : #ffc4be,
-  // A700 : #ffaca5,
-  // contrast: (
-  //     50 : #000000,
-  //     100 : #000000,
-  //     200 : #000000,
-  //     300 : #000000,
-  //     400 : #000000,
-  //     500 : #000000,
-  //     600 : #000000,
-  //     700 : #000000,
-  //     800 : #000000,
-  //     900 : #ffffff,
-  //     A100 : #000000,
-  //     A200 : #000000,
-  //     A400 : #000000,
-  //     A700 : #000000,
-  // )
-
-  // 50 : #fcfbeb,
-  //   100 : #f8f5ce,
-  //   200 : #f4efad,
-  //   300 : #efe88c,
-  //   400 : #ebe374,
-  //   500 : #e8de5b,
-  //   600 : #e5da53,
-  //   700 : #e2d549,
-  //   800 : #ded140,
-  //   900 : #d8c82f,
-  //   A100 : #ffffff,
-  //   A200 : #fffde8,
-  //   A400 : #fff8b5,
-  //   A700 : #fff59c,
-  //   contrast: (
-  //       50 : #000000,
-  //       100 : #000000,
-  //       200 : #000000,
-  //       300 : #000000,
-  //       400 : #000000,
-  //       500 : #000000,
-  //       600 : #000000,
-  //       700 : #000000,
-  //       800 : #000000,
-  //       900 : #000000,
-  //       A100 : #000000,
-  //       A200 : #000000,
-  //       A400 : #000000,
-  //       A700 : #000000,
-  //   )
-  // 50 : #faf8f6,
-  //   100 : #f3efe8,
-  //   200 : #ece4d9,
-  //   300 : #e4d9ca,
-  //   400 : #ded0be,
-  //   500 : #d8c8b3,
-  //   600 : #d4c2ac,
-  //   700 : #cebba3,
-  //   800 : #c8b49a,
-  //   900 : #bfa78b,
-  //   A100 : #ffffff,
-  //   A200 : #ffffff,
-  //   A400 : #fff6eb,
-  //   A700 : #ffead2,
-  //   contrast: (
-  //       50 : #000000,
-  //       100 : #000000,
-  //       200 : #000000,
-  //       300 : #000000,
-  //       400 : #000000,
-  //       500 : #000000,
-  //       600 : #000000,
-  //       700 : #000000,
-  //       800 : #000000,
-  //       900 : #000000,
-  //       A100 : #000000,
-  //       A200 : #000000,
-  //       A400 : #000000,
-  //       A700 : #000000,
-  //   )
-
-  50 : #fce8e6,
-    100 : #f8c5c0,
-    200 : #f39e96,
-    300 : #ee776b,
-    400 : #eb5a4c,
-    500 : #e73d2c,
-    600 : #e43727,
-    700 : #e02f21,
-    800 : #dd271b,
-    900 : #d71a10,
-    A100 : #ffffff,
-    A200 : #ffd3d1,
-    A400 : #ffa19e,
-    A700 : #ff8985,
-    contrast: (
-        50 : #000000,
-        100 : #000000,
-        200 : #000000,
-        300 : #000000,
-        400 : #000000,
-        500 : #ffffff,
-        600 : #ffffff,
-        700 : #ffffff,
-        800 : #ffffff,
-        900 : #ffffff,
-        A100 : #000000,
-        A200 : #000000,
-        A400 : #000000,
-        A700 : #000000,
-    )
-
-    // 50 : #fefde1,
-    // 100 : #fefbb5,
-    // 200 : #fdf883,
-    // 300 : #fcf551,
-    // 400 : #fbf22c,
-    // 500 : #faf007,
-    // 600 : #f9ee06,
-    // 700 : #f9ec05,
-    // 800 : #f8e904,
-    // 900 : #f6e502,
-    // A100 : #ffffff,
-    // A200 : #fffdea,
-    // A400 : #fff9b7,
-    // A700 : #fff79d,
-    // contrast: (
-    //     50 : #000000,
-    //     100 : #000000,
-    //     200 : #000000,
-    //     300 : #000000,
-    //     400 : #000000,
-    //     500 : #000000,
-    //     600 : #000000,
-    //     700 : #000000,
-    //     800 : #000000,
-    //     900 : #000000,
-    //     A100 : #000000,
-    //     A200 : #000000,
-    //     A400 : #000000,
-    //     A700 : #000000,
-    // )
-);
-
-// mandatory stuff for theming
-$bv-palette-primary: mat-palette($bv-primary);
-$bv-palette-accent:  mat-palette($bv-secondary);
-
-
-$accent: $bv-palette-accent;
-$primary: $bv-palette-primary;
-
-// include the custom theme components into a theme object
-$bv-theme: mat-light-theme($primary, $accent);
-
-// include the custom theme object into the angular material theme
-@include angular-material-theme($bv-theme);
-
-//end
-
-$navbar-color:black;
-$navbar-fontcolor: white;
+/* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body {
-   margin: 0;
-   font-family: 'rubikmedium',Roboto, "Helvetica Neue", sans-serif;
-  .mat-button-toggle-checked {
-    background-color: mat-color($accent);
-    //color: mat-color($accent,contrast-500)!important;
-    color: mat-color($accent,50)!important;
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.form-group .ng-invalid {
+  border:1px solid orange!important;
+}
+
+.form-group .ng-valid {
+  border:1px solid greenyellow!important;
+}
+
+.datepicker-div{
+  .btn-light {
+    border: 0px!important;
+    color: gray;
+    box-shadow: none;
+    background-color: white;
+    font-size: small;
   }
-  //background-color: #efefef!important;
-}
+  .ngb-dp-week, .ngb-dp-header{
+    background-color: aliceblue;
+  }
 
-.loadingSpinner{
-  text-align: center;
-  width: 100px;
-  height: 100px;
-  position: relative;
-  left: calc(50% - 50px);
-  margin-top: 10%;
-}
 
-.center-div{
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
-
-.padding-top-20{
-  padding-top:20px
-}
-
-.content-height{
-  height: auto!important;
-  min-height: 5vh;
-  padding-bottom: 10px!important;
-  padding-top:15px!important;
-}
-
-.center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-}
-
-@import "~nouislider/distribute/nouislider.min.css";

@@ -5,8 +5,8 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { Status } from 'src/app/models/status';
 import { PollModel, PollViewModel, PollVote, PollResult } from 'src/app/models/poll';
-import { SurveyModel } from 'src/app/create-survey/create-survey.component';
 import { QuestionType, QuestionAnswersBody, QuestionAnswerRequest } from 'src/app/models/question-type';
+import { SurveyModel } from 'src/app/models/survey';
 @Injectable({
   providedIn: 'root'
 })
