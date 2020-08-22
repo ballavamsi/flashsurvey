@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { StorageService } from 'src/app/services/storage/storage.service';
+import { UserLoginResponse } from 'src/app/models/users';
 
 declare interface RouteInfo {
     path: string;
@@ -26,8 +28,12 @@ export class SidebarComponent implements OnInit {
 
   public menuItems: any[];
   public isCollapsed = true;
+  public userDetails: UserLoginResponse;
+  constructor(private router: Router,
+    private _storageService: StorageService) {
+      this.userDetails = this._storageService.getUserSessionDetails();
 
-  constructor(private router: Router) { }
+     }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
