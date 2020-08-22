@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserLoginResponse } from 'src/app/models/users';
+import { StorageService } from 'src/app/services/storage/storage.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserProfileComponent implements OnInit {
 
-  constructor() { }
+  userDetails: UserLoginResponse;
 
-  ngOnInit() {
+  constructor(private _storageService: StorageService) {
+
   }
 
+  ngOnInit() {
+    this.userDetails = this._storageService.getUserSessionDetails();
+  }
+
+  getUrl() {
+    return "url('" + this.userDetails.profileUrl + "')";
+  }
 }

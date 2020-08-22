@@ -13,6 +13,12 @@ export class LogoutComponent implements OnInit {
   }
 
   ngOnInit() {
+    var body = document.getElementsByTagName("body")[0];
+    body.classList.add("bg-darker");
+  }
+  ngOnDestroy(): void {
+    var body = document.getElementsByTagName("body")[0];
+    body.classList.remove("bg-darker");
   }
 
 }

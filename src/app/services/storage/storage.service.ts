@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { UserLoginResponse } from 'src/app/models/users';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,10 @@ getSession(key) {
 
 removeSession(key){
   window.sessionStorage.removeItem(key);
+}
+
+getUserSessionDetails(): UserLoginResponse{
+  return JSON.parse(this.getSession("UGUID"));
 }
 
 }

@@ -3,6 +3,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
+import { UserLoginResponse } from 'src/app/models/users';
 
 @Component({
   selector: 'app-navbar',
@@ -14,13 +15,16 @@ export class NavbarComponent implements OnInit {
   public listTitles: any[];
   public location: Location;
   firstname = '';
+  profileUrl = '';
 
   constructor(location: Location,  private element: ElementRef, private router: Router, private _storageService: StorageService) {
     this.location = location;
   }
 
   ngOnInit() {
-    this.firstname = this._storageService.getLocal("username");
+    let userDetails: UserLoginResponse = JSON.parse(this._storageService.getSession("UGUID"));
+    this.firstname = userDetails.userName;
+    this.profileUrl = userDetails.profileUrl;
     this.listTitles = ROUTES.filter(listTitle => listTitle);
   }
   getTitle(){

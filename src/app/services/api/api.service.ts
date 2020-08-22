@@ -7,15 +7,22 @@ import { Status } from 'src/app/models/status';
 import { PollModel, PollViewModel, PollVote, PollResult } from 'src/app/models/poll';
 import { QuestionType, QuestionAnswersBody, QuestionAnswerRequest } from 'src/app/models/question-type';
 import { SurveyModel } from 'src/app/models/survey';
+import { UserSignInModel, UserLoginResponse } from 'src/app/models/users';
 @Injectable({
   providedIn: 'root'
 })
 
 
 export class ApiService {
+
+
   _API: string;
   constructor(public http: HttpClient) {
     this._API = environment.API_URL + '/';
+  }
+
+  signInUser(data: UserSignInModel) : Observable<UserLoginResponse>  {
+    return this.http.post<UserLoginResponse>(this._API + 'user/login', data);
   }
 
   getQuestionTypes(): Observable<QuestionType[]> {
