@@ -2,7 +2,7 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/8ff72a9a-8728-4de8-867f-150914653292/deploy-status)](https://app.netlify.com/sites/flashsurvey/deploys)
 [![Gitter](https://badges.gitter.im/flashsurvey/community.svg)](https://gitter.im/flashsurvey/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.26.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.
 
 ## Development server
 
