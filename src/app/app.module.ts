@@ -1,7 +1,7 @@
 import { AppOverlayModule } from './components/overlay/overlay.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -18,6 +18,7 @@ import { ApiService } from './services/api/api.service';
 import { OverlayService } from './components/overlay/overlay.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AuthGuardService } from './services/auth/auth-guard.service';
+import { TokenInterceptorService } from './services/tokenInterceptor.service';
 
 
 @NgModule({
@@ -40,11 +41,16 @@ import { AuthGuardService } from './services/auth/auth-guard.service';
     AdminLayoutComponent,
     PreLoginLayoutComponent
   ],
-  entryComponents:[
+  entryComponents: [
     ProgressSpinnerComponent,
     AppComponent
   ],
-  providers: [AuthGuardService, ApiService,OverlayService],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorService,
+    multi: true
+  }, AuthGuardService, ApiService, OverlayService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

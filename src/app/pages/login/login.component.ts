@@ -7,6 +7,7 @@ import { SocialAuthService, GoogleLoginProvider, FacebookLoginProvider } from 'a
 import { UserService } from 'src/app/services/user/user.service';
 import { UserSignInModel, SocialPlatform } from 'src/app/models/users';
 import { OverlayService } from 'src/app/components/overlay/overlay.service';
+import { Constants } from 'src/app/variables/constants';
 
 @Component({
   selector: 'app-login',
@@ -44,8 +45,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
       loginUser.platformdetail = platformDetails;
       this._userService.signInUser(loginUser).subscribe((data)=>{
-        this.storageService.setSession("UGUID", JSON.stringify(data));
-        this.storageService.setSession("PFID", user.authToken);
+        this.storageService.setSession(Constants.SessionKey, JSON.stringify(data));
+        this.storageService.setSession(Constants.AuthToken, user.authToken);
         this._overlayService.hide();
         this.router.navigate(['/dashboard']);
       },

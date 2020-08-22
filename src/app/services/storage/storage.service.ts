@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { UserLoginResponse } from 'src/app/models/users';
+import { Constants } from 'src/app/variables/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +38,7 @@ clearAllSession(){
 }
 
 getUserSessionDetails(): UserLoginResponse{
-  return JSON.parse(this.getSession("UGUID"));
+  return JSON.parse(this.getSession(Constants.SessionKey));
 }
 
 }

@@ -4,6 +4,7 @@ import { ROUTES } from '../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
 import { UserLoginResponse } from 'src/app/models/users';
+import { Constants } from 'src/app/variables/constants';
 
 @Component({
   selector: 'app-navbar',
@@ -22,7 +23,7 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    let userDetails: UserLoginResponse = JSON.parse(this._storageService.getSession("UGUID"));
+    let userDetails: UserLoginResponse = JSON.parse(this._storageService.getSession(Constants.SessionKey));
     this.firstname = userDetails.userName;
     this.profileUrl = userDetails.profileUrl;
     this.listTitles = ROUTES.filter(listTitle => listTitle);

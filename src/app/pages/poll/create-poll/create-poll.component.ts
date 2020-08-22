@@ -125,7 +125,7 @@ export class CreatePollComponent implements OnInit {
   // open snackbar
   openDismiss(message: string, buttontext: string) {
     this._snackBar.open(message, buttontext, {
-      duration: 300,
+      duration: 3000,
     });
   }
 
