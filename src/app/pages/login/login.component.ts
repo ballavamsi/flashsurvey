@@ -32,6 +32,13 @@ export class LoginComponent implements OnInit, OnDestroy {
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     });
 
+    this._overlayService.show();
+    this._socialAuthService.initState.subscribe(() => { }, console.error,
+      () => {
+        console.log('all providers are ready');
+        this._overlayService.hide();
+      });
+
     this._socialAuthService.authState.subscribe((user) => {
 
       let loginUser = new UserSignInModel();
@@ -44,26 +51,26 @@ export class LoginComponent implements OnInit, OnDestroy {
       platformDetails.platformImage = user.photoUrl;
 
       loginUser.platformdetail = platformDetails;
-      this._userService.signInUser(loginUser).subscribe((data)=>{
+      this._userService.signInUser(loginUser).subscribe((data) => {
         this.storageService.setSession(Constants.SessionKey, JSON.stringify(data));
         this.storageService.setSession(Constants.AuthToken, user.authToken);
         this._overlayService.hide();
         this.router.navigate(['/dashboard']);
       },
-      error=>{
-        this._overlayService.hide();
-        switch(error.error)
-        {
-          case 'InactiveUser':
-            this.errorMessage = "You are no longer active.";
-            break;
-          case 'InvalidUser':
-            this.errorMessage = "Invalid user detected.";
-            break;
-          default:
-            this.errorMessage = 'Something went wrong';
-            break;
-        }});
+        error => {
+          this._overlayService.hide();
+          switch (error.error) {
+            case 'InactiveUser':
+              this.errorMessage = "You are no longer active.";
+              break;
+            case 'InvalidUser':
+              this.errorMessage = "Invalid user detected.";
+              break;
+            default:
+              this.errorMessage = 'Something went wrong';
+              break;
+          }
+        });
     });
 
   }
@@ -82,13 +89,13 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.errorMessage = '';
   }
 
-  googleSignIn(){
+  googleSignIn() {
     this.platform = 'google';
     this._overlayService.show();
     this._socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 
-  fbSignIn(){
+  fbSignIn() {
     this.platform = 'facebook';
     this._overlayService.show();
     this._socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
@@ -99,7 +106,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.fg.valid) {
       let data = this.fg.value;
       if (data.email.endsWith(".com")) {
-        this.storageService.setSession("username",data.email);
+        this.storageService.setSession("username", data.email);
         this.router.navigate(['/dashboard']);
 
       }
