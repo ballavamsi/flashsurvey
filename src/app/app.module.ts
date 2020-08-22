@@ -17,6 +17,7 @@ import { ProgressSpinnerComponent, ProgressSpinnerModule } from './components/pr
 import { ApiService } from './services/api/api.service';
 import { OverlayService } from './components/overlay/overlay.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AuthGuardService } from './services/auth/auth-guard.service';
 
 
 @NgModule({
@@ -43,7 +44,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     ProgressSpinnerComponent,
     AppComponent
   ],
-  providers: [ApiService,OverlayService],
+  providers: [AuthGuardService, ApiService,OverlayService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
