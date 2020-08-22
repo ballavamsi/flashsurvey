@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.errorMessage = "You are no longer active.";
             break;
           case 'InvalidUser':
-            this.errorMessage = "You are already registered with different social platform.";
+            this.errorMessage = "Invalid user detected.";
             break;
           default:
             this.errorMessage = 'Something went wrong';
