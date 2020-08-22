@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SocialAuthService } from 'angularx-social-login';
+import { StorageService } from 'src/app/services/storage/storage.service';
 
 @Component({
   selector: 'app-logout',
@@ -8,7 +9,9 @@ import { SocialAuthService } from 'angularx-social-login';
 })
 export class LogoutComponent implements OnInit {
 
-  constructor(socialAuthService: SocialAuthService) {
+  constructor(socialAuthService: SocialAuthService,
+    storageService: StorageService) {
+      storageService.clearAllSession();
       socialAuthService.signOut();
   }
 

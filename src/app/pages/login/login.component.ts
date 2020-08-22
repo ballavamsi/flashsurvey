@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       loginUser.platformdetail = platformDetails;
       this._userService.signInUser(loginUser).subscribe((data)=>{
         this.storageService.setSession("UGUID", JSON.stringify(data));
+        this.storageService.setSession("PFID", user.authToken);
         this._overlayService.hide();
         this.router.navigate(['/dashboard']);
       },

@@ -32,6 +32,10 @@ removeSession(key){
   window.sessionStorage.removeItem(key);
 }
 
+clearAllSession(){
+  window.sessionStorage.clear();
+}
+
 getUserSessionDetails(): UserLoginResponse{
   return JSON.parse(this.getSession("UGUID"));
 }
