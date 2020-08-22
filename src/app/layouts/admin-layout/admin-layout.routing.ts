@@ -9,16 +9,13 @@ import { IconsComponent } from '../../pages/icons/icons.component';
 import { MapsComponent } from '../../pages/maps/maps.component';
 import { UserProfileComponent } from '../../pages/user-profile/user-profile.component';
 import { TablesComponent } from '../../pages/tables/tables.component';
+import { AuthGuardService } from 'src/app/services/auth/auth-guard.service';
 
 export const AdminLayoutRoutes: Routes = [
-    { path: 'dashboard',      component: DashboardComponent },
-    { path: 'user-profile',   component: UserProfileComponent },
-    { path: 'poll',   component: PollComponent },
-    { path: 'poll/new',   component: CreatePollComponent },
-    { path: 'survey',   component: SurveyComponent },
-    { path: 'success/:type/:id',   component: SuccessComponent },
-
-    { path: 'tables',         component: TablesComponent },
-    { path: 'icons',          component: IconsComponent },
-    { path: 'maps',           component: MapsComponent }
+    { path: 'dashboard',      component: DashboardComponent, canActivate: [AuthGuardService] },
+    { path: 'user-profile',   component: UserProfileComponent, canActivate: [AuthGuardService]  },
+    { path: 'poll',   component: PollComponent, canActivate: [AuthGuardService]  },
+    { path: 'poll/new',   component: CreatePollComponent, canActivate: [AuthGuardService]  },
+    { path: 'survey',   component: SurveyComponent , canActivate: [AuthGuardService] },
+    { path: 'success/:type/:id',   component: SuccessComponent, canActivate: [AuthGuardService] }
 ];
