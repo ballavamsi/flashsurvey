@@ -8,6 +8,7 @@ export class PollModel {
   type: PollOptionTypes;
   endDate: Date;
   duplicate: boolean;
+  status: number;
 }
 
 export class PollViewModel{
