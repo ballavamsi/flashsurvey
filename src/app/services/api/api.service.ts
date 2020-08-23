@@ -8,6 +8,7 @@ import { PollModel, PollViewModel, PollVote, PollResult, UserPollsResponseModel 
 import { QuestionType, QuestionAnswersBody, QuestionAnswerRequest } from 'src/app/models/question-type';
 import { SurveyModel } from 'src/app/models/survey';
 import { UserSignInModel, UserLoginResponse } from 'src/app/models/users';
+import { DashboardMetricTile } from 'src/app/models/dashboard';
 @Injectable({
   providedIn: 'root'
 })
@@ -27,6 +28,10 @@ export class ApiService {
 
   getUserPolls(pagenumber,pagesize) : Observable<UserPollsResponseModel>  {
     return this.http.get<UserPollsResponseModel>(this._API + `poll/user/pagenumber/${pagenumber}/pagesize/${pagesize}`);
+  }
+
+  getDashboardTiles() : Observable<DashboardMetricTile>  {
+    return this.http.get<DashboardMetricTile>(this._API + `dashboard/tilemetrics`);
   }
 
   signInUser(data: UserSignInModel) : Observable<UserLoginResponse>  {

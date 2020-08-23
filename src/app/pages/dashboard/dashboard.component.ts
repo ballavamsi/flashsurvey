@@ -8,6 +8,9 @@ import {
   chartExample1,
   chartExample2
 } from "../../variables/charts";
+import { DashboardService } from 'src/app/services/dashboard/dashboard.service';
+import { DashboardMetricTile } from 'src/app/models/dashboard';
+import { OverlayService } from 'src/app/components/overlay/overlay.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,8 +24,26 @@ export class DashboardComponent implements OnInit {
   public salesChart;
   public clicked: boolean = true;
   public clicked1: boolean = false;
+  loaded = false;
 
-  constructor() { }
+  metricTile: DashboardMetricTile;
+  constructor(private _dashboardService: DashboardService,
+    private _overlayService: OverlayService) {
+      this._overlayService.show();
+    this._dashboardService.getDashboardTiles().subscribe((data: DashboardMetricTile) =>{
+      this.metricTile = data;
+      this.loaded= true;
+      this._overlayService.hide();
+    },
+    error=>{
+      this.loaded= true;
+      this.metricTile.polls = 0;
+      this.metricTile.pollVotes = 0;
+      this.metricTile.surveys = 0;
+      this.metricTile.surveyFeedbacks = 0;
+      this._overlayService.hide();
+    });
+   }
 
   ngOnInit() {
 
