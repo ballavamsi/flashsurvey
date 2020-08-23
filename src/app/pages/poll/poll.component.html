@@ -37,14 +37,15 @@
                   {{eachPoll.votes}}
                 </td>
                 <td>
-                  {{eachPoll.date}}
+                  {{eachPoll.date | date:'mediumDate'}}
                 </td>
                 <td>
                   {{eachPoll.status}}
                 </td>
                 <td>
-                  <a class="icon-sm icon-shape icon-shape-primary cursor-pointer rounded-circle mr-2" [routerLink]="['/poll/edit/'+ eachPoll.pollId]"><i class="fa fa-pencil"></i></a>
-                  <a class="icon-sm icon-shape icon-shape-warning cursor-pointer rounded-circle mr-2 ui-state-hover" data-toggle="modal" data-target="#pollDeleteModal" (click)="askDeleteConfirmation(eachPoll.pollId,eachPoll.pollGuid,eachPoll.pollName);"><i class="fa fa-trash"></i></a>
+                  <a class="icon-sm icon-shape icon-shape-info cursor-pointer rounded-circle" ngbTooltip="View Results" [routerLink]="['/poll/results/'+ eachPoll.pollGuid]" target="_blank"><i class="fa fa-pie-chart"></i></a>
+                  <a class="icon-sm icon-shape icon-shape-primary cursor-pointer rounded-circle" ngbTooltip="Edit Poll" [routerLink]="['/poll/edit/'+ eachPoll.pollId]"><i class="fa fa-pencil"></i></a>
+                  <a class="icon-sm icon-shape icon-shape-warning cursor-pointer rounded-circle ui-state-hover" ngbTooltip="Delete Poll" data-toggle="modal" data-target="#pollDeleteModal" (click)="askDeleteConfirmation(eachPoll.pollId,eachPoll.pollGuid,eachPoll.pollName);"><i class="fa fa-trash"></i></a>
                 </td>
               </tr>
             </tbody>

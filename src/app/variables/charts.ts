@@ -155,6 +155,7 @@ var colors = {
   black: '#12263F',
   white: '#FFFFFF',
   transparent: 'transparent',
+  platformColors: ['#172b4d','#5e72e4','#f4f5f7','#11cdef','#2dce89','#f5365c','#fb6340']
 };
 
 export function chartOptions() {
@@ -164,7 +165,7 @@ export function chartOptions() {
     defaults: {
       global: {
         responsive: true,
-        maintainAspectRatio: false,
+        maintainAspectRatio: true,
         defaultColor: (mode == 'dark') ? colors.gray[700] : colors.gray[600],
         defaultFontColor: (mode == 'dark') ? colors.gray[700] : colors.gray[600],
         defaultFontFamily: fonts.base,
@@ -173,7 +174,7 @@ export function chartOptions() {
           padding: 0
         },
         legend: {
-          display: false,
+          display: true,
           position: 'bottom',
           labels: {
             usePointStyle: true,
@@ -295,9 +296,23 @@ export const pieChartOptions = {
     scales: {
         xAxes: [{
             gridLines: {
-                offsetGridLines: true
+                offsetGridLines: false
             }
         }]
+    },
+    tooltips: {
+      callbacks: {
+        label: function (item, data) {
+          var label = data.datasets[item.datasetIndex].label || "";
+          var yLabel = item.yLabel;
+          var content = "";
+          if (data.datasets.length > 1) {
+            content += label;
+          }
+          content += yLabel;
+          return content;
+        }
+      }
     }
   },
   data: {
@@ -419,6 +434,67 @@ export const barChartOptions = {
         minBarLength: 2,
         label: "Options",
         data: [0]
+      }
+    ]
+  }
+};
+
+
+export const horizontalBarChartOptions = {
+  options: {
+    scales: {
+      xAxes: [
+        {
+          ticks: {
+            callback: function (value) {
+             // if (!(value % 10)) {
+                //return '$' + value + 'k'
+                return value;
+              //}
+            }
+          }
+        }
+      ],
+      yAxes: [
+        {
+          ticks: {
+            callback: function (value) {
+              //if (!(value % 10)) {
+                //return '$' + value + 'k'
+                return value;
+              //}
+            }
+          }
+        }
+      ]
+    },
+    tooltips: {
+      callbacks: {
+        label: function (item, data) {
+          var label = data.datasets[item.datasetIndex].label || "";
+          var yLabel = item.yLabel;
+          var xLabel = item.xLabel;
+          var content = "";
+          if (data.datasets.length > 1) {
+            //content += label;
+          }
+          content = "Count :"+ xLabel;
+          return content;
+        }
+      }
+    }
+  },
+  data: {
+    labels: ["Options"],
+    datasets: [
+      {
+        barPercentage: 0.5,
+        barThickness: 6,
+        maxBarThickness: 8,
+        minBarLength: 2,
+        label: "Options",
+        data: [],
+        backgroundColor: 'rgb(255, 99, 132)'
       }
     ]
   }
