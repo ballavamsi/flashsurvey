@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PollViewModel, PollResult, GraphResult } from 'src/app/models/poll';
 import { PollService } from 'src/app/services/poll/poll.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { barChartOptions, parseOptions, chartOptions, linearChartOptions, pieChartOptions, horizontalBarChartOptions } from 'src/app/variables/charts';
+import { barChartOptions, parseOptions, chartOptions, pieChartOptions, horizontalBarChartOptions } from 'src/app/variables/charts';
 import Chart from 'chart.js';
 import { Constants } from 'src/app/variables/constants';
 
