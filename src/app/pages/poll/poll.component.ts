@@ -3,8 +3,8 @@ import { PollViewModel, UserPollsViewModel, UserPollsResponseModel } from 'src/a
 import { PollService } from 'src/app/services/poll/poll.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { OverlayService } from 'src/app/components/overlay/overlay.service';
-import * as Chart from 'chart.js';
-import * as ChartGeo from 'chartjs-chart-geo';
+// import * as Chart from 'chart.js';
+// import * as ChartGeo from 'chartjs-chart-geo';
 
 @Component({
   selector: 'app-poll',

@@ -10,6 +10,7 @@ import { MapsComponent } from '../../pages/maps/maps.component';
 import { UserProfileComponent } from '../../pages/user-profile/user-profile.component';
 import { TablesComponent } from '../../pages/tables/tables.component';
 import { AuthGuardService } from 'src/app/services/auth/auth-guard.service';
+import { CreateSurveyComponent } from 'src/app/pages/survey/create-survey/create-survey.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent, canActivate: [AuthGuardService] },
@@ -17,5 +18,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'poll',   component: PollComponent, canActivate: [AuthGuardService]  },
     { path: 'poll/new',   component: CreatePollComponent, canActivate: [AuthGuardService]  },
     { path: 'survey',   component: SurveyComponent , canActivate: [AuthGuardService] },
+    { path: 'survey/new',   component: CreateSurveyComponent , canActivate: [AuthGuardService] },
     { path: 'success/:type/:id',   component: SuccessComponent, canActivate: [AuthGuardService] }
 ];
