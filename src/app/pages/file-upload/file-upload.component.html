@@ -1,0 +1,41 @@
+<button class="btn btn-icon btn-3 btn-outline-primary" type="button" (click)="onClick()">
+  <span class="btn-inner--icon"><i class="ni ni-cloud-upload-96"></i></span>
+  <span class="btn-inner--text">{{text}}</span>
+</button>
+<br/>
+<ul>
+  <li *ngFor="let file of files" [@fadeInOut]="file.state">
+        <!-- <mat-progress-bar [value]="file.progress"></mat-progress-bar> -->
+        <div class="progress-wrapper">
+          <div class="progress-info">
+            <div class="progress-label">
+              <span>{{file.data.name}}</span>
+            </div>
+            <div class="progress-percentage">
+              <span>{{file.progress}} %</span>
+            </div>
+          </div>
+          <div class="progress">
+            <div class="progress-bar bg-success" role="progressbar" [attr.aria-valuenow]="file.progress" aria-valuemin="0" aria-valuemax="100" [style.width]="file.progress+'%'"></div>
+          </div>
+          <div class="progress-info">
+            <div class="progress-label">
+              <button type="button" (click)="retryFile(file)" *ngIf="file.canRetry" class="btn btn-primary btn-sm">Retry</button>
+              <button type="button" (click)="cancelFile(file)" *ngIf="file.canCancel" class="btn btn-warning btn-sm">Cancel</button>
+              <button type="button" *ngIf="file.uploaded" class="btn btn-success btn-sm">Done</button>
+            </div>
+          </div>
+        </div>
+        <!-- <span id="file-label">
+
+        <a title="Retry" (click)="retryFile(file)" *ngIf="file.canRetry">
+        <mat-icon>refresh</mat-icon></a>
+        <a title="Cancel" (click)="cancelFile(file)" *ngIf="file.canCancel">
+        <mat-icon>cancel</mat-icon></a>
+        <a title="Done"  *ngIf="file.uploaded">
+          <mat-icon style="color:greenyellow">done</mat-icon></a>
+        </span> -->
+  </li>
+</ul>
+<!-- <mat-hint style="opacity: 0.6; font-size: 0.8rem;">Note: Images will display only for 14 days from date of upload</mat-hint> -->
+<input type="file" id="fileUpload" name="fileUpload" accept="{{accept}}" style="display:none;"/>

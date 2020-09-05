@@ -18,6 +18,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'poll',   component: PollComponent, canActivate: [AuthGuardService]  },
     { path: 'poll/new',   component: CreatePollComponent, canActivate: [AuthGuardService]  },
     { path: 'survey',   component: SurveyComponent , canActivate: [AuthGuardService] },
-    { path: 'survey/new',   component: CreateSurveyComponent , canActivate: [AuthGuardService] },
+    { path: 'survey/new',   component: CreateSurveyComponent},
     { path: 'success/:type/:id',   component: SuccessComponent, canActivate: [AuthGuardService] }
 ];
