@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { UserLoginResponse } from 'src/app/models/users';
+import { Constants } from 'src/app/variables/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +31,14 @@ getSession(key) {
 
 removeSession(key){
   window.sessionStorage.removeItem(key);
+}
+
+clearAllSession(){
+  window.sessionStorage.clear();
+}
+
+getUserSessionDetails(): UserLoginResponse{
+  return JSON.parse(this.getSession(Constants.SessionKey));
 }
 
 }

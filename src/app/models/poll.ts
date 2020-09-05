@@ -8,6 +8,7 @@ export class PollModel {
   type: PollOptionTypes;
   endDate: Date;
   duplicate: boolean;
+  status: number;
 }
 
 export class PollViewModel{
@@ -62,4 +63,18 @@ export class PollResult{
   question: string;
   options: GraphResult[];
   regions: GraphResult[];
+}
+
+export class UserPollsResponseModel{
+  userPolls: UserPollsViewModel[];
+  totalPolls: number;
+}
+
+export class UserPollsViewModel{
+  pollId: number;
+  pollGuid: string;
+  status: string;
+  date: Date;
+  votes: number;
+  pollName: string;
 }

@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../api/api.service';
-import { SurveyModel } from 'src/app/create-survey/create-survey.component';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { QuestionAnswersBody, QuestionAnswerRequest } from 'src/app/models/question-type';
+import { SurveyModel } from 'src/app/models/survey';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SurveyService {
+
 
   private _emptySurvey: SurveyModel;
   private _emptyAnswers = [];
@@ -81,5 +82,12 @@ export class SurveyService {
     return this.$messageSuccess.asObservable();
   }
 
+  public getUserSurveys(pagenumber: number, pagesize: number) {
+    return this.api.getUserSurveys(pagenumber, pagesize);
+  }
+
+  deleteSurvey(surveyId: any) {
+    return this.api.deleteSurvey(surveyId);
+  }
 
 }
