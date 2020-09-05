@@ -38,3 +38,18 @@ export class SurveyQuestionOptionsModel {
   createdBy: number;
   displayOrder: number;
 }
+
+
+export class UserSurveysResponseModel{
+  userSurveys: UserSurveysViewModel[];
+  totalSurveys: number;
+}
+
+export class UserSurveysViewModel{
+  surveyId: number;
+  surveyGuid: string;
+  status: string;
+  date: Date;
+  feedbacks: number;
+  surveyName: string;
+}

@@ -9,6 +9,7 @@ import { SurveyModel } from 'src/app/models/survey';
 })
 export class SurveyService {
 
+
   private _emptySurvey: SurveyModel;
   private _emptyAnswers = [];
  _messageforsuccess : string;
@@ -81,5 +82,12 @@ export class SurveyService {
     return this.$messageSuccess.asObservable();
   }
 
+  public getUserSurveys(pagenumber: number, pagesize: number) {
+    return this.api.getUserSurveys(pagenumber, pagesize);
+  }
+
+  deleteSurvey(surveyId: any) {
+    return this.api.deleteSurvey(surveyId);
+  }
 
 }

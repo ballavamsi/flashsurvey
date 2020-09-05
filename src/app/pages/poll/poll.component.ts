@@ -3,6 +3,8 @@ import { PollViewModel, UserPollsViewModel, UserPollsResponseModel } from 'src/a
 import { PollService } from 'src/app/services/poll/poll.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { OverlayService } from 'src/app/components/overlay/overlay.service';
+import * as Chart from 'chart.js';
+import * as ChartGeo from 'chartjs-chart-geo';
 
 @Component({
   selector: 'app-poll',
@@ -30,16 +32,16 @@ export class PollComponent implements OnInit {
     this._pollService.getUserPolls(this.pageNumber, this.pageSize).subscribe((data: UserPollsResponseModel) => {
       this.userPolls = data.userPolls;
       this.totalPolls = data.totalPolls;
-      this.totalPages =  Math.ceil(this.totalPolls / this.pageSize);
+      this.totalPages = Math.ceil(this.totalPolls / this.pageSize);
       this._overlayService.hide();
     },
-    error=>{
-      this._overlayService.hide();
-      this.openDismiss(error.error,"Dismiss");
-    });
+      error => {
+        this._overlayService.hide();
+        this.openDismiss(error.error, "Dismiss");
+      });
   }
 
-  getCurrentPagePolls(pagenumber){
+  getCurrentPagePolls(pagenumber) {
     this.pageNumber = pagenumber;
     this.currentPage = pagenumber;
     this.getPolls();
@@ -47,7 +49,7 @@ export class PollComponent implements OnInit {
 
   ngOnInit() { }
 
-  askDeleteConfirmation(pollId,pollGuid,pollName) {
+  askDeleteConfirmation(pollId, pollGuid, pollName) {
     this.currentPoll.name = pollName;
     this.currentPoll.pollGuid = pollGuid;
     this.currentPoll.pollId = pollId;
@@ -55,7 +57,7 @@ export class PollComponent implements OnInit {
 
   counter(i: number) {
     return new Array(i);
-}
+  }
 
   deletePoll(pollId) {
     this._overlayService.show();
@@ -75,7 +77,6 @@ export class PollComponent implements OnInit {
         }
       });
   }
-
 
   // open snackbar
   openDismiss(message: string, buttontext: string) {
