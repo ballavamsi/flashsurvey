@@ -32,7 +32,6 @@ import { TokenInterceptorService } from './services/tokenInterceptor.service';
 
     MatProgressSpinnerModule,
     ProgressSpinnerModule,
-
     FlashSurveyMaterialModules
   ],
   declarations: [
