@@ -163,6 +163,13 @@ export class CreateSurveyComponent implements OnInit {
     }
   }
 
+  onEmailMandatoryChange(){
+    if(this.fg.get('emailIdRequired').value === true)
+    {
+      this.fg.get('askEmail').patchValue(true);
+    }
+  }
+
 
   // open snackbar
   openDismiss(message: string, buttontext: string) {
