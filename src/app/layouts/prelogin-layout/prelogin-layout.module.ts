@@ -13,6 +13,9 @@ import { ResultsPollComponent } from 'src/app/pages/poll/results-poll/results-po
 import { SocialLoginModule, FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, AmazonLoginProvider } from 'angularx-social-login';
 import { PrivacyComponent } from 'src/app/pages/privacy/privacy.component';
 import { TermsComponent } from 'src/app/pages/terms/terms.component';
+import { ViewSurveyComponent } from 'src/app/pages/survey/view-survey/view-survey.component';
+import { AnswerComponent } from 'src/app/pages/answer/answer.component';
+import { NouisliderModule } from 'ng2-nouislider';
 
 @NgModule({
   imports: [
@@ -20,7 +23,8 @@ import { TermsComponent } from 'src/app/pages/terms/terms.component';
     RouterModule.forChild(PreLoginLayoutRoutes),
     FormsModule,
     ReactiveFormsModule,
-    SocialLoginModule
+    SocialLoginModule,
+    NouisliderModule
     // NgbModule
   ],
   declarations: [
@@ -28,6 +32,8 @@ import { TermsComponent } from 'src/app/pages/terms/terms.component';
     RegisterComponent,
     ViewPollComponent,
     ResultsPollComponent,
+    ViewSurveyComponent,
+    AnswerComponent,
     ThankyouComponent,
     PrivacyComponent,
     TermsComponent
