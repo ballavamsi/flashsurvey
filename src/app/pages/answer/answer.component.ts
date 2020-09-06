@@ -136,6 +136,7 @@ export class AnswerComponent implements OnInit {
       this.finalPage = true;
       this.clearSurveySession();
       this._overlayService.hide();
+      this._route.navigate([`thankyou/survey/${this.routeGUIDValue}`]);
     },
       error => {
         this.openDismiss('Something went wrong, please try again', 'Dismiss');
