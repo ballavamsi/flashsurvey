@@ -33,7 +33,7 @@
                     <div class="col-lg-12">
                       <div class="form-group">
                         <label class="form-control-label" for="input-welcome-description">Description</label>
-                        <textarea type="text" id="input-welcome-description" required
+                        <textarea type="text" id="input-welcome-description"
                           class="form-control form-control-alternative" placeholder="Explain about the survey"
                           formControlName="welcomeDescription"></textarea>
                       </div>
@@ -77,7 +77,7 @@
                         </div>
                         <div class="custom-control custom-checkbox mb-3">
                           <input id="emailIdRequiredcheckbox" name="controlTypeaskEmail" class="custom-control-input"
-                            name="emailIdRequired" formControlName="emailIdRequired" type="checkbox">
+                            name="emailIdRequired" formControlName="emailIdRequired" type="checkbox" (change)="onEmailMandatoryChange()">
                           <label for="emailIdRequiredcheckbox" class="custom-control-label">Make email mandatory</label>
                         </div>
                         <div class="custom-control custom-checkbox mb-3">
