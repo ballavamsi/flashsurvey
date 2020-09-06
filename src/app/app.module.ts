@@ -20,7 +20,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AuthGuardService } from './services/auth/auth-guard.service';
 import { TokenInterceptorService } from './services/tokenInterceptor.service';
 
-
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -29,7 +28,6 @@ import { TokenInterceptorService } from './services/tokenInterceptor.service';
     NgbModule,
     RouterModule,
     AppRoutingModule,
-
     MatProgressSpinnerModule,
     ProgressSpinnerModule,
     FlashSurveyMaterialModules
