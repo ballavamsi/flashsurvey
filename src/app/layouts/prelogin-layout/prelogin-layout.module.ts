@@ -16,6 +16,7 @@ import { TermsComponent } from 'src/app/pages/terms/terms.component';
 import { ViewSurveyComponent } from 'src/app/pages/survey/view-survey/view-survey.component';
 import { AnswerComponent } from 'src/app/pages/answer/answer.component';
 import { NouisliderModule } from 'ng2-nouislider';
+import { StarRatingComponent } from 'src/app/pages/star-rating/star-rating.component';
 
 @NgModule({
   imports: [
@@ -25,11 +26,11 @@ import { NouisliderModule } from 'ng2-nouislider';
     ReactiveFormsModule,
     SocialLoginModule,
     NouisliderModule
-    // NgbModule
   ],
   declarations: [
     LoginComponent,
     RegisterComponent,
+    StarRatingComponent,
     ViewPollComponent,
     ResultsPollComponent,
     ViewSurveyComponent,

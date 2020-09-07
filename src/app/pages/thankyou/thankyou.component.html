@@ -17,13 +17,16 @@
                   <div class="col-md-auto">
                     <div class="row">
                       <div class="col-md-auto">
-                        <p class="lead">
+                        <p class="lead" *ngIf="customMessage == ''">
                          Thank you for completing the <b class="text-capitalize">{{type}}</b>
                          <label *ngIf="type == 'poll'">, now you can view {{type}} results here.</label>.
                         </p>
+                        <p class="lead" *ngIf="customMessage != ''">
+                           {{customMessage}}
+                         </p>
                       </div>
                     </div>
-                    <div class="row">
+                    <div class="row" *ngIf="customMessage == ''">
                       <button type="button" placement="bottom" ngbTooltip="Click here to copy" class="text-unwrap-normal btn btn-outline-default btn-lg btn-block" (click)="onCopyClick()"
                         style="letter-spacing: 2px;">
                         <span class="btn-inner--text">{{sharinglink}}</span>
