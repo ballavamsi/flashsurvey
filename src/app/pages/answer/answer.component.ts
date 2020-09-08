@@ -111,10 +111,10 @@ export class AnswerComponent implements OnInit {
       let q = new QuestionAnswersBody();
       q.key = element.surveyQuestionId.toString();
 
-      if(isNaN(this.lstAnswers[index])){
+      if (isNaN(this.lstAnswers[index])) {
         q.number = 0;
       }
-      if(this.lstAnswers[index] == undefined){
+      if (this.lstAnswers[index] == undefined) {
         q.selected = [];
       }
       if (typeof (this.lstAnswers[index]) == 'number' && !isNaN(this.lstAnswers[index])) {
@@ -148,20 +148,20 @@ export class AnswerComponent implements OnInit {
     this.progressPercentage = ((this.currentQuestionNumber + 1) / this.totalQuestions) * 100;
   }
 
-  onRatingChanged(rating){
+  onRatingChanged(rating) {
     this.singleOption = rating;
   }
 
-  onRatingChangedForEach(i,rating){
+  onRatingChangedForEach(i, rating) {
     this.currentQuestionData.objectOptions[i].selectedRating = rating;
   }
 
-  get getXValueOptions(){
-    return this.currentQuestionData.objectOptions.filter(x=> x.optionKey.startsWith('x_'));
+  get getXValueOptions() {
+    return this.currentQuestionData.objectOptions.filter(x => x.optionKey.startsWith('x_'));
   }
 
-  get getValueOptions(){
-    return this.currentQuestionData.objectOptions.filter(x=> !x.optionKey.startsWith('x_'));
+  get getValueOptions() {
+    return this.currentQuestionData.objectOptions.filter(x => !x.optionKey.startsWith('x_'));
   }
 
   getCurrentQuestion() {
@@ -271,10 +271,10 @@ export class AnswerComponent implements OnInit {
             break;
           case 'slider':
             var ansValue = this.lstAnswers[this.currentQuestionNumber];
-            if(ansValue != undefined){
+            if (ansValue != undefined) {
               this.singleOption = parseInt(ansValue);
             }
-            else{
+            else {
               this.singleOption = parseInt(this.currentQuestionData.options['min']);
             }
             break;
@@ -293,16 +293,16 @@ export class AnswerComponent implements OnInit {
             break;
           case 'multiplerating':
             let multipleratings = this.lstAnswers[this.currentQuestionNumber];
-            this.currentQuestionData.objectOptions.forEach((element,i) => {
+            this.currentQuestionData.objectOptions.forEach((element, i) => {
               if (multipleratings != undefined) {
                 element.selectedRating = parseInt(multipleratings[i]);
               }
             });
             break;
-          case 'multiplerating':
+          case 'customrating':
             let customratings = this.lstAnswers[this.currentQuestionNumber];
-            this.currentQuestionData.objectOptions.forEach((element,i) => {
-              if (customratings != undefined) {
+            this.currentQuestionData.objectOptions.forEach((element, i) => {
+              if (customratings != undefined && element.optionKey.startsWith("value")) {
                 element.selectedRating = parseInt(customratings[i]);
               }
             });
@@ -349,7 +349,7 @@ export class AnswerComponent implements OnInit {
           answerData = this.currentQuestionData.objectOptions.map(x => x.selectedRating.toString());
           break;
         case 'customrating':
-          answerData = this.currentQuestionData.objectOptions.map(x => x.selectedRating.toString());
+          answerData = this.currentQuestionData.objectOptions.filter(x => x.optionKey.startsWith("value")).map(x => (x.selectedRating || 0).toString());
           break;
         default:
           break;
