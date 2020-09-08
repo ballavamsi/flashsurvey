@@ -86,6 +86,14 @@ export class SurveyService {
     return this.api.getUserSurveys(pagenumber, pagesize);
   }
 
+  public getSurveyFeedbacks(surveyId: number, pagenumber: number, pagesize: number) {
+    return this.api.getSurveyFeedbacks(surveyId, pagenumber, pagesize);
+  }
+
+  public getSurveyGraph(surveyId: number) {
+    return this.api.getSurveyGraph(surveyId);
+  }
+
   deleteSurvey(surveyId: any) {
     return this.api.deleteSurvey(surveyId);
   }

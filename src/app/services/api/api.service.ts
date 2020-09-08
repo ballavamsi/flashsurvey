@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { Status } from 'src/app/models/status';
 import { PollModel, PollViewModel, PollVote, PollResult, UserPollsResponseModel } from 'src/app/models/poll';
 import { QuestionType, QuestionAnswersBody, QuestionAnswerRequest } from 'src/app/models/question-type';
-import { SurveyModel, UserSurveysResponseModel } from 'src/app/models/survey';
+import { SurveyModel, UserSurveysResponseModel, UserSurveyFeedbackResponseModel, SurveyMetricsViewModel } from 'src/app/models/survey';
 import { UserSignInModel, UserLoginResponse } from 'src/app/models/users';
 import { DashboardMetricTile } from 'src/app/models/dashboard';
 @Injectable({
@@ -53,7 +53,7 @@ export class ApiService {
   }
 
   addPoll(data: PollModel): Observable<PollViewModel> {
-    return this.http.put<PollViewModel>(this._API + 'poll/add', data);
+    return this.http.post<PollViewModel>(this._API + 'poll/add', data);
   }
 
   getPoll(pollguid: string): Observable<PollViewModel> {
@@ -61,7 +61,7 @@ export class ApiService {
   }
 
   addPollVote(data: PollVote): Observable<boolean> {
-    return this.http.put<boolean>(this._API + 'poll/vote', data);
+    return this.http.post<boolean>(this._API + 'poll/vote', data);
   }
 
   pollResult(pollId: string): Observable<PollResult> {
@@ -75,6 +75,14 @@ export class ApiService {
 
   getSurvey(surveyguid: string): Observable<SurveyModel> {
     return this.http.get<SurveyModel>(this._API + `survey/guid/${surveyguid}`);
+  }
+
+  getSurveyFeedbacks(surveyId: number,pagenumber: number, pagesize: number): Observable<UserSurveyFeedbackResponseModel> {
+    return this.http.get<UserSurveyFeedbackResponseModel>(this._API + `survey/user/feedbacks/${surveyId}/pagenumber/${pagenumber}/pagesize/${pagesize}`);
+  }
+
+  getSurveyGraph(surveyId: number): Observable<SurveyMetricsViewModel> {
+    return this.http.get<SurveyMetricsViewModel>(this._API + `survey/user/graphmetrics/${surveyId}`);
   }
 
   beginSurvey(surveyguid: string, emailId: any): Observable<string> {
