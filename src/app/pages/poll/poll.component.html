@@ -39,7 +39,7 @@
                 <th scope="col">Votes</th>
                 <th scope="col">Created On</th>
                 <th scope="col">Status</th>
-                <th scope="col">Action</th>
+                <th scope="col"></th>
               </tr>
             </thead>
             <tbody>
@@ -59,10 +59,22 @@
                 <td>
                   {{eachPoll.status}}
                 </td>
+                <td class="text-right">
+                  <div ngbDropdown placement="bottom-right">
+                    <a class="btn btn-sm btn-icon-only text-light"  ngbDropdownToggle>
+                      <i class="fa fa-ellipsis-v"></i>
+                    </a>
+                    <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
+                      <a class="dropdown-item" [routerLink]="['/poll/results/'+ eachPoll.pollGuid]">View Result</a>
+                      <a class="dropdown-item" [routerLink]="['/poll/edit/'+ eachPoll.pollId]">Edit</a>
+                      <a class="dropdown-item" data-toggle="modal" data-target="#pollDeleteModal" (click)="askDeleteConfirmation(eachPoll.pollId,eachPoll.pollGuid,eachPoll.pollName);">Delete</a>
+                    </div>
+                  </div>
+                </td>
                 <td>
                   <a class="icon-sm icon-shape icon-shape-info cursor-pointer rounded-circle" ngbTooltip="View Results" [routerLink]="['/poll/results/'+ eachPoll.pollGuid]" target="_blank"><i class="fa fa-pie-chart"></i></a>
                   <a class="icon-sm icon-shape icon-shape-primary cursor-pointer rounded-circle" ngbTooltip="Edit Poll" [routerLink]="['/poll/edit/'+ eachPoll.pollId]"><i class="fa fa-pencil"></i></a>
-                  <a class="icon-sm icon-shape icon-shape-warning cursor-pointer rounded-circle ui-state-hover" ngbTooltip="Delete Poll" data-toggle="modal" data-target="#pollDeleteModal" (click)="askDeleteConfirmation(eachPoll.pollId,eachPoll.pollGuid,eachPoll.pollName);"><i class="fa fa-trash"></i></a>
+                  <a class="icon-sm icon-shape icon-shape-warning cursor-pointer rounded-circle ui-state-hover" href="#" ngbTooltip="Delete Poll" data-toggle="modal" data-target="#pollDeleteModal" (click)="askDeleteConfirmation(eachPoll.pollId,eachPoll.pollGuid,eachPoll.pollName);"><i class="fa fa-trash"></i></a>
                 </td>
               </tr>
             </tbody>

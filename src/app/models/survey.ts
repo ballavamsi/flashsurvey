@@ -53,3 +53,39 @@ export class UserSurveysViewModel{
   feedbacks: number;
   surveyName: string;
 }
+
+export class UserSurveyFeedbackResponseModel{
+  feedbacks: UserSurveyFeedbacks[];
+  total: number;
+}
+
+export class UserSurveyFeedbacks{
+  surveyUserId: number;
+  surveyUserGuid: string;
+  emailId: string;
+  receivedDate: Date;
+  comment: string;
+  reviewComplete: boolean;
+  reviewUpdatedDate: Date;
+}
+
+export class SurveyMetricsViewModel {
+  title: string;
+  description: string;
+  logo: string;
+  questions: QuestionMetricsViewModel[];
+}
+
+export class QuestionMetricsViewModel {
+  question: string;
+  explanation: string;
+  questionType: string;
+  options: OptionsMetricsViewModel[];
+}
+
+export class OptionsMetricsViewModel {
+  optionId: number;
+  optionText: string;
+  optionCount: number;
+  optionAverage: number;
+}

@@ -20,6 +20,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { FileUploadComponent } from 'src/app/pages/file-upload/file-upload.component';
 import { CreateSurveyComponent } from 'src/app/pages/survey/create-survey/create-survey.component';
 import { QuestionComponent } from 'src/app/pages/question/question.component';
+import { ResultSurveyComponent } from 'src/app/pages/survey/result-survey/result-survey.component';
 
 @NgModule({
   imports: [
@@ -44,7 +45,8 @@ import { QuestionComponent } from 'src/app/pages/question/question.component';
     MapsComponent,
     FileUploadComponent,
     QuestionComponent,
-    CreateSurveyComponent
+    CreateSurveyComponent,
+    ResultSurveyComponent
   ]
 })
 
