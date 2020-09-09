@@ -23,6 +23,7 @@ import { StarRatingComponent } from './components/star-rating/star-rating.compon
 import { AnswerComponent } from './pages/answer/answer.component';
 import { ResultSurveyComponent } from './pages/survey/result-survey/result-survey.component';
 import { NouisliderModule } from 'ng2-nouislider';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -30,6 +31,8 @@ import { NouisliderModule } from 'ng2-nouislider';
     HttpClientModule,
     ComponentsModule,
     NgbModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule,
     AppRoutingModule,
     MatProgressSpinnerModule,
