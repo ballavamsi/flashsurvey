@@ -155,7 +155,7 @@ var colors = {
   black: '#12263F',
   white: '#FFFFFF',
   transparent: 'transparent',
-  platformColors: ['#172b4d','#5e72e4','#f4f5f7','#11cdef','#2dce89','#f5365c','#fb6340']
+  platformColors: ['#172b4d', '#5e72e4', '#f4f5f7', '#11cdef', '#2dce89', '#f5365c', '#fb6340']
 };
 
 export function chartOptions() {
@@ -294,11 +294,11 @@ export const doughnutChartOptions = {
 export const pieChartOptions = {
   options: {
     scales: {
-        xAxes: [{
-            gridLines: {
-                offsetGridLines: false
-            }
-        }]
+      xAxes: [{
+        gridLines: {
+          offsetGridLines: false
+        }
+      }]
     },
     tooltips: {
       callbacks: {
@@ -393,6 +393,122 @@ export const chartExample2 = {
   }
 };
 
+
+export const lineChartOptions = {
+  options: {
+    scales: {
+      // xAxes: [{
+      //   ticks: {
+      //     callback: function (value) {
+      //       if (!(value % 10)) {
+      //         return '$' + value + 'k';
+      //         //return value;
+      //       }
+      //     }
+      //   }
+      // }],
+      // yAxes: [{
+      //   gridLines: {
+      //     color: colors.gray[900],
+      //     zeroLineColor: colors.gray[900]
+      //   },
+      //   ticks: {
+      //     callback: function (value) {
+      //       if (!(value % 10)) {
+      //         //return '$' + value + 'k';
+      //         return value;
+      //       }
+      //     }
+      //   }
+      // }]
+    }
+  },
+  data: {
+    labels: ['Options'],
+    datasets: [{
+      label: 'Values',
+      data: [],
+      borderColor: '#EFAA1A',
+      fill: false
+    }]
+  }
+};
+
+export const twoLineChartOptions = {
+  options: {
+    scales: {
+      // xAxes: [{
+      //   ticks: {
+      //     callback: function (value) {
+      //       if (!(value % 10)) {
+      //         //return '$' + value + 'k';
+      //         //return value;
+      //       }
+      //     }
+      //   }
+      // }],
+      // yAxes: [{
+      //   gridLines: {
+      //     color: colors.gray[900],
+      //     zeroLineColor: colors.gray[900]
+      //   },
+      //   ticks: {
+      //     callback: function (value) {
+      //       if (!(value % 10)) {
+      //         //return '$' + value + 'k';
+      //         return value;
+      //       }
+      //     }
+      //   }
+      // }]
+    }
+  },
+  data: {
+    labels: ['Options'],
+    datasets: [{
+      label: 'Min',
+      data: [],
+      borderColor: '#EFAA1A',
+      fill: false
+    }, {
+      label: 'Max',
+      data: [],
+      borderColor: '#E6302D',
+      fill: false
+    }]
+  }
+};
+
+export const scatterPlot = {
+  options: {
+    scales: {
+      xAxes: [{
+        type: 'linear',
+        position: 'bottom'
+      }]
+    }
+  },
+  data: {
+    datasets: [{
+      label: 'Scatter',
+      data: [],
+      fill: true || false,
+      lineTension: 0.4,
+      pointBackgroundColor: '#EFAA1A' || 'rgba(123,123,123,0.1)' || '#00FF00',
+      pointBorderColor: '#EFAA1A' || 'rgba(123,123,123,0.1)' || '#00FF00',
+      pointBorderWidth: 3,
+      pointRadius: 5,
+      pointStyle: 'circle',
+      pointRotation: 3,
+      pointHitRadius: 5,
+      pointHoverBackgroundColor: '#EFAA1A' || 'rgba(123,123,123,0.1)' || '#00FF00',
+      pointHoverBorderColor: '#E6302D' || 'rgba(123,123,123,0.1)' || '#00FF00',
+      pointHoverBorderWidth: 3,
+      pointHoverRadius: 3
+    }]
+  }
+};
+
 export const barChartOptions = {
   options: {
     scales: {
@@ -447,9 +563,9 @@ export const horizontalBarChartOptions = {
         {
           ticks: {
             callback: function (value) {
-             // if (!(value % 10)) {
-                //return '$' + value + 'k'
-                return value;
+              // if (!(value % 10)) {
+              //return '$' + value + 'k'
+              return value;
               //}
             }
           }
@@ -460,8 +576,8 @@ export const horizontalBarChartOptions = {
           ticks: {
             callback: function (value) {
               //if (!(value % 10)) {
-                //return '$' + value + 'k'
-                return value;
+              //return '$' + value + 'k'
+              return value;
               //}
             }
           }
@@ -478,7 +594,7 @@ export const horizontalBarChartOptions = {
           if (data.datasets.length > 1) {
             //content += label;
           }
-          content = "Count :"+ xLabel;
+          content = "Count :" + xLabel;
           return content;
         }
       }

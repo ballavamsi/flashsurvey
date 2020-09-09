@@ -86,11 +86,11 @@ export class SurveyService {
     return this.api.getUserSurveys(pagenumber, pagesize);
   }
 
-  public getSurveyFeedbacks(surveyId: number, pagenumber: number, pagesize: number) {
+  public getSurveyFeedbacks(surveyId: string, pagenumber: number, pagesize: number) {
     return this.api.getSurveyFeedbacks(surveyId, pagenumber, pagesize);
   }
 
-  public getSurveyGraph(surveyId: number) {
+  public getSurveyGraph(surveyId: string) {
     return this.api.getSurveyGraph(surveyId);
   }
 

@@ -77,11 +77,11 @@ export class ApiService {
     return this.http.get<SurveyModel>(this._API + `survey/guid/${surveyguid}`);
   }
 
-  getSurveyFeedbacks(surveyId: number,pagenumber: number, pagesize: number): Observable<UserSurveyFeedbackResponseModel> {
+  getSurveyFeedbacks(surveyId: string,pagenumber: number, pagesize: number): Observable<UserSurveyFeedbackResponseModel> {
     return this.http.get<UserSurveyFeedbackResponseModel>(this._API + `survey/user/feedbacks/${surveyId}/pagenumber/${pagenumber}/pagesize/${pagesize}`);
   }
 
-  getSurveyGraph(surveyId: number): Observable<SurveyMetricsViewModel> {
+  getSurveyGraph(surveyId: string): Observable<SurveyMetricsViewModel> {
     return this.http.get<SurveyMetricsViewModel>(this._API + `survey/user/graphmetrics/${surveyId}`);
   }
 

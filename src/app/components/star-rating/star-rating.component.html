@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="col-md-12 align-content-center">
+    <button class="btn btn-icon btn-2" [disabled]="disableStar" [ngClass]="{'btn-danger': showIcon(i) == 'star','btn-outline-danger': showIcon(i) == 'star_border'}" type="button" *ngFor="let ratingId of ratingArr;index as i" [id]="'star_'+i" (click)="onClick(i+1)">
+      <span class="btn-inner--icon"><i class="fa fa-star"></i></span>
+    </button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6" *ngIf="starCount == null || starCount == 0">
+    Star count is <strong>required</strong> and cannot be zero
+  </div>
+</div>

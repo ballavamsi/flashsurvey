@@ -21,6 +21,7 @@ import { FileUploadComponent } from 'src/app/pages/file-upload/file-upload.compo
 import { CreateSurveyComponent } from 'src/app/pages/survey/create-survey/create-survey.component';
 import { QuestionComponent } from 'src/app/pages/question/question.component';
 import { ResultSurveyComponent } from 'src/app/pages/survey/result-survey/result-survey.component';
+import { StarRatingComponent } from 'src/app/components/star-rating/star-rating.component';
 
 @NgModule({
   imports: [
@@ -46,7 +47,6 @@ import { ResultSurveyComponent } from 'src/app/pages/survey/result-survey/result
     FileUploadComponent,
     QuestionComponent,
     CreateSurveyComponent,
-    ResultSurveyComponent
   ]
 })
 

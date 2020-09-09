@@ -23,7 +23,12 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    let userDetails: UserLoginResponse = JSON.parse(this._storageService.getSession(Constants.SessionKey));
+    let userSessionDetails = this._storageService.getSession(Constants.SessionKey);
+    if(userSessionDetails == undefined || userSessionDetails == '')
+    {
+      this.router.navigate(['login']);
+    }
+    let userDetails: UserLoginResponse = JSON.parse(userSessionDetails);
     this.firstname = userDetails.userName;
     this.profileUrl = userDetails.profileUrl;
     this.listTitles = ROUTES.filter(listTitle => listTitle);
@@ -35,11 +40,19 @@ export class NavbarComponent implements OnInit {
     }
 
     for(var item = 0; item < this.listTitles.length; item++){
-        if(this.listTitles[item].path === titlee){
-            return this.listTitles[item].title;
-        }
+      if(this.listTitles[item].path.endsWith("*") && titlee.startsWith(this.listTitles[item].path.replace("*",""))){
+          return this.listTitles[item].title;
+      }
+      if(this.listTitles[item].path === titlee){
+          return this.listTitles[item].title;
+      }
     }
     return 'Dashboard';
+  }
+
+  getLink(){
+    var titlee = this.location.prepareExternalUrl(this.location.path());
+    return titlee || '/dashboard';
   }
 
 }

@@ -19,6 +19,10 @@ import { OverlayService } from './components/overlay/overlay.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AuthGuardService } from './services/auth/auth-guard.service';
 import { TokenInterceptorService } from './services/tokenInterceptor.service';
+import { StarRatingComponent } from './components/star-rating/star-rating.component';
+import { AnswerComponent } from './pages/answer/answer.component';
+import { ResultSurveyComponent } from './pages/survey/result-survey/result-survey.component';
+import { NouisliderModule } from 'ng2-nouislider';
 
 @NgModule({
   imports: [
@@ -30,13 +34,17 @@ import { TokenInterceptorService } from './services/tokenInterceptor.service';
     AppRoutingModule,
     MatProgressSpinnerModule,
     ProgressSpinnerModule,
-    FlashSurveyMaterialModules
+    FlashSurveyMaterialModules,
+    NouisliderModule
   ],
   declarations: [
     ProgressSpinnerComponent,
+    StarRatingComponent,
     AppComponent,
-    AdminLayoutComponent,
-    PreLoginLayoutComponent
+    AnswerComponent,
+    ResultSurveyComponent,
+    PreLoginLayoutComponent,
+    AdminLayoutComponent
   ],
   entryComponents: [
     ProgressSpinnerComponent,
