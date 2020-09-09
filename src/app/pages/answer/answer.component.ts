@@ -237,6 +237,10 @@ export class AnswerComponent implements OnInit {
 
   updateUIWithAnswers() {
     this.refreshCurrentQuestionNumberValue();
+
+    this.essayAnswer = '';
+    this.singleOption = 0;
+
     this._surveyService.getCurrentSurveyAnswers().subscribe((data) => {
 
       if (data.length > 0 && data.length > this.currentQuestionNumber) {

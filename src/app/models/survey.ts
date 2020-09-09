@@ -55,6 +55,8 @@ export class UserSurveysViewModel{
 }
 
 export class UserSurveyFeedbackResponseModel{
+  surveyTitle: string;
+  surveyLogo: string;
   feedbacks: UserSurveyFeedbacks[];
   total: number;
 }
@@ -81,6 +83,7 @@ export class QuestionMetricsViewModel {
   explanation: string;
   questionType: string;
   options: OptionsMetricsViewModel[];
+  originalQuestionOptions: SurveyQuestionOptionsModel[];
 }
 
 export class OptionsMetricsViewModel {
@@ -88,4 +91,5 @@ export class OptionsMetricsViewModel {
   optionText: string;
   optionCount: number;
   optionAverage: number;
+  subOptions: OptionsMetricsViewModel[];
 }

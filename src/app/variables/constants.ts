@@ -3,5 +3,7 @@ export const Constants = {
   SessionKey: 'UGUID',
   PieChart: 'pie',
   BarChart: 'bar',
-  HorizontalBarChart: 'horizontalBar'
+  HorizontalBarChart: 'horizontalBar',
+  LineChart: 'line',
+  ScatterChart: 'scatter'
 };
