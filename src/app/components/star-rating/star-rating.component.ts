@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   selector: 'app-star-rating',
   templateUrl: './star-rating.component.html',
   styleUrls: ['./star-rating.component.scss'],
-  encapsulation: ViewEncapsulation.Emulated
+  encapsulation: ViewEncapsulation.None
 })
 export class StarRatingComponent implements OnInit {
 
