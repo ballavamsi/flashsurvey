@@ -94,6 +94,10 @@ export class SurveyService {
     return this.api.getSurveyGraph(surveyId);
   }
 
+  public getSurveyUserFeedback(surveyUserGuid: string) {
+    return this.api.getSurveyUserFeedback(surveyUserGuid);
+  }
+
   deleteSurvey(surveyId: any) {
     return this.api.deleteSurvey(surveyId);
   }

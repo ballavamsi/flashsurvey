@@ -22,6 +22,7 @@ export class ResultSurveyComponent implements OnInit {
   routeGuid: string;
   loaded = false;
   errorMessage = "";
+  userfeedback ="";
 
   surveyId = 0;
   pageNumber = 0;
@@ -73,6 +74,19 @@ export class ResultSurveyComponent implements OnInit {
     this._overlayService.show();
     this._surveyService.getSurveyGraph(this.routeGuid).subscribe((data: SurveyMetricsViewModel) => {
       this.feedbackMetrics = data.questions;
+      this._overlayService.hide();
+    },
+      error => {
+        this._overlayService.hide();
+        this.openDismiss(error.error, "Dismiss");
+      });
+    this.renderChart();
+  }
+
+  getSurveyUserFeedback(surveyUserGuid)
+  {
+    this._overlayService.show();
+    this._surveyService.getSurveyUserFeedback(surveyUserGuid).subscribe((data: SurveyModel) => {
       this._overlayService.hide();
     },
       error => {

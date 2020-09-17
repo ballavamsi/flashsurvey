@@ -8,6 +8,7 @@ import { PollService } from 'src/app/services/poll/poll.service';
 import { OverlayService } from 'src/app/components/overlay/overlay.service';
 import { StatusEnum } from 'src/app/variables/status-enum.enum';
 
+
 @Component({
   selector: 'app-create-poll',
   templateUrl: './create-poll.component.html',
@@ -18,8 +19,14 @@ export class CreatePollComponent implements OnInit {
   enddate30days = moment().add(30, 'days').toDate();
   newoptionvalue = '';
   today = moment().add(1, 'day');
-  minDate = {year: this.today.year , month: this.today.month , day: this.today.day};
+ // minDate = {year: this.today.year , month: this.today.month , day: this.today.day};
   maxDate = moment().add(3, 'months').format('L');
+ current = new Date();
+ minDate = {
+  year: this.current.getFullYear(),
+  month: this.current.getMonth() + 1,
+  day: this.current.getDate()
+};
   fg: FormGroup;
   formSubmitted = false;
   newPollViewModel: PollViewModel;
@@ -30,7 +37,7 @@ export class CreatePollComponent implements OnInit {
     private _overlayService: OverlayService) {
 
     this.fg = new FormGroup({
-      question: new FormControl('', [Validators.required, Validators.minLength(10)]),
+      question: new FormControl('', [Validators.required, Validators.minLength(10),Validators.maxLength(1000)]),
       options: new FormArray([]),
       optionType: new FormControl(PollOptionTypes.radiobutton.toString()),
       duplicateCheck: new FormControl('0'),
@@ -74,7 +81,7 @@ export class CreatePollComponent implements OnInit {
 
   // Add New Option
   addNewOption() {
-    const nfg = new FormControl(this.newoptionvalue, [Validators.required, Validators.minLength(2)]);
+    const nfg = new FormControl(this.newoptionvalue, [Validators.required, Validators.minLength(2),Validators.maxLength(100)]);
     this.newoptionvalue = '';
     this.optionsArray.push(nfg);
   }
@@ -83,6 +90,9 @@ export class CreatePollComponent implements OnInit {
   removeItem(removeItem: number) {
     this.optionsArray.removeAt(removeItem);
   }
+
+   //options error messages
+
 
   // On Submit
   onSubmit() {
@@ -130,5 +140,7 @@ export class CreatePollComponent implements OnInit {
       duration: 3000,
     });
   }
-
 }
+
+
+

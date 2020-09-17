@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { Status } from 'src/app/models/status';
 import { PollModel, PollViewModel, PollVote, PollResult, UserPollsResponseModel } from 'src/app/models/poll';
 import { QuestionType, QuestionAnswersBody, QuestionAnswerRequest } from 'src/app/models/question-type';
-import { SurveyModel, UserSurveysResponseModel, UserSurveyFeedbackResponseModel, SurveyMetricsViewModel } from 'src/app/models/survey';
+import { SurveyModel, UserSurveysResponseModel, UserSurveyFeedbackResponseModel, SurveyMetricsViewModel, UserSurveysViewModel } from 'src/app/models/survey';
 import { UserSignInModel, UserLoginResponse } from 'src/app/models/users';
 import { DashboardMetricTile } from 'src/app/models/dashboard';
 @Injectable({
@@ -83,6 +83,10 @@ export class ApiService {
 
   getSurveyGraph(surveyId: string): Observable<SurveyMetricsViewModel> {
     return this.http.get<SurveyMetricsViewModel>(this._API + `survey/user/graphmetrics/${surveyId}`);
+  }
+
+  getSurveyUserFeedback(surveyUserGuid: string): Observable<SurveyModel> {
+    return this.http.get<SurveyModel>(this._API + `survey/user/feedback/${surveyUserGuid}`);
   }
 
   beginSurvey(surveyguid: string, emailId: any): Observable<string> {
