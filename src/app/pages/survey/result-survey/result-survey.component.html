@@ -74,8 +74,8 @@
                       <i class="fa fa-ellipsis-v"></i>
                     </a>
                     <div ngbDropdownMenu class="dropdown-menu-right dropdown-menu-arrow">
-                      <a class="dropdown-item"
-                        [routerLink]="['/survey/results/singlefeedback/' + eachFeedback.surveyUserGuid]">View Full
+                      <a class="btn dropdown-item"
+                         (click)="getSurveyUserFeedback(eachFeedback.surveyUserGuid)">View Full
                         Feedback</a>
                     </div>
                   </div>

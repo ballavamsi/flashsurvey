@@ -12,6 +12,7 @@ export class SurveyModel {
   enddate: string; //set next year date default
   surveyQuestions: SurveyQuestionsModel[];
   surveyGuid: string;
+  surveyUserGuid: string;
 }
 
 export class SurveyQuestionsModel {
@@ -26,6 +27,8 @@ export class SurveyQuestionsModel {
   statusId: number; //0 for now
   options: {};
   objectOptions: SurveyQuestionOptionsModel[];
+  selectedvalues: {};
+  questiontype: string;
 }
 
 export class SurveyQuestionOptionsModel {

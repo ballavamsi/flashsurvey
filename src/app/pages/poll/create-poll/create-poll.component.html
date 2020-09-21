@@ -21,9 +21,14 @@
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-question">Question</label>
+                        <label class="form-control-label" for="input-question">Question<span class="text-warning">*</span></label>
                         <input type="text" id="input-question" required class="form-control form-control-alternative"
                           placeholder="Ex: How is our website?" formControlName="question">
+                            <div *ngIf="fg.get('question')?.touched || fg.get('question')?.dirty || fg.get('question')?.hasError()">
+                              <small class="text-warning" *ngIf="fg.get('question')?.errors?.required">Question is required.</small>
+                              <small class="text-warning" *ngIf="fg.get('question')?.errors?.minlength">Question length should be aleast 10characters.</small>
+                              <small class="text-warning" *ngIf="fg.get('question')?.errors?.maxlength">Question length should not exceed 1000 characters.</small>
+                            </div>
                       </div>
                     </div>
                   </div>
@@ -34,15 +39,19 @@
                         <div class="input-group input-group-alternative mb-4"
                           *ngFor="let eachOption of optionsArray.controls;let eachIndex = index">
                           <input class="form-control" placeholder="Enter option here" type="text"
-                            [formControlName]="eachIndex">
+                            [formControlName]="eachIndex" > 
                           <div class="input-group-append">
                             <span class="input-group-text" (click)="removeItem(eachIndex)"><i
                                 class="fa fa-trash-o"></i></span>
                           </div>
+                          <div class="input-group" *ngIf="optionsArray.controls[eachIndex]?.touched || optionsArray.controls[eachIndex]?.dirty || optionsArray.controls[eachIndex]?.hasError()">
+                            <small class="text-warning" *ngIf="optionsArray.controls[eachIndex]?.errors?.required">Option is required.</small>
+                            <small class="text-warning" *ngIf="optionsArray.controls[eachIndex]?.errors?.minlength">Option must be atleast 2 characters.</small>
+                            <small class="text-warning" *ngIf="optionsArray.controls[eachIndex]?.errors?.maxlength">Option should not exceed 100 characters.</small>
+                          </div>
                         </div>
                         <div>
                           <button type="button" class="btn btn-outline-primary" (click)="addNewOption()">Add New</button>
-
                         </div>
                       </div>
                     </div>
@@ -62,7 +71,7 @@
                           </div>
                           <input class="form-control datepicker bg-white" placeholder="Select date" name="dp"
                             formControlName="endDate"  placeholder="yyyy-mm-dd" readonly [minDate]="minDate" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()"
-                            type="text" />
+                            type="text" />                            
                         </div>
                       </div>
                     </div>
