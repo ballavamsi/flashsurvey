@@ -18,15 +18,13 @@ export class CreatePollComponent implements OnInit {
 
   enddate30days = moment().add(30, 'days').toDate();
   newoptionvalue = '';
-  today = moment().add(1, 'day');
- // minDate = {year: this.today.year , month: this.today.month , day: this.today.day};
   maxDate = moment().add(3, 'months').format('L');
- current = new Date();
- minDate = {
-  year: this.current.getFullYear(),
-  month: this.current.getMonth() + 1,
-  day: this.current.getDate()
-};
+  current = new Date();
+  minDate = {
+    year: this.current.getFullYear(),
+    month: this.current.getMonth() + 1,
+    day: this.current.getDate()
+  };
   fg: FormGroup;
   formSubmitted = false;
   newPollViewModel: PollViewModel;
@@ -37,14 +35,14 @@ export class CreatePollComponent implements OnInit {
     private _overlayService: OverlayService) {
 
     this.fg = new FormGroup({
-      question: new FormControl('', [Validators.required, Validators.minLength(10),Validators.maxLength(1000)]),
+      question: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(1000)]),
       options: new FormArray([]),
       optionType: new FormControl(PollOptionTypes.radiobutton.toString()),
       duplicateCheck: new FormControl('0'),
       endDate: new FormControl(this.enddate30days, [Validators.required])
     });
 
-   }
+  }
 
   ngOnInit() {
   }
@@ -81,7 +79,7 @@ export class CreatePollComponent implements OnInit {
 
   // Add New Option
   addNewOption() {
-    const nfg = new FormControl(this.newoptionvalue, [Validators.required, Validators.minLength(2),Validators.maxLength(100)]);
+    const nfg = new FormControl(this.newoptionvalue, [Validators.required, Validators.minLength(2), Validators.maxLength(100)]);
     this.newoptionvalue = '';
     this.optionsArray.push(nfg);
   }
@@ -91,7 +89,7 @@ export class CreatePollComponent implements OnInit {
     this.optionsArray.removeAt(removeItem);
   }
 
-   //options error messages
+  //options error messages
 
 
   // On Submit
@@ -100,11 +98,10 @@ export class CreatePollComponent implements OnInit {
     this._overlayService.show();
 
     if (this.fg.valid) {
-      if(this.optionsArray.length <= 1)
-      {
+      if (this.optionsArray.length <= 1) {
         this._overlayService.hide();
         this.formSubmitted = false;
-        this._snackBar.open('Enter atleast two options','Dismiss');
+        this._snackBar.open('Enter atleast two options', 'Dismiss');
         return;
       }
       this._overlayService.show();
