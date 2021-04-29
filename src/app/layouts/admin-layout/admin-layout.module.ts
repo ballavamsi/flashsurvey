@@ -3,7 +3,8 @@ import { CreatePollComponent } from './../../pages/poll/create-poll/create-poll.
 import { SurveyComponent } from './../../pages/survey/survey.component';
 import { PollComponent } from './../../pages/poll/poll.component';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
