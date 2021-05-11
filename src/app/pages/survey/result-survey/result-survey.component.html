@@ -29,12 +29,12 @@
             <div class="col">
               <h3 class="mb-0 text-uppercase">Your Feedback's <span class="badge badge-pill badge-info">{{totalFeedbacks}}</span></h3>
             </div>
-            <div class="col text-right">
-              <a (click)="getSurveyGraph()" [disabled]="totalFeedbacks = 0" class="btn btn-md btn-primary text-uppercase text-white">Show Graphs</a>
+            <div class="col text-right" *ngIf="totalFeedbacks > 0">
+              <a (click)="getSurveyGraph()"  class="btn btn-md btn-primary text-uppercase text-white">Show Graphs</a>
             </div>
           </div>
         </div>
-        <div class="table-responsive">
+        <div class="table-responsive" *ngIf="totalFeedbacks > 0">
           <!-- Projects table -->
           <table class="table align-items-center table-flush">
             <thead class="thead-light">
@@ -103,6 +103,11 @@
               </li>
             </ul>
           </nav>
+        </div>
+        <div class="row pt-8 pb-8 justify-content-center" *ngIf="totalFeedbacks == 0">
+          <div class="col-auto">
+            <p>No feebacks received for the survey</p>
+          </div>
         </div>
       </div>
     </div>

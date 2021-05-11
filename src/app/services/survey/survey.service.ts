@@ -10,9 +10,9 @@ import { SurveyModel } from 'src/app/models/survey';
 export class SurveyService {
 
 
-  private _emptySurvey: SurveyModel;
+  private _emptySurvey = new SurveyModel();
   private _emptyAnswers = [];
- _messageforsuccess : string;
+ _messageforsuccess = "";
 
   constructor(public api: ApiService) { }
 
