@@ -24,7 +24,7 @@
             <div class="col">
               <div class="display-4" *ngIf="errorMessage == ''"> {{surveyData.welcometitle}}</div>
               <div class="text-muted text-center display-4" *ngIf="errorMessage != ''"> {{errorMessage}}</div>
-              <div class="h3">{{surveyData.welcomeDescription}}</div>
+              <div class="h3" *ngIf="errorMessage == ''">{{surveyData.welcomeDescription}}</div>
             </div>
           </div>
         </div>

@@ -30,6 +30,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     HttpClientModule,
     ComponentsModule,
+    AppOverlayModule,
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
@@ -57,7 +58,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,
     multi: true
-  }, AuthGuardService, ApiService, OverlayService,
+  }, AuthGuardService, ApiService
   ],
   bootstrap: [AppComponent]
 })

@@ -250,8 +250,8 @@ export class AnswerComponent implements OnInit {
             this.singleOption = parseInt(this.lstAnswers[this.currentQuestionNumber]);
             break;
           case 'multiple':
-            let data = this.lstAnswers[this.currentQuestionNumber];
-            let multipleData = data.split(',');
+            let multipleData = this.lstAnswers[this.currentQuestionNumber];
+            //let multipleData = data.split(',');
             this.currentQuestionData.objectOptions.forEach((element) => {
               if (multipleData != undefined && multipleData.includes(element.surveyQuestionOptionId.toString())) {
                 element.isChecked = true;
@@ -262,8 +262,8 @@ export class AnswerComponent implements OnInit {
             this.singleOption = parseInt(this.lstAnswers[this.currentQuestionNumber]);
             break;
           case 'imagemultiple':
-            let data_imagemultiple = this.lstAnswers[this.currentQuestionNumber];
-            let imagemultipleData = data_imagemultiple.split(',');
+            let imagemultipleData = this.lstAnswers[this.currentQuestionNumber];
+            //let imagemultipleData = data_imagemultiple.split(',');
             this.currentQuestionData.objectOptions.forEach((element) => {
               if (imagemultipleData != undefined && imagemultipleData.includes(element.surveyQuestionOptionId.toString())) {
                 element.isChecked = true;
