@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit, OnDestroy {
               this.errorMessage = "Invalid user detected.";
               break;
             default:
-              this.errorMessage = 'Something went wrong';
+              this.errorMessage = 'Our API seems to be down, we are out of free hits for this period, give us sometime to get back.';
               break;
           }
         });

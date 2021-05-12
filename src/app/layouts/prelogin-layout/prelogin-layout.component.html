@@ -13,7 +13,7 @@
         <div class="navbar-collapse-header d-md-none">
           <div class="row">
             <div class="col-6 collapse-brand">
-              <a routerLinkActive="active" [routerLink]="['/']">
+              <a routerLinkActive="active" [routerLink]="['/']"  (click)="isCollapsed=!isCollapsed">
                 <img src="assets/img/brand/blue.png">
               </a>
             </div>
@@ -34,7 +34,7 @@
             </a>
           </li> -->
           <li class="nav-item">
-            <a class="nav-link nav-link-icon" routerLinkActive="active" [routerLink]="['/login']">
+            <a class="nav-link nav-link-icon" routerLinkActive="active" [routerLink]="['/login']" (click)="isCollapsed=!isCollapsed">
               <i class="ni ni-key-25"></i>
               <span class="nav-link-inner--text">Login</span>
             </a>
