@@ -23,6 +23,7 @@ import { CreateSurveyComponent } from 'src/app/pages/survey/create-survey/create
 import { QuestionComponent } from 'src/app/pages/question/question.component';
 import { ResultSurveyComponent } from 'src/app/pages/survey/result-survey/result-survey.component';
 import { StarRatingComponent } from 'src/app/components/star-rating/star-rating.component';
+import { ViewFeedbackSurveyComponent } from 'src/app/pages/survey/view-feedback-survey/view-feedback-survey.component';
 
 @NgModule({
   imports: [
@@ -48,6 +49,7 @@ import { StarRatingComponent } from 'src/app/components/star-rating/star-rating.
     FileUploadComponent,
     QuestionComponent,
     CreateSurveyComponent,
+    ViewFeedbackSurveyComponent
   ]
 })
 

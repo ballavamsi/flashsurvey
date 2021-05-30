@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { Status } from 'src/app/models/status';
 import { PollModel, PollViewModel, PollVote, PollResult, UserPollsResponseModel } from 'src/app/models/poll';
 import { QuestionType, QuestionAnswersBody, QuestionAnswerRequest } from 'src/app/models/question-type';
-import { SurveyModel, UserSurveysResponseModel, UserSurveyFeedbackResponseModel, SurveyMetricsViewModel, UserSurveysViewModel } from 'src/app/models/survey';
+import { SurveyModel, UserSurveysResponseModel, UserSurveyFeedbackResponseModel, SurveyMetricsViewModel, UserSurveysViewModel, UserSurveyFeedbacks, SurveyCommentModel, SurveyFeedbacksResponseModel } from 'src/app/models/survey';
 import { UserSignInModel, UserLoginResponse } from 'src/app/models/users';
 import { DashboardMetricTile } from 'src/app/models/dashboard';
 @Injectable({
@@ -85,8 +85,8 @@ export class ApiService {
     return this.http.get<SurveyMetricsViewModel>(this._API + `survey/user/graphmetrics/${surveyId}`);
   }
 
-  getSurveyUserFeedback(surveyUserGuid: string): Observable<SurveyModel> {
-    return this.http.get<SurveyModel>(this._API + `survey/user/feedback/${surveyUserGuid}`);
+  getSurveyUserFeedback(surveyUserGuid: string): Observable<SurveyFeedbacksResponseModel> {
+    return this.http.get<SurveyFeedbacksResponseModel>(this._API + `survey/user/feedback/${surveyUserGuid}`);
   }
 
   beginSurvey(surveyguid: string, emailId: any): Observable<string> {
@@ -99,5 +99,9 @@ export class ApiService {
 
   deleteSurvey(surveyId: any) {
     return this.http.delete<boolean>(this._API + `survey/delete/${surveyId}`);
+  }
+
+  commentSurvey(surveyId: number, data: SurveyCommentModel){
+    return this.http.put<UserSurveyFeedbacks>(this._API + `survey/user/feedbacks/comment/${surveyId}`, data);
   }
 }

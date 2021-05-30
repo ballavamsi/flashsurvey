@@ -1,0 +1,124 @@
+<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+        <div class="header-body">
+        </div>
+
+    </div>
+    <div class="separator separator-bottom separator-skew zindex-100">
+        <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1"
+            xmlns="http://www.w3.org/2000/svg">
+            <polygon class="fill-white" points="2560 0 2560 100 0 100"></polygon>
+        </svg>
+    </div>
+</div>
+<div class="container mt--150" *ngIf="loaded">
+    <div class="row justify-content-center">
+        <div class="col-lg-12 col-md-12">
+            <div class="card shadow-lg border-0">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-auto">
+                            <div class="icon icon icon-xl rounded-circle shadow">
+                                <img class="card-img-top" src="{{surveyData.welcomeimage}}"
+                                    alt="Photo of welcome image">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="display-4"> {{surveyData.welcometitle}}</div>
+                            <div class="h3">{{surveyData.welcomeDescription}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body px-lg-5 py-lg-5">
+                    <div class="row" *ngIf="surveyData.askemail">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label class="form-control-label" for="input-emailId">Email Address:
+                                    <span>{{currentUserFeedbackForm.surveyUserEmail}}</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row" *ngFor="let eachQuestion of surveyData.surveyQuestions;let i=index">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label class="form-control-label">
+                                            <h4>{{i+1}}) {{eachQuestion.title}}</h4>
+                                            <span style="color: gray;font-weight: normal;"
+                                                *ngIf="eachQuestion.subtitle != ''"><i>Description:
+                                                </i>{{eachQuestion.subtitle}}</span>
+                                        </label>
+                                        <br />
+                                        <span>Question type: {{eachQuestion.questiontype}}</span>
+                                        <br />
+                                        <span>User Answer:</span>
+                                        <ng-container *ngIf="(eachQuestion.questiontype == 'Range Slider')">
+                                            <ul class="ul-no-style"
+                                                *ngFor="let answer of eachQuestion.selectedValues;let j=index">
+                                                <li *ngIf="j == 0">
+                                                    Min: {{answer}}
+                                                </li>
+                                                <li *ngIf="j > 0">
+                                                    Max: {{answer}}
+                                                </li>
+                                            </ul>
+                                        </ng-container>
+
+                                        <ng-container
+                                            *ngIf="(eachQuestion.questiontype =='Slider' || eachQuestion.questiontype == 'Star')">
+                                            <ul class="ul-no-style">
+                                                <li>{{eachQuestion.selectedValues[0]}}</li>
+                                            </ul>
+                                        </ng-container>
+
+                                        <ng-container
+                                            *ngIf="(eachQuestion.questiontype !='Range Slider'  && eachQuestion.questiontype != 'Slider' && eachQuestion.questiontype != 'Star')">
+                                            <ul class="ul-no-style" *ngFor="let answer of eachQuestion.objectOptions">
+                                                <li
+                                                    *ngIf="(eachQuestion.selectedValues.indexOf(answer.surveyQuestionOptionId.toString()) && !answer.optionValue.startsWith('http'))">
+                                                    {{answer.optionValue}}
+                                                </li>
+                                                <li
+                                                    *ngIf="(eachQuestion.selectedValues.indexOf(answer.surveyQuestionOptionId.toString()) && answer.optionValue.startsWith('http'))">
+                                                    <img [src]="answer.optionValue" width="40px" height="40px">
+                                                </li>
+                                            </ul>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class='col-12'>
+                            <div class="form-group">
+                                <textarea type="text" id="input-comment" class="form-control form-control-alternative"
+                                    placeholder="Ex: This is positive feedback" [(ngModel)]="currentUserFeedbackForm.reviewComment"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row" *ngIf="currentUserFeedbackForm.reviewCompleted != 1">
+                        <div class="col-3">
+                            <label class="form-control-label">Complete review?</label>
+                            <span class="clearfix"></span>
+                            <label class="custom-toggle">
+                                <input type="checkbox" [checked]="markComplete" (change)="markComplete = !markComplete">
+                                <span class="custom-toggle-slider rounded-circle"></span>
+                            </label>
+                        </div>
+                        <div class="col-3">
+                            <button type="submit" class="btn btn-outline-primary" (click)="putCommentSurvey()"><span
+                                    *ngIf="!markComplete">Save</span>
+                                <span *ngIf="markComplete">Submit</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

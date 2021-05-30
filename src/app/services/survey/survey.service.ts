@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ApiService } from '../api/api.service';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { QuestionAnswersBody, QuestionAnswerRequest } from 'src/app/models/question-type';
-import { SurveyModel } from 'src/app/models/survey';
+import { SurveyCommentModel, SurveyModel } from 'src/app/models/survey';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +35,10 @@ export class SurveyService {
 
   public submitSurvey(surveyguid: string,session: string, data: QuestionAnswerRequest){
     return this.api.submitSurvey(surveyguid,session,data);
+  }
+
+  public commentSurvey(surveyId: number, data: SurveyCommentModel){
+    return this.api.commentSurvey(surveyId,data);
   }
   ///Begin observables
   public setCurrentSurvey(data: SurveyModel) {

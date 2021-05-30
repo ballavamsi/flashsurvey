@@ -15,6 +15,23 @@ export class SurveyModel {
   surveyUserGuid: string;
 }
 
+export class SurveyFeedbacksResponseModel {
+  surveyId: number;
+  welcometitle: string;
+  welcomeDescription: string;
+  welcomeimage: string;
+  emailidrequired: number;
+  askemail: number;
+  enableprevious: number;
+  endtitle: string;
+  allowduplicate: number; //default 0
+  enddate: string; //set next year date default
+  surveyQuestions: SurveyQuestionsModel[];
+  surveyGuid: string;
+  surveyUserGuid: string;
+  surveyFeedbacks: UserSurveyFeedbacks[];
+}
+
 export class SurveyQuestionsModel {
   surveyId: number;
   surveyQuestionId: number;
@@ -69,9 +86,10 @@ export class UserSurveyFeedbacks{
   surveyUserGuid: string;
   emailId: string;
   receivedDate: Date;
-  comment: string;
+  reviewComment: string;
   reviewComplete: boolean;
   reviewUpdatedDate: Date;
+  surveyFeedbackId: number;
 }
 
 export class SurveyMetricsViewModel {
@@ -95,4 +113,11 @@ export class OptionsMetricsViewModel {
   optionCount: number;
   optionAverage: number;
   subOptions: OptionsMetricsViewModel[];
+}
+
+
+export class SurveyCommentModel {
+  feedbackId: number;
+  comment: string;
+  reviewComplete: number;
 }

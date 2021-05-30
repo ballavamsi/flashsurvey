@@ -85,15 +85,7 @@ export class ResultSurveyComponent implements OnInit {
 
   getSurveyUserFeedback(surveyUserGuid)
   {
-    this._overlayService.show();
-    this._surveyService.getSurveyUserFeedback(surveyUserGuid).subscribe((data: SurveyModel) => {
-      this._overlayService.hide();
-    },
-      error => {
-        this._overlayService.hide();
-        this.openDismiss(error.error, "Dismiss");
-      });
-    this.renderChart();
+    this._router.navigate(['survey/feedback/',surveyUserGuid]);
   }
 
   renderChart() {
