@@ -1,17 +1,20 @@
-<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
-    <div class="container-fluid">
-        <div class="header-body">
+<div class="header bg-gradient-info py-7 py-lg-8">
+    <div class="container">
+      <div class="header-body">
+        <div class="row justify-content-center">
+          <div class="col-auto">
+            <h1 class="text-white">{{surveyTitle}}</h1>
+          </div>
         </div>
-
+      </div>
     </div>
     <div class="separator separator-bottom separator-skew zindex-100">
-        <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1"
-            xmlns="http://www.w3.org/2000/svg">
-            <polygon class="fill-white" points="2560 0 2560 100 0 100"></polygon>
-        </svg>
+      <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <polygon class="fill-secondary" points="2560 0 2560 100 0 100"></polygon>
+      </svg>
     </div>
-</div>
-<div class="container mt--150" *ngIf="loaded">
+  </div>
+<div class="container mt--100" *ngIf="loaded">
     <div class="row justify-content-center">
         <div class="col-lg-12 col-md-12">
             <div class="card shadow-lg border-0">
