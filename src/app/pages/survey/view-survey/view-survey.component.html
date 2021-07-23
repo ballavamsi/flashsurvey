@@ -22,9 +22,9 @@
               </div>
             </div>
             <div class="col">
-              <div class="display-4" *ngIf="errorMessage == ''"> {{surveyData.welcometitle}}</div>
+              <div class="display-4" style="color:#1f1f1f" *ngIf="errorMessage == ''"> {{surveyData.welcometitle}}</div>
               <div class="text-muted text-center display-4" *ngIf="errorMessage != ''"> {{errorMessage}}</div>
-              <div class="h3" *ngIf="errorMessage == ''">{{surveyData.welcomeDescription}}</div>
+              <div class="h4" style="color:#1f1f1f;opacity: 0.8;" *ngIf="errorMessage == ''">{{surveyData.welcomeDescription}}</div>
             </div>
           </div>
         </div>
