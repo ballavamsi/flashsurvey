@@ -24,7 +24,6 @@ import { AnswerComponent } from './pages/answer/answer.component';
 import { ResultSurveyComponent } from './pages/survey/result-survey/result-survey.component';
 import { NouisliderModule } from 'ng2-nouislider';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SharethisAngularModule } from 'sharethis-angular';
 
 @NgModule({
   imports: [
@@ -40,8 +39,7 @@ import { SharethisAngularModule } from 'sharethis-angular';
     MatProgressSpinnerModule,
     ProgressSpinnerModule,
     FlashSurveyMaterialModules,
-    NouisliderModule,
-    SharethisAngularModule
+    NouisliderModule
   ],
   declarations: [
     ProgressSpinnerComponent,
