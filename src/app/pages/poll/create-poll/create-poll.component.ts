@@ -117,7 +117,7 @@ export class CreatePollComponent implements OnInit {
           const returnData: PollViewModel = result;
           this.newPollViewModel = returnData;
           this._overlayService.hide();
-          this._router.navigate([`poll/view/${returnData.pollGuid}`]);
+          this._router.navigate([`success/poll/${returnData.pollGuid}`]);
         },
         error => {
           this.openDismiss('Failed to create poll, please try again', 'Close');
