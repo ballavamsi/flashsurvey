@@ -1,5 +1,6 @@
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { StorageService } from './storage/storage.service';
@@ -7,7 +8,7 @@ import { StorageService } from './storage/storage.service';
 @Injectable()
 export class TokenInterceptorService implements HttpInterceptor {
 
-  constructor(private _storageService: StorageService) { }
+  constructor(private _storageService: StorageService, private _router: Router) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // All HTTP requests are going to go through this method
     req = this.addUserToken(req);
@@ -26,6 +27,7 @@ export class TokenInterceptorService implements HttpInterceptor {
         };
           if (error.status == 401) {
             this._storageService.clearAllSession();
+          this._router.navigate(['/login']);
           return throwError(error);
         }
       }));
