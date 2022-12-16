@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  API_URL: "https://freepoll.herokuapp.com/api"
+  API_URL: "https://freepoll-api.loca.lt/api"
 };
