@@ -34,14 +34,18 @@ export class TokenInterceptorService implements HttpInterceptor {
   }
 
   private addUserToken(request: HttpRequest<any>): HttpRequest<any> {
+
+
     var userDetails = this._storageService.getUserSessionDetails();
     if (userDetails != null) {
       return request.clone({
-        headers: request.headers.set("UserToken", userDetails?.userGuid)
+        headers: request.headers.set("UserToken", userDetails?.userGuid).set("Bypass-Tunnel-Reminder", "True")
       });
     }
     else {
-      return request;
+      return request.clone({
+        headers: request.headers.set("Bypass-Tunnel-Reminder", "True")
+      });
     }
   }
 }
