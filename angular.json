@@ -126,14 +126,17 @@
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "flashsurvey:serve"
+            "protractorConfig": "e2e/protractor.conf.js"
           },
           "configurations": {
             "production": {
               "devServerTarget": "flashsurvey:serve:production"
+            },
+            "development": {
+              "devServerTarget": "flashsurvey:serve:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "deploy": {
           "builder": "@netlify-builder/deploy:deploy",
