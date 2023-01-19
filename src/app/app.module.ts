@@ -16,7 +16,7 @@ import { FlashSurveyMaterialModules } from './material.module';
 import { ProgressSpinnerComponent, ProgressSpinnerModule } from './components/progress-spinner/progress-spinner.module';
 import { ApiService } from './services/api/api.service';
 import { OverlayService } from './components/overlay/overlay.service';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
 import { AuthGuardService } from './services/auth/auth-guard.service';
 import { TokenInterceptorService } from './services/tokenInterceptor.service';
 import { StarRatingComponent } from './components/star-rating/star-rating.component';

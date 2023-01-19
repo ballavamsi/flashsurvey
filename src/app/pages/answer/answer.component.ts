@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { OverlayService } from 'src/app/components/overlay/overlay.service';
 import { ApiService } from 'src/app/services/api/api.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 
 @Component({
   selector: 'app-answer',

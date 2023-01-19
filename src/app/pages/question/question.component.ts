@@ -5,7 +5,7 @@ import { SurveyService } from 'src/app/services/survey/survey.service';
 import { ApiService } from 'src/app/services/api/api.service';
 import { QuestionType } from 'src/app/models/question-type';
 import { StorageService } from 'src/app/services/storage/storage.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { MatAccordion } from '@angular/material/expansion';
 
 @Component({

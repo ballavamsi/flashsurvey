@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { PollOptionTypes, PollViewModel, PollModel } from 'src/app/models/poll';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { PollService } from 'src/app/services/poll/poll.service';
 import { OverlayService } from 'src/app/components/overlay/overlay.service';
 import { StatusEnum } from 'src/app/variables/status-enum.enum';

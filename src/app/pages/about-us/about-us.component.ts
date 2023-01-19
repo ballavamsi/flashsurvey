@@ -1,4 +1,4 @@
-import {MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import {MatLegacySnackBar as MatSnackBar, MatLegacySnackBarConfig as MatSnackBarConfig } from '@angular/material/legacy-snack-bar';
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 @Component({
   selector: 'app-about-us',

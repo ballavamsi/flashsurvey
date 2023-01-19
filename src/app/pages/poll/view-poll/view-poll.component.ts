@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PollOptionVote, PollVote, PollViewModel } from 'src/app/models/poll';
 import { UntypedFormControl, UntypedFormArray, UntypedFormGroup } from '@angular/forms';
 import { OverlayService } from 'src/app/components/overlay/overlay.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PollService } from 'src/app/services/poll/poll.service';
 

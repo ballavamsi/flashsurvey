@@ -12,7 +12,7 @@ import {
 } from "@angular/forms";
 import { StorageService } from "src/app/services/storage/storage.service";
 import { Router } from "@angular/router";
-import { MatSnackBar } from "@angular/material/snack-bar";
+import { MatLegacySnackBar as MatSnackBar } from "@angular/material/legacy-snack-bar";
 import { UserSignInModel } from "src/app/models/users";
 
 @Component({
