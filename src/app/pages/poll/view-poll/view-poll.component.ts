@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PollOptionVote, PollVote, PollViewModel } from 'src/app/models/poll';
-import { FormControl, FormArray, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormArray, UntypedFormGroup } from '@angular/forms';
 import { OverlayService } from 'src/app/components/overlay/overlay.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -19,7 +19,7 @@ export class ViewPollComponent implements OnInit, OnDestroy {
   public loaded = false;
   public errorMessage = '';
 
-  fg: FormGroup;
+  fg: UntypedFormGroup;
   selected = Array(0);
 
   constructor(private _pollService: PollService,
@@ -86,9 +86,9 @@ export class ViewPollComponent implements OnInit, OnDestroy {
   }
 
   initFormGroup(data: PollVote) {
-    this.fg = new FormGroup({
-      pollid: new FormControl(data.pollId),
-      options: new FormArray([])
+    this.fg = new UntypedFormGroup({
+      pollid: new UntypedFormControl(data.pollId),
+      options: new UntypedFormArray([])
     });
 
     data.options.forEach(element => {
@@ -152,13 +152,13 @@ export class ViewPollComponent implements OnInit, OnDestroy {
 
   // add new option
   addNewOption(newoptionvalue: PollOptionVote) {
-    const nfg = new FormControl(newoptionvalue);
+    const nfg = new UntypedFormControl(newoptionvalue);
     this.options.push(nfg);
   }
 
   // get data
-  get options(): FormArray {
-    return this.fg.get('options') as FormArray;
+  get options(): UntypedFormArray {
+    return this.fg.get('options') as UntypedFormArray;
   }
 
   // open snackbar

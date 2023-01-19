@@ -26,40 +26,36 @@ import { NouisliderModule } from 'ng2-nouislider';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  imports: [
-    BrowserAnimationsModule,
-    HttpClientModule,
-    ComponentsModule,
-    AppOverlayModule,
-    NgbModule,
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule,
-    AppRoutingModule,
-    MatProgressSpinnerModule,
-    ProgressSpinnerModule,
-    FlashSurveyMaterialModules,
-    NouisliderModule
-  ],
-  declarations: [
-    ProgressSpinnerComponent,
-    StarRatingComponent,
-    AppComponent,
-    AnswerComponent,
-    ResultSurveyComponent,
-    PreLoginLayoutComponent,
-    AdminLayoutComponent
-  ],
-  entryComponents: [
-    ProgressSpinnerComponent,
-    AppComponent
-  ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: TokenInterceptorService,
-    multi: true
-  }, AuthGuardService, ApiService
-  ],
-  bootstrap: [AppComponent]
+    imports: [
+        BrowserAnimationsModule,
+        HttpClientModule,
+        ComponentsModule,
+        AppOverlayModule,
+        NgbModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterModule,
+        AppRoutingModule,
+        MatProgressSpinnerModule,
+        ProgressSpinnerModule,
+        FlashSurveyMaterialModules,
+        NouisliderModule
+    ],
+    declarations: [
+        ProgressSpinnerComponent,
+        StarRatingComponent,
+        AppComponent,
+        AnswerComponent,
+        ResultSurveyComponent,
+        PreLoginLayoutComponent,
+        AdminLayoutComponent
+    ],
+    providers: [{
+            provide: HTTP_INTERCEPTORS,
+            useClass: TokenInterceptorService,
+            multi: true
+        }, AuthGuardService, ApiService
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

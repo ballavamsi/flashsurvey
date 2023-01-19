@@ -2,7 +2,7 @@ import { StorageService } from "./../../services/storage/storage.service";
 import { Router } from "@angular/router";
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { UntypedFormGroup, UntypedFormControl, Validators } from "@angular/forms";
 import {
   SocialAuthService,
   GoogleLoginProvider,
@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   //
   public errorMessage = "";
   public platform = "";
-  public fg: FormGroup;
+  public fg: UntypedFormGroup;
 
   constructor(
     private snackBar: MatSnackBar,
@@ -32,12 +32,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     private _userService: UserService,
     private _overlayService: OverlayService
   ) {
-    this.fg = new FormGroup({
-      email: new FormControl("", [
+    this.fg = new UntypedFormGroup({
+      email: new UntypedFormControl("", [
         Validators.required,
         Validators.maxLength(255),
       ]),
-      password: new FormControl("", [
+      password: new UntypedFormControl("", [
         Validators.required,
         Validators.minLength(8),
       ]),

@@ -1,6 +1,6 @@
 import { Staroptions } from '../../models/staroptions';
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { SurveyService } from 'src/app/services/survey/survey.service';
 import { ApiService } from 'src/app/services/api/api.service';
 import { QuestionType } from 'src/app/models/question-type';
@@ -34,7 +34,7 @@ export class QuestionComponent implements OnInit {
   }
   @ViewChild('myaccordian', { static: true }) accordion: MatAccordion;
 
-  @Input() questionForm: FormGroup;
+  @Input() questionForm: UntypedFormGroup;
   @Input() idx: number;
   @Output() idxToRemove: EventEmitter<number> = new EventEmitter<number>();
   @Output() formChange: EventEmitter<any> = new EventEmitter();

@@ -17,6 +17,10 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "moment",
+              "chart.js"
+            ],
             "aot": true,
             "outputPath": "dist/flashsurvey",
             "index": "src/index.html",
@@ -149,7 +153,6 @@
       }
     }
   },
-  "defaultProject": "flashsurvey",
   "cli": {
     "analytics": false
   }

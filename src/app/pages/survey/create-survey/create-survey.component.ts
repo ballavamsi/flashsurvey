@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, UntypedFormArray, UntypedFormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { OverlayService } from 'src/app/components/overlay/overlay.service';
 import { SurveyService } from 'src/app/services/survey/survey.service';
@@ -21,14 +21,14 @@ export class CreateSurveyComponent implements OnInit {
   displayAddQuestion = false;
 
 
-  fg : FormGroup;
+  fg : UntypedFormGroup;
   questionSaved = [];
   questionOptions = [];
   questionTypes = [];
   newSurveyViewModel: SurveyModel;
 
 
-  constructor(private _formBuilder: FormBuilder,
+  constructor(private _formBuilder: UntypedFormBuilder,
     private _surveyService: SurveyService,
     private _overlayService: OverlayService,
     private _snackBar: MatSnackBar,
@@ -58,7 +58,7 @@ export class CreateSurveyComponent implements OnInit {
     this.updateAddNewQuestionVisibility();
   }
 
-  newQuestionType(): FormGroup {
+  newQuestionType(): UntypedFormGroup {
     this.questionSaved.push(false);
     return this._formBuilder.group({
       userQuestion: this._formBuilder.control('', [Validators.required]),
@@ -212,12 +212,12 @@ export class CreateSurveyComponent implements OnInit {
     console.log(typeof data);
   }
 
-  getEachQuestionControl(index: number, prop: string): FormControl {
-    return this.questions[index].get(prop) as FormControl;
+  getEachQuestionControl(index: number, prop: string): UntypedFormControl {
+    return this.questions[index].get(prop) as UntypedFormControl;
   }
 
-  get questions(): FormArray {
-    return this.fg.get('questions') as FormArray;
+  get questions(): UntypedFormArray {
+    return this.fg.get('questions') as UntypedFormArray;
   }
 
   ngOnInit() {
