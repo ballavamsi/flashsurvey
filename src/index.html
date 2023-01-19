@@ -7,6 +7,8 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
     <meta name="title" content="FlashSurvey" />
     <meta
       name="description"
@@ -57,6 +59,25 @@
 
       gtag("config", "UA-25622313-2");
     </script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+      function handleCredentialResponse(response) {
+        console.log("Encoded JWT ID token: " + response.credential);
+      }
+      window.onload = function () {
+        google.accounts.id.initialize({
+          client_id:
+            "989782456246-ohg0jc6vnit4pe2rkp71qq0rnm7ab76g.apps.googleusercontent.com",
+          callback: handleCredentialResponse,
+        });
+        google.accounts.id.renderButton(
+          document.getElementById("buttonDiv"),
+          { theme: "outline", size: "large" } // customization attributes
+        );
+        google.accounts.id.prompt(); // also display the One Tap dialog
+      };
+    </script>
+
     <link
       href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap"
       rel="stylesheet"
