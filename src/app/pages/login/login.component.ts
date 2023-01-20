@@ -58,6 +58,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     );
 
     this._socialAuthService.authState.subscribe((user) => {
+      this._overlayService.show();
       let loginUser = new UserSignInModel();
       let platformDetails = new SocialPlatform();
       loginUser.name = user.firstName;
