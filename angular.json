@@ -148,9 +148,7 @@
         "deploy": {
           "builder": "@netlify-builder/deploy:deploy",
           "options": {
-            "outputPath": "dist/flashsurvey",
-            "netlifyToken": "8462af6f85fc46258908bc050e1443a7c153c58b6363be0603a8dd583cf7b778",
-            "siteId": "8ff72a9a-8728-4de8-867f-150914653292"
+            "outputPath": "dist/flashsurvey"
           }
         }
       }
