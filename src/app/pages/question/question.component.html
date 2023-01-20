@@ -1,0 +1,190 @@
+<div [formGroup]="questionForm" style="padding-top:10px" (keydown)="textChanged()">
+  <div class="card w-100 shadow" [ngClass]="{'invalidPanel': invalidForm , 'validPanel': !invalidForm}">
+    <div class="card-header border-0">
+      <!-- <div class="card-title"> -->
+      <div class="row align-items-center">
+        <div class="col card-title">
+          #{{idx + 1}} <span class="is-error" *ngIf="isRequired">*</span> {{userQuestion}}
+        </div>
+        <div class="col text-right">
+          <button type="button" class="btn btn-info d-none" *ngIf="expandedPanel" (click)="collapseDiv()">Collapse</button>
+          <button type="button" class="btn btn-info" *ngIf="!expandedPanel" (click)="expandDiv()">Expand</button>
+        </div>
+        <!-- </div> -->
+      </div>
+    </div>
+    <div class="card-body" [ngClass]="{'collapse': !expandedPanel }">
+      <h6 class="heading-small text-muted mb-4 ">YOUR ASK</h6>
+      <div class="pl-lg-4">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="form-group">
+              <label class="form-control-label" for="input-question">Question<span
+                class="pl-1 text-warning">*</span></label>
+              <textarea type="text" id="input-question" required class="form-control form-control-alternative"
+                placeholder="Enter your question" formControlName="userQuestion">
+                </textarea>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="form-group">
+              <label class="form-control-label" for="input-explanation">Explanation</label>
+              <textarea type="text" id="input-explanation" class="form-control form-control-alternative"
+                placeholder="Give your explanation" formControlName="explanation">
+                </textarea>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <label class="form-control-label">Question Type<span
+              class="pl-1 text-warning">*</span></label>
+            <div class="form-group">
+              <select class="form-control" formControlName="questionType" #questionType (change)="setQuestionType(idx, questionType)">
+                <option *ngFor="let surveyQuestionType of SurveyQuestionTypes" [value]="surveyQuestionType.code">
+                  {{surveyQuestionType.name}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <label class="form-control-label">Required</label>
+            <div class="form-group">
+              <div class="custom-control custom-checkbox mb-3">
+                <input [id]="'isRequiredcheckbox'+idx" class="custom-control-input"
+                  [name]="'isRequiredcheckbox'+idx" formControlName="isRequired" type="checkbox">
+                <label [for]="'isRequiredcheckbox'+idx" class="custom-control-label">Make question mandatory</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="my-4" />
+      <h6 class="heading-small text-muted mb-4"
+        *ngIf="selectedListQuestionTypes!='-1' && selectedListQuestionTypes != ''">Additions Details:</h6>
+      <div class="pl-lg-4" *ngIf="selectedListQuestionTypes!='-1' && selectedListQuestionTypes != ''">
+        <!-- Essay , Slider and Range Slider-->
+        <div class="row"
+          *ngIf="selectedListQuestionTypes == 'essay' || selectedListQuestionTypes == 'rangeslider' || selectedListQuestionTypes == 'slider'">
+          <div class="col-lg-3">
+            <div class="form-group">
+              <label class="form-control-label" for="input-question"
+                *ngIf="selectedListQuestionTypes == 'essay'">Minimum Characters<span
+                class="pl-1 text-warning">*</span></label>
+              <label class="form-control-label" for="input-question"
+                *ngIf="selectedListQuestionTypes == 'rangeslider'  || selectedListQuestionTypes == 'slider'">Starting
+                Range<span
+                class="pl-1 text-warning">*</span></label>
+              <input id="input-minlength" required class="form-control form-control-alternative" type="number"
+                [(ngModel)]="minValue" [ngModelOptions]="{standalone: true}" placeholder="Ex. 12">
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="form-group">
+              <label class="form-control-label" for="input-question"
+                *ngIf="selectedListQuestionTypes == 'essay'">Maximum Characters<span
+                class="pl-1 text-warning">*</span></label>
+              <label class="form-control-label" for="input-question"
+                *ngIf="selectedListQuestionTypes == 'rangeslider'  || selectedListQuestionTypes == 'slider'">Ending
+                Range<span
+                class="pl-1 text-warning">*</span></label>
+              <input id="input-minlength" required class="form-control form-control-alternative" type="number"
+                [(ngModel)]="maxValue" [ngModelOptions]="{standalone: true}" placeholder="Ex. 12">
+            </div>
+          </div>
+        </div>
+
+        <!-- Radio button and multiple checkboxes-->
+        <div class="row" *ngIf="selectedListQuestionTypes == 'radiobuttons' ||
+          selectedListQuestionTypes == 'multiple' || selectedListQuestionTypes == 'multiplerating' ||
+          selectedListQuestionTypes == 'customrating'">
+          <div class="col-lg-6">
+            <label class="form-control-label">Your Options list:</label>
+            <div class="form-group">
+              <div class="input-group mb-4" *ngFor="let item of options;index as i">
+                <input class="form-control" placeholder="Enter option here" [id]="'option'+i" type="text" #option{{i}}
+                  [value]="options[i]" (focusout)="updateOption(i,$event)">
+                <div class="input-group-append">
+                  <span class="input-group-text" (click)="removeOption(i)"><i class="fa fa-trash-o"></i></span>
+                </div>
+              </div>
+              <div>
+                <button type="button" class="btn btn-outline-primary" (click)="addOption();">Add New</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image -- Radio button and multiple checkboxes-->
+        <div class="row" *ngIf="selectedListQuestionTypes == 'imageradiobuttons' ||
+        selectedListQuestionTypes == 'imagemultiple'">
+          <div class="col-lg-6">
+            <label class="form-control-label">Your Image Options:</label>
+            <div class="form-group">
+              <div class="input-group mb-4" *ngFor="let item of options;index as i">
+                <!-- <input class="form-control" disabled placeholder="Enter option here" [id]="'option'+i" type="text" #option{{i}}
+                  [value]="item"> -->
+                  <img [src]="item" width="50px" height="50px">
+                <div class="input-group-append">
+                  <span class="input-group-text" (click)="removeOption(i)"><i class="fa fa-trash-o"></i></span>
+                </div>
+              </div>
+              <div>
+                <app-file-upload [clearFileAfterUpload]="true" text="Image Option" (complete)="onFileComplete($event)"></app-file-upload>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Star rating-->
+        <div class="row"  *ngIf="selectedListQuestionTypes == 'starrating'">
+          <div class="col-lg-12">
+            <div class="form-group">
+              <label class="form-control-label" for="input-question">No Addtional details are needed</label>
+              </div>
+              </div>
+        </div>
+
+        <!-- Custom Ratings-->
+        <div class="row" *ngIf="selectedListQuestionTypes == 'customrating'">
+          <div class="col-lg-12">
+            <div class="form-group">
+              <label class="form-control-label" for="input-question">Default headers to fill</label>
+              <select class="form-control" #customRatingSelect
+                (change)="customRatingValuesChange(idx, customRatingSelect)">
+                <option value="-1">--Select--</option>
+                <option *ngFor="let eachStarOption of listStarOptions" [value]="eachStarOption.optionText">
+                  {{eachStarOption.optionDisplayText}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <!-- custom raing with x axis -->
+        <div class="row" *ngIf="selectedListQuestionTypes == 'customrating'">
+          <div class="col-lg-6">
+            <label class="form-control-label">Custom rating headers:</label>
+            <div class="form-group">
+              <div class="input-group mb-4" *ngFor="let item of options_x;index as i">
+                <input class="form-control" [id]="'optionx'+i" placeholder="Enter option here" [id]="'option'+i"
+                  type="text" #option{{i}} [value]="options_x[i]" (focusout)="updateOption_X(i,$event)">
+                <div class="input-group-append">
+                  <span class="input-group-text" (click)="removeOption_X(i)"><i class="fa fa-trash-o"></i></span>
+                </div>
+              </div>
+              <div>
+                <button type="button" class="btn btn-outline-primary" (click)="addOption_X();">Add New</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pl-lg-4 d-flex justify-content-end">
+        <button class="btn mt-3 btn-icon btn-3 btn-primary" type="button"  (click)="SaveEmit(idx)">Save</button>
+        <button class="btn mt-3 btn-icon btn-3 btn-warning" type="button" (click)="idxToRemove.emit(idx)">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
