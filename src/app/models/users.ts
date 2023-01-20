@@ -6,7 +6,7 @@ export class UserSignInModel {
 }
 
 export class SocialPlatform {
-  platform: string;
+  platform: string = 'google';
   platformid: string;
   platformImage: string;
 }

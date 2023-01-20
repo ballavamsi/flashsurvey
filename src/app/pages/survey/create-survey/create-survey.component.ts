@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {
+  UntypedFormGroup,
+  UntypedFormBuilder,
+  Validators,
+  UntypedFormArray,
+  UntypedFormControl,
+} from '@angular/forms';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { OverlayService } from 'src/app/components/overlay/overlay.service';
 import { SurveyService } from 'src/app/services/survey/survey.service';
 import { Router } from '@angular/router';
@@ -10,30 +16,32 @@ import { SurveyQuestionsModel, SurveyModel } from 'src/app/models/survey';
 @Component({
   selector: 'app-create-survey',
   templateUrl: './create-survey.component.html',
-  styleUrls: ['./create-survey.component.scss']
+  styleUrls: ['./create-survey.component.scss'],
 })
 export class CreateSurveyComponent implements OnInit {
-
   today = moment().add(1, 'day');
-  minDate = {year: this.today.year , month: this.today.month , day: this.today.day};
+  minDate = {
+    year: this.today.year,
+    month: this.today.month,
+    day: this.today.day,
+  };
   maxDate = moment().add(3, 'months').format('L');
   step = 0;
   displayAddQuestion = false;
 
+  fg: UntypedFormGroup;
+  questionSaved: any[] = [];
+  questionOptions: any[] = [];
+  questionTypes: any[] = [];
+  newSurveyViewModel!: SurveyModel;
 
-  fg : FormGroup;
-  questionSaved = [];
-  questionOptions = [];
-  questionTypes = [];
-  newSurveyViewModel: SurveyModel;
-
-
-  constructor(private _formBuilder: FormBuilder,
+  constructor(
+    private _formBuilder: UntypedFormBuilder,
     private _surveyService: SurveyService,
     private _overlayService: OverlayService,
     private _snackBar: MatSnackBar,
-    private _router: Router) {
-
+    private _router: Router
+  ) {
     this.fg = this._formBuilder.group({
       welcomeMessage: this._formBuilder.control('', [Validators.required]),
       welcomeDescription: this._formBuilder.control(''),
@@ -42,11 +50,8 @@ export class CreateSurveyComponent implements OnInit {
       askEmail: this._formBuilder.control(false),
       enablePrevious: this._formBuilder.control(false),
       endMessage: this._formBuilder.control('', [Validators.required]),
-      questions: this._formBuilder.array([
-        this.newQuestionType()
-      ])
+      questions: this._formBuilder.array([this.newQuestionType()]),
     });
-
   }
 
   // new question
@@ -58,14 +63,14 @@ export class CreateSurveyComponent implements OnInit {
     this.updateAddNewQuestionVisibility();
   }
 
-  newQuestionType(): FormGroup {
+  newQuestionType(): UntypedFormGroup {
     this.questionSaved.push(false);
     return this._formBuilder.group({
       userQuestion: this._formBuilder.control('', [Validators.required]),
       explanation: this._formBuilder.control(''),
       isRequired: this._formBuilder.control(false),
       questionType: this._formBuilder.control('-1'),
-      questionOptions: this._formBuilder.control({})
+      questionOptions: this._formBuilder.control({}),
     });
   }
 
@@ -77,14 +82,14 @@ export class CreateSurveyComponent implements OnInit {
     this.updateAddNewQuestionVisibility();
   }
 
-  additionalValidations() {
+  additionalValidations(): any {
     if (this.questionSaved.indexOf(false) == -1) {
-      return "";
+      return '';
     }
     if (this.questionSaved.indexOf(false) >= 0) {
-      return "Few questions are not saved.";
+      return 'Few questions are not saved.';
     }
-
+    return '';
   }
 
   ////#region  submit
@@ -98,10 +103,10 @@ export class CreateSurveyComponent implements OnInit {
     survey.enableprevious = data['enablePrevious'] ? 1 : 0;
     survey.endtitle = data['endMessage'];
     survey.allowduplicate = 0; //default 0
-    survey.enddate = new Date((new Date().getDate()) + 365).toISOString(); //set next year date default
+    survey.enddate = new Date(new Date().getDate() + 365).toISOString(); //set next year date default
     survey.surveyQuestions = [];
 
-    data['questions'].forEach((element, index) => {
+    data['questions'].forEach((element: any, index: any) => {
       let eachquestion = new SurveyQuestionsModel();
       eachquestion.surveyQuestionId = 0;
       eachquestion.questionDisplayOrder = index + 1;
@@ -130,7 +135,7 @@ export class CreateSurveyComponent implements OnInit {
         return;
       }
 
-      if (additionalValidationsMessage != "") {
+      if (additionalValidationsMessage != '') {
         this._overlayService.hide();
         this.openDismiss(additionalValidationsMessage, 'Dismiss');
         return;
@@ -142,48 +147,47 @@ export class CreateSurveyComponent implements OnInit {
           this._overlayService.hide();
           this._router.navigate([`success/survey/${returnData.surveyGuid}`]);
         },
-        error => {
-          this.openDismiss('Failed to create survey, please try again', 'Close');
+        (error) => {
+          this.openDismiss(
+            'Failed to create survey, please try again',
+            'Close'
+          );
           this._overlayService.hide();
-        });
-    }
-    else {
+        }
+      );
+    } else {
       this._overlayService.hide();
-      this.openDismiss("All required details are not filled", 'Dismiss');
+      this.openDismiss('All required details are not filled', 'Dismiss');
     }
-
-
   }
   //#endregion
 
   //on image upload
   onFileComplete(controlType: string, data: any) {
     if (data.success) {
-      this.fg.get(controlType).patchValue(data.data.display_url);
+      this.fg.get(controlType)?.patchValue(data.data.display_url);
     }
   }
 
-  onEmailMandatoryChange(){
-    if(this.fg.get('emailIdRequired').value === true)
-    {
-      this.fg.get('askEmail').patchValue(true);
+  onEmailMandatoryChange() {
+    if (this.fg.get('emailIdRequired')?.value === true) {
+      this.fg.get('askEmail')?.patchValue(true);
     }
   }
-
 
   // open snackbar
-  openDismiss(message: string, buttontext: string) {
+  openDismiss(message: any, buttontext: any) {
     this._snackBar.open(message, buttontext, {
       duration: 3000,
     });
   }
 
   //#region  next and back
-  onClickNext(){
-    this.step=1;
+  onClickNext() {
+    this.step = 1;
   }
-  onClickBack(){
-    this.step=0;
+  onClickBack() {
+    this.step = 0;
   }
   //#endregion
 
@@ -195,10 +199,9 @@ export class CreateSurveyComponent implements OnInit {
   }
 
   updateAddNewQuestionVisibility() {
-    if (this.questionSaved.findIndex(x => x == false) != -1) {
+    if (this.questionSaved.findIndex((x) => x == false) != -1) {
       this.displayAddQuestion = false;
-    }
-    else {
+    } else {
       this.displayAddQuestion = true;
     }
   }
@@ -212,15 +215,13 @@ export class CreateSurveyComponent implements OnInit {
     console.log(typeof data);
   }
 
-  getEachQuestionControl(index: number, prop: string): FormControl {
-    return this.questions[index].get(prop) as FormControl;
+  getEachQuestionControl(index: number, prop: string): UntypedFormControl {
+    return this.questions[index].get(prop) as UntypedFormControl;
   }
 
-  get questions(): FormArray {
-    return this.fg.get('questions') as FormArray;
+  get questions(): any {
+    return this.fg.get('questions') as UntypedFormArray;
   }
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

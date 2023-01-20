@@ -1,8 +1,17 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { trigger, state, style, animate, transition } from '@angular/animations';
 import {
-  HttpClient, HttpResponse, HttpRequest,
-  HttpEventType, HttpErrorResponse
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+} from '@angular/animations';
+import {
+  HttpClient,
+  HttpResponse,
+  HttpRequest,
+  HttpEventType,
+  HttpErrorResponse,
 } from '@angular/common/http';
 import { Subscription, of } from 'rxjs';
 import { catchError, last, map, tap } from 'rxjs/operators';
@@ -14,11 +23,9 @@ import { catchError, last, map, tap } from 'rxjs/operators';
   animations: [
     trigger('fadeInOut', [
       state('in', style({ opacity: 100 })),
-      transition('* => void', [
-        animate(300, style({ opacity: 0 }))
-      ])
-    ])
-  ]
+      transition('* => void', [animate(300, style({ opacity: 0 }))]),
+    ]),
+  ],
 })
 export class FileUploadComponent implements OnInit {
   /** Link text */
@@ -27,7 +34,8 @@ export class FileUploadComponent implements OnInit {
   @Input() param = 'image';
   /** Target URL for file uploading. */
   //@Input() target = 'https://file.io';
-  @Input() target = 'https://api.imgbb.com/1/upload?key=c9eb22bfa99b710b64a1a83bc979bc27';
+  @Input() target =
+    'https://api.imgbb.com/1/upload?key=c9eb22bfa99b710b64a1a83bc979bc27';
   /** File extension that accepted, same as 'accept' of <input type="file" />.
       By the default, it's set to 'image/*'. */
   @Input() accept = 'image/*';
@@ -37,20 +45,26 @@ export class FileUploadComponent implements OnInit {
 
   public files: Array<FileUploadModel> = [];
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onClick() {
-    const fileUpload = document.getElementById('fileUpload') as HTMLInputElement;
+    const fileUpload: any = document.getElementById(
+      'fileUpload'
+    ) as HTMLInputElement;
     fileUpload.onchange = () => {
       for (let index = 0; index < fileUpload.files.length; index++) {
         const file = fileUpload.files[index];
         this.files.pop();
         this.files.push({
-          data: file, state: 'in',
-          inProgress: false, progress: 0, canRetry: false, canCancel: true, uploaded: false
+          data: file,
+          state: 'in',
+          inProgress: false,
+          progress: 0,
+          canRetry: false,
+          canCancel: true,
+          uploaded: false,
         });
       }
       this.uploadFiles();
@@ -59,7 +73,7 @@ export class FileUploadComponent implements OnInit {
   }
 
   cancelFile(file: FileUploadModel) {
-    file.sub.unsubscribe();
+    file.sub?.unsubscribe();
     this.removeFileFromArray(file);
   }
 
@@ -73,30 +87,32 @@ export class FileUploadComponent implements OnInit {
     fd.append(this.param, file.data);
 
     const req = new HttpRequest('POST', this.target, fd, {
-      reportProgress: true
+      reportProgress: true,
     });
 
     file.inProgress = true;
-    file.sub = this._http.request(req).pipe(
-      map(event => {
-        switch (event.type) {
-          case HttpEventType.UploadProgress:
-            file.progress = Math.round(event.loaded * 100 / event.total);
-            break;
-          case HttpEventType.Response:
-            return event;
-        }
-      }),
-      tap(message => { }),
-      last(),
-      catchError((error: HttpErrorResponse) => {
-        file.inProgress = false;
-        file.canRetry = true;
-        return of(`${file.data.name} upload failed.`);
-      })
-    ).subscribe(
-      (event: any) => {
-        if (typeof (event) === 'object') {
+    file.sub = this._http
+      .request(req)
+      .pipe(
+        map((event: any) => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              file.progress = Math.round((event.loaded * 100) / event.total);
+              break;
+            case HttpEventType.Response:
+              return event;
+          }
+        }),
+        tap((message) => {}),
+        last(),
+        catchError((error: HttpErrorResponse) => {
+          file.inProgress = false;
+          file.canRetry = true;
+          return of(`${file.data.name} upload failed.`);
+        })
+      )
+      .subscribe((event: any) => {
+        if (typeof event === 'object') {
           //this.removeFileFromArray(file);
           file.canCancel = false;
           file.uploaded = true;
@@ -105,15 +121,16 @@ export class FileUploadComponent implements OnInit {
             this.removeFileFromArray(file);
           }
         }
-      }
-    );
+      });
   }
 
   private uploadFiles() {
-    const fileUpload = document.getElementById('fileUpload') as HTMLInputElement;
+    const fileUpload = document.getElementById(
+      'fileUpload'
+    ) as HTMLInputElement;
     fileUpload.value = '';
 
-    this.files.forEach(file => {
+    this.files.forEach((file) => {
       this.uploadFile(file);
     });
   }
@@ -124,16 +141,15 @@ export class FileUploadComponent implements OnInit {
       this.files.splice(index, 1);
     }
   }
-
 }
 
 export class FileUploadModel {
-  data: File;
-  state: string;
-  inProgress: boolean;
-  progress: number;
-  canRetry: boolean;
-  canCancel: boolean;
-  uploaded: boolean;
+  data!: File;
+  state!: string;
+  inProgress!: boolean;
+  progress!: number;
+  canRetry!: boolean;
+  canCancel!: boolean;
+  uploaded!: boolean;
   sub?: Subscription;
 }

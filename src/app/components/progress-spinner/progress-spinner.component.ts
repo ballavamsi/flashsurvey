@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ViewChild, TemplateRef, ViewContainerRef, DoCheck } from '@angular/core';
 import { OverlayRef } from '@angular/cdk/overlay';
 import { AppOverlayConfig, OverlayService } from '../overlay/overlay.service';
-import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
+import { LegacyProgressSpinnerMode as ProgressSpinnerMode } from '@angular/material/legacy-progress-spinner';
 import { ThemePalette } from '@angular/material/core';
 
 @Component({

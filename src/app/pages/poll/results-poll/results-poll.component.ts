@@ -3,7 +3,7 @@ import { OverlayService } from 'src/app/components/overlay/overlay.service';
 import { ActivatedRoute } from '@angular/router';
 import { PollViewModel, PollResult, GraphResult } from 'src/app/models/poll';
 import { PollService } from 'src/app/services/poll/poll.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { barChartOptions, parseOptions, chartOptions, pieChartOptions, horizontalBarChartOptions } from 'src/app/variables/charts';
 import Chart from 'chart.js';
 import { Constants } from 'src/app/variables/constants';

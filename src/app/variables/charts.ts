@@ -21,7 +21,7 @@ Chart.elements.Rectangle.prototype.draw = function () {
     bottom = vm.base;
     signX = 1;
     signY = bottom > top ? 1 : -1;
-    borderSkipped = vm.borderSkipped || "bottom";
+    borderSkipped = vm.borderSkipped || 'bottom';
   } else {
     // horizontal bar
     left = vm.base;
@@ -30,7 +30,7 @@ Chart.elements.Rectangle.prototype.draw = function () {
     bottom = vm.y + vm.height / 2;
     signX = right > left ? 1 : -1;
     signY = 1;
-    borderSkipped = vm.borderSkipped || "left";
+    borderSkipped = vm.borderSkipped || 'left';
   }
 
   // Canvas doesn't allow us to stroke inside the width so we can
@@ -41,12 +41,12 @@ Chart.elements.Rectangle.prototype.draw = function () {
     borderWidth = borderWidth > barSize ? barSize : borderWidth;
     var halfStroke = borderWidth / 2;
     // Adjust borderWidth when bar top position is near vm.base(zero).
-    var borderLeft = left + (borderSkipped !== "left" ? halfStroke * signX : 0);
+    var borderLeft = left + (borderSkipped !== 'left' ? halfStroke * signX : 0);
     var borderRight =
-      right + (borderSkipped !== "right" ? -halfStroke * signX : 0);
-    var borderTop = top + (borderSkipped !== "top" ? halfStroke * signY : 0);
+      right + (borderSkipped !== 'right' ? -halfStroke * signX : 0);
+    var borderTop = top + (borderSkipped !== 'top' ? halfStroke * signY : 0);
     var borderBottom =
-      bottom + (borderSkipped !== "bottom" ? -halfStroke * signY : 0);
+      bottom + (borderSkipped !== 'bottom' ? -halfStroke * signY : 0);
     // not become a vertical line?
     if (borderLeft !== borderRight) {
       top = borderTop;
@@ -67,10 +67,15 @@ Chart.elements.Rectangle.prototype.draw = function () {
   // Corner points, from bottom-left to bottom-right clockwise
   // | 1 2 |
   // | 0 3 |
-  var corners = [[left, bottom], [left, top], [right, top], [right, bottom]];
+  var corners = [
+    [left, bottom],
+    [left, top],
+    [right, top],
+    [right, bottom],
+  ];
 
   // Find first (starting) corner with fallback to 'bottom'
-  var borders = ["bottom", "left", "top", "right"];
+  var borders = ['bottom', 'left', 'top', 'right'];
   var startCorner = borders.indexOf(borderSkipped, 0);
   if (startCorner === -1) {
     startCorner = 0;
@@ -125,10 +130,10 @@ Chart.elements.Rectangle.prototype.draw = function () {
   }
 };
 
-var mode = 'light';//(themeMode) ? themeMode : 'light';
+var mode = 'light'; //(themeMode) ? themeMode : 'light';
 var fonts = {
-  base: 'Open Sans'
-}
+  base: 'Open Sans',
+};
 
 // Colors
 var colors = {
@@ -141,72 +146,79 @@ var colors = {
     600: '#8898aa',
     700: '#525f7f',
     800: '#32325d',
-    900: '#212529'
+    900: '#212529',
   },
   theme: {
-    'default': '#172b4d',
-    'primary': '#5e72e4',
-    'secondary': '#f4f5f7',
-    'info': '#11cdef',
-    'success': '#2dce89',
-    'danger': '#f5365c',
-    'warning': '#fb6340'
+    default: '#172b4d',
+    primary: '#5e72e4',
+    secondary: '#f4f5f7',
+    info: '#11cdef',
+    success: '#2dce89',
+    danger: '#f5365c',
+    warning: '#fb6340',
   },
   black: '#12263F',
   white: '#FFFFFF',
   transparent: 'transparent',
-  platformColors: ['#172b4d', '#5e72e4', '#f4f5f7', '#11cdef', '#2dce89', '#f5365c', '#fb6340']
+  platformColors: [
+    '#172b4d',
+    '#5e72e4',
+    '#f4f5f7',
+    '#11cdef',
+    '#2dce89',
+    '#f5365c',
+    '#fb6340',
+  ],
 };
 
 export function chartOptions() {
-
   // Options
   var options = {
     defaults: {
       global: {
         responsive: true,
         maintainAspectRatio: true,
-        defaultColor: (mode == 'dark') ? colors.gray[700] : colors.gray[600],
-        defaultFontColor: (mode == 'dark') ? colors.gray[700] : colors.gray[600],
+        defaultColor: mode == 'dark' ? colors.gray[700] : colors.gray[600],
+        defaultFontColor: mode == 'dark' ? colors.gray[700] : colors.gray[600],
         defaultFontFamily: fonts.base,
         defaultFontSize: 13,
         layout: {
-          padding: 0
+          padding: 0,
         },
         legend: {
           display: true,
           position: 'bottom',
           labels: {
             usePointStyle: true,
-            padding: 16
-          }
+            padding: 16,
+          },
         },
         elements: {
           point: {
             radius: 0,
-            backgroundColor: colors.theme['primary']
+            backgroundColor: colors.theme['primary'],
           },
           line: {
-            tension: .9,
+            tension: 0.9,
             borderWidth: 4,
             borderColor: colors.theme['primary'],
             backgroundColor: colors.transparent,
-            borderCapStyle: 'rounded'
+            borderCapStyle: 'rounded',
           },
           rectangle: {
-            backgroundColor: colors.theme['warning']
+            backgroundColor: colors.theme['warning'],
           },
           arc: {
             backgroundColor: colors.theme['primary'],
-            borderColor: (mode == 'dark') ? colors.gray[800] : colors.white,
-            borderWidth: 4
-          }
+            borderColor: mode == 'dark' ? colors.gray[800] : colors.white,
+            borderWidth: 4,
+          },
         },
         tooltips: {
           enabled: true,
           mode: 'index',
           intersect: false,
-        }
+        },
       },
       doughnut: {
         cutoutPercentage: 83,
@@ -218,15 +230,18 @@ export function chartOptions() {
             var bgColor = data.datasets[0].backgroundColor[index];
 
             content += '<span class="chart-legend-item">';
-            content += '<i class="chart-legend-indicator" style="background-color: ' + bgColor + '"></i>';
+            content +=
+              '<i class="chart-legend-indicator" style="background-color: ' +
+              bgColor +
+              '"></i>';
             content += label;
             content += '</span>';
           });
 
           return content;
-        }
-      }
-    }
+        },
+      },
+    },
   };
 
   // yAxes
@@ -234,24 +249,24 @@ export function chartOptions() {
     gridLines: {
       borderDash: [2],
       borderDashOffset: [2],
-      color: (mode == 'dark') ? colors.gray[900] : colors.gray[300],
+      color: mode == 'dark' ? colors.gray[900] : colors.gray[300],
       drawBorder: false,
       drawTicks: false,
       lineWidth: 0,
       zeroLineWidth: 0,
-      zeroLineColor: (mode == 'dark') ? colors.gray[900] : colors.gray[300],
+      zeroLineColor: mode == 'dark' ? colors.gray[900] : colors.gray[300],
       zeroLineBorderDash: [2],
-      zeroLineBorderDashOffset: [2]
+      zeroLineBorderDashOffset: [2],
     },
     ticks: {
       beginAtZero: true,
       padding: 10,
       callback: function (value) {
         if (!(value % 10)) {
-          return value
+          return value;
         }
-      }
-    }
+      },
+    },
   });
 
   // xAxes
@@ -259,16 +274,15 @@ export function chartOptions() {
     gridLines: {
       drawBorder: false,
       drawOnChartArea: false,
-      drawTicks: false
+      drawTicks: false,
     },
     ticks: {
-      padding: 20
+      padding: 20,
     },
-    maxBarThickness: 90
+    maxBarThickness: 90,
   });
 
   return options;
-
 }
 
 export const parseOptions = (parent, options) => {
@@ -284,71 +298,82 @@ export const parseOptions = (parent, options) => {
 export const doughnutChartOptions = {
   data: {
     labels: [],
-    datasets: [{
-      label: '',
-      data: []
-    }]
-  }
-}
+    datasets: [
+      {
+        label: '',
+        data: [],
+      },
+    ],
+  },
+};
 
 export const pieChartOptions = {
   options: {
     scales: {
-      xAxes: [{
-        gridLines: {
-          offsetGridLines: false
-        }
-      }]
+      xAxes: [
+        {
+          gridLines: {
+            offsetGridLines: false,
+          },
+        },
+      ],
     },
     tooltips: {
       callbacks: {
-        label: function (item, data) {
-          var label = data.datasets[item.datasetIndex].label || "";
+        label: function (item: any, data: any) {
+          var label = data.datasets[item.datasetIndex].label || '';
           var yLabel = item.yLabel;
-          var content = "";
+          var content = '';
           if (data.datasets.length > 1) {
             content += label;
           }
           content += yLabel;
           return content;
-        }
-      }
-    }
+        },
+      },
+    },
   },
   data: {
     labels: [],
-    datasets: [{
-      label: '',
-      data: []
-    }]
-  }
+    datasets: [
+      {
+        label: '',
+        data: [],
+      },
+    ],
+  },
 };
 
 export const chartExample1 = {
   options: {
     scales: {
-      yAxes: [{
-        gridLines: {
-          color: colors.gray[900],
-          zeroLineColor: colors.gray[900]
+      yAxes: [
+        {
+          gridLines: {
+            color: colors.gray[900],
+            zeroLineColor: colors.gray[900],
+          },
+          ticks: {
+            callback: function (value: any) {
+              if (!(value % 10)) {
+                return '$' + value + 'k';
+              }
+              return '$' + value + '';
+            },
+          },
         },
-        ticks: {
-          callback: function (value) {
-            if (!(value % 10)) {
-              return '$' + value + 'k';
-            }
-          }
-        }
-      }]
-    }
+      ],
+    },
   },
   data: {
     labels: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-    datasets: [{
-      label: 'Performance',
-      data: [0, 20, 10, 30, 15, 40, 20, 60, 60]
-    }]
-  }
+    datasets: [
+      {
+        label: 'Performance',
+        data: [0, 20, 10, 30, 15, 40, 20, 60, 60],
+      },
+    ],
+  },
 };
 
 export const chartExample2 = {
@@ -362,37 +387,36 @@ export const chartExample2 = {
                 //return '$' + value + 'k'
                 return value;
               }
-            }
-          }
-        }
-      ]
+            },
+          },
+        },
+      ],
     },
     tooltips: {
       callbacks: {
         label: function (item, data) {
-          var label = data.datasets[item.datasetIndex].label || "";
+          var label = data.datasets[item.datasetIndex].label || '';
           var yLabel = item.yLabel;
-          var content = "";
+          var content = '';
           if (data.datasets.length > 1) {
             content += label;
           }
           content += yLabel;
           return content;
-        }
-      }
-    }
+        },
+      },
+    },
   },
   data: {
-    labels: ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    labels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     datasets: [
       {
-        label: "Options",
-        data: [25, 20, 30, 22, 17, 29]
-      }
-    ]
-  }
+        label: 'Options',
+        data: [25, 20, 30, 22, 17, 29],
+      },
+    ],
+  },
 };
-
 
 export const lineChartOptions = {
   options: {
@@ -421,17 +445,19 @@ export const lineChartOptions = {
       //     }
       //   }
       // }]
-    }
+    },
   },
   data: {
     labels: ['Options'],
-    datasets: [{
-      label: 'Values',
-      data: [],
-      borderColor: '#EFAA1A',
-      fill: false
-    }]
-  }
+    datasets: [
+      {
+        label: 'Values',
+        data: [],
+        borderColor: '#EFAA1A',
+        fill: false,
+      },
+    ],
+  },
 };
 
 export const twoLineChartOptions = {
@@ -461,52 +487,61 @@ export const twoLineChartOptions = {
       //     }
       //   }
       // }]
-    }
+    },
   },
   data: {
     labels: ['Options'],
-    datasets: [{
-      label: 'Min',
-      data: [],
-      borderColor: '#EFAA1A',
-      fill: false
-    }, {
-      label: 'Max',
-      data: [],
-      borderColor: '#E6302D',
-      fill: false
-    }]
-  }
+    datasets: [
+      {
+        label: 'Min',
+        data: [],
+        borderColor: '#EFAA1A',
+        fill: false,
+      },
+      {
+        label: 'Max',
+        data: [],
+        borderColor: '#E6302D',
+        fill: false,
+      },
+    ],
+  },
 };
 
 export const scatterPlot = {
   options: {
     scales: {
-      xAxes: [{
-        type: 'linear',
-        position: 'bottom'
-      }]
-    }
+      xAxes: [
+        {
+          type: 'linear',
+          position: 'bottom',
+        },
+      ],
+    },
   },
   data: {
-    datasets: [{
-      label: 'Scatter',
-      data: [],
-      fill: true || false,
-      lineTension: 0.4,
-      pointBackgroundColor: '#EFAA1A' || 'rgba(123,123,123,0.1)' || '#00FF00',
-      pointBorderColor: '#EFAA1A' || 'rgba(123,123,123,0.1)' || '#00FF00',
-      pointBorderWidth: 3,
-      pointRadius: 5,
-      pointStyle: 'circle',
-      pointRotation: 3,
-      pointHitRadius: 5,
-      pointHoverBackgroundColor: '#EFAA1A' || 'rgba(123,123,123,0.1)' || '#00FF00',
-      pointHoverBorderColor: '#E6302D' || 'rgba(123,123,123,0.1)' || '#00FF00',
-      pointHoverBorderWidth: 3,
-      pointHoverRadius: 3
-    }]
-  }
+    datasets: [
+      {
+        label: 'Scatter',
+        data: [],
+        fill: true || false,
+        lineTension: 0.4,
+        pointBackgroundColor: '#EFAA1A' || 'rgba(123,123,123,0.1)' || '#00FF00',
+        pointBorderColor: '#EFAA1A' || 'rgba(123,123,123,0.1)' || '#00FF00',
+        pointBorderWidth: 3,
+        pointRadius: 5,
+        pointStyle: 'circle',
+        pointRotation: 3,
+        pointHitRadius: 5,
+        pointHoverBackgroundColor:
+          '#EFAA1A' || 'rgba(123,123,123,0.1)' || '#00FF00',
+        pointHoverBorderColor:
+          '#E6302D' || 'rgba(123,123,123,0.1)' || '#00FF00',
+        pointHoverBorderWidth: 3,
+        pointHoverRadius: 3,
+      },
+    ],
+  },
 };
 
 export const barChartOptions = {
@@ -520,41 +555,40 @@ export const barChartOptions = {
                 //return '$' + value + 'k'
                 return value;
               }
-            }
-          }
-        }
-      ]
+            },
+          },
+        },
+      ],
     },
     tooltips: {
       callbacks: {
         label: function (item, data) {
-          var label = data.datasets[item.datasetIndex].label || "";
+          var label = data.datasets[item.datasetIndex].label || '';
           var yLabel = item.yLabel;
-          var content = "";
+          var content = '';
           if (data.datasets.length > 1) {
             content += label;
           }
           content += yLabel;
           return content;
-        }
-      }
-    }
+        },
+      },
+    },
   },
   data: {
-    labels: ["Options"],
+    labels: ['Options'],
     datasets: [
       {
         barPercentage: 0.5,
         barThickness: 6,
         maxBarThickness: 8,
         minBarLength: 2,
-        label: "Options",
-        data: [0]
-      }
-    ]
-  }
+        label: 'Options',
+        data: [0],
+      },
+    ],
+  },
 };
-
 
 export const horizontalBarChartOptions = {
   options: {
@@ -567,9 +601,9 @@ export const horizontalBarChartOptions = {
               //return '$' + value + 'k'
               return value;
               //}
-            }
-          }
-        }
+            },
+          },
+        },
       ],
       yAxes: [
         {
@@ -579,39 +613,39 @@ export const horizontalBarChartOptions = {
               //return '$' + value + 'k'
               return value;
               //}
-            }
-          }
-        }
-      ]
+            },
+          },
+        },
+      ],
     },
     tooltips: {
       callbacks: {
         label: function (item, data) {
-          var label = data.datasets[item.datasetIndex].label || "";
+          var label = data.datasets[item.datasetIndex].label || '';
           var yLabel = item.yLabel;
           var xLabel = item.xLabel;
-          var content = "";
+          var content = '';
           if (data.datasets.length > 1) {
             //content += label;
           }
-          content = "Count :" + xLabel;
+          content = 'Count :' + xLabel;
           return content;
-        }
-      }
-    }
+        },
+      },
+    },
   },
   data: {
-    labels: ["Options"],
+    labels: ['Options'],
     datasets: [
       {
         barPercentage: 0.5,
         barThickness: 6,
         maxBarThickness: 8,
         minBarLength: 2,
-        label: "Options",
+        label: 'Options',
         data: [],
-        backgroundColor: 'rgb(255, 99, 132)'
-      }
-    ]
-  }
+        backgroundColor: 'rgb(255, 99, 132)',
+      },
+    ],
+  },
 };

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OverlayService } from 'src/app/components/overlay/overlay.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

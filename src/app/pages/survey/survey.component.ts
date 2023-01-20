@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SurveyModel, UserSurveysResponseModel, UserSurveysViewModel } from 'src/app/models/survey';
 import { SurveyService } from 'src/app/services/survey/survey.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { OverlayService } from 'src/app/components/overlay/overlay.service';
 
 @Component({

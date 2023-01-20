@@ -1,4 +1,4 @@
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
 import { ProgressSpinnerComponent } from './progress-spinner/progress-spinner.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';

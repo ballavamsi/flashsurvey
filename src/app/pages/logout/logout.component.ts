@@ -1,18 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { SocialAuthService } from 'angularx-social-login';
-import { StorageService } from 'src/app/services/storage/storage.service';
+import { Component, OnInit } from "@angular/core";
+import { SocialAuthService } from "@abacritt/angularx-social-login";
+import { StorageService } from "src/app/services/storage/storage.service";
 
 @Component({
-  selector: 'app-logout',
-  templateUrl: './logout.component.html',
-  styleUrls: ['./logout.component.scss']
+  selector: "app-logout",
+  templateUrl: "./logout.component.html",
+  styleUrls: ["./logout.component.scss"],
 })
 export class LogoutComponent implements OnInit {
-
-  constructor(socialAuthService: SocialAuthService,
-    storageService: StorageService) {
-      storageService.clearAllSession();
-      socialAuthService.signOut();
+  constructor(
+    socialAuthService: SocialAuthService,
+    storageService: StorageService
+  ) {
+    storageService.clearAllSession();
+    socialAuthService.signOut();
   }
 
   ngOnInit() {
@@ -23,5 +24,4 @@ export class LogoutComponent implements OnInit {
     var body = document.getElementsByTagName("body")[0];
     body.classList.remove("bg-darker");
   }
-
 }

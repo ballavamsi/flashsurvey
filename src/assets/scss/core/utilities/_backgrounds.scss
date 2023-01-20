@@ -4,33 +4,33 @@
 
 
 @each $color, $value in $colors {
-	@include bg-variant(".bg-#{$color}", $value);
+	@include bg-variant-custom(".bg-#{$color}", $value);
 }
 
 @each $color, $value in $theme-colors {
-	@include bg-gradient-variant(".bg-gradient-#{$color}", $value);
+	@include bg-gradient-variant-custom(".bg-gradient-#{$color}", $value);
 }
 
 @each $color, $value in $colors {
-	@include bg-gradient-variant(".bg-gradient-#{$color}", $value);
+	@include bg-gradient-variant-custom(".bg-gradient-#{$color}", $value);
 }
 
 
 // Background colors with transparency
 
 @each $color, $value in $theme-colors {
-    @include bg-translucent-variant(".bg-translucent-#{$color}", $value);
+    @include bg-translucent-variant-custom(".bg-translucent-#{$color}", $value);
 }
 
 
 // Sections backgrounds
 
 @each $color, $value in $section-colors {
-    @include bg-variant(".section-#{$color}", $value);
+    @include bg-variant-custom(".section-#{$color}", $value);
 }
 
 @each $color, $value in $theme-colors {
-    @include bg-gradient-variant(".bg-gradient-#{$color}", $value);
+    @include bg-gradient-variant-custom(".bg-gradient-#{$color}", $value);
 }
 
 

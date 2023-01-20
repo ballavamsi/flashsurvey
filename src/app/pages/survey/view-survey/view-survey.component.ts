@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { SurveyModel } from 'src/app/models/survey';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { OverlayService } from 'src/app/components/overlay/overlay.service';
 import { SurveyService } from 'src/app/services/survey/survey.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
@@ -18,7 +18,7 @@ export class ViewSurveyComponent implements OnInit {
   routeGuid: string;
   loaded = false;
   errorMessage = "";
-  fg: FormGroup;
+  fg: UntypedFormGroup;
   constructor(private _activateRoute: ActivatedRoute,
     private _snackBar: MatSnackBar,
     private _router: Router,
@@ -26,8 +26,8 @@ export class ViewSurveyComponent implements OnInit {
     private _surveyService: SurveyService,
     private _storageService: StorageService) {
 
-    this.fg = new FormGroup({
-      emailId: new FormControl('', Validators.pattern(/[\w-]+@([\w-]+\.)+[\w-]+/))
+    this.fg = new UntypedFormGroup({
+      emailId: new UntypedFormControl('', Validators.pattern(/[\w-]+@([\w-]+\.)+[\w-]+/))
     });
 
     this._activateRoute.params.subscribe((data) => {

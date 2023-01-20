@@ -1,9 +1,9 @@
-import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, UntypedFormArray, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { PollOptionTypes, PollViewModel, PollModel } from 'src/app/models/poll';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { PollService } from 'src/app/services/poll/poll.service';
 import { OverlayService } from 'src/app/components/overlay/overlay.service';
 import { StatusEnum } from 'src/app/variables/status-enum.enum';
@@ -25,7 +25,7 @@ export class CreatePollComponent implements OnInit {
     month: this.current.getMonth() + 1,
     day: this.current.getDate()
   };
-  fg: FormGroup;
+  fg: UntypedFormGroup;
   formSubmitted = false;
   newPollViewModel: PollViewModel;
 
@@ -34,12 +34,12 @@ export class CreatePollComponent implements OnInit {
     private _router: Router,
     private _overlayService: OverlayService) {
 
-    this.fg = new FormGroup({
-      question: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(1000)]),
-      options: new FormArray([]),
-      optionType: new FormControl(PollOptionTypes.radiobutton.toString()),
-      duplicateCheck: new FormControl('0'),
-      endDate: new FormControl(this.enddate30days, [Validators.required])
+    this.fg = new UntypedFormGroup({
+      question: new UntypedFormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(1000)]),
+      options: new UntypedFormArray([]),
+      optionType: new UntypedFormControl(PollOptionTypes.radiobutton.toString()),
+      duplicateCheck: new UntypedFormControl('0'),
+      endDate: new UntypedFormControl(this.enddate30days, [Validators.required])
     });
 
   }
@@ -72,14 +72,14 @@ export class CreatePollComponent implements OnInit {
     return this.fg.get('options').value;
   }
 
-  get optionsArray(): FormArray {
-    return this.fg.get('options') as FormArray;
+  get optionsArray(): UntypedFormArray {
+    return this.fg.get('options') as UntypedFormArray;
   }
   ////
 
   // Add New Option
   addNewOption() {
-    const nfg = new FormControl(this.newoptionvalue, [Validators.required, Validators.minLength(2), Validators.maxLength(100)]);
+    const nfg = new UntypedFormControl(this.newoptionvalue, [Validators.required, Validators.minLength(2), Validators.maxLength(100)]);
     this.newoptionvalue = '';
     this.optionsArray.push(nfg);
   }
