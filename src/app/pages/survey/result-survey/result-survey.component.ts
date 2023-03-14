@@ -1,16 +1,16 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { MatLegacySnackBar as MatSnackBar } from "@angular/material/legacy-snack-bar";
-import { OverlayService } from "src/app/components/overlay/overlay.service";
-import { SurveyService } from "src/app/services/survey/survey.service";
-import { StorageService } from "src/app/services/storage/storage.service";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { OverlayService } from 'src/app/components/overlay/overlay.service';
+import { SurveyService } from 'src/app/services/survey/survey.service';
+import { StorageService } from 'src/app/services/storage/storage.service';
 import {
   SurveyModel,
   UserSurveyFeedbackResponseModel,
   UserSurveyFeedbacks,
   SurveyMetricsViewModel,
   QuestionMetricsViewModel,
-} from "src/app/models/survey";
+} from 'src/app/models/survey';
 import {
   parseOptions,
   chartOptions,
@@ -18,23 +18,23 @@ import {
   lineChartOptions,
   twoLineChartOptions,
   scatterPlot,
-} from "src/app/variables/charts";
-import { Constants } from "src/app/variables/constants";
-import Chart from "chart.js";
+} from 'src/app/variables/charts';
+import { Constants } from 'src/app/variables/constants';
+import Chart from 'chart.js';
 
 @Component({
-  selector: "app-result-survey",
-  templateUrl: "./result-survey.component.html",
-  styleUrls: ["./result-survey.component.scss"],
+  selector: 'app-result-survey',
+  templateUrl: './result-survey.component.html',
+  styleUrls: ['./result-survey.component.scss'],
 })
 export class ResultSurveyComponent implements OnInit {
-  surveyTitle = "";
+  surveyTitle = '';
   userFeedbacks: UserSurveyFeedbacks[];
   feedbackMetrics: QuestionMetricsViewModel[];
   routeGuid: string;
   loaded = false;
-  errorMessage = "";
-  userfeedback = "";
+  errorMessage = '';
+  userfeedback = '';
 
   surveyId = 0;
   pageNumber = 0;
@@ -54,7 +54,7 @@ export class ResultSurveyComponent implements OnInit {
     private _storageService: StorageService
   ) {
     this._activateRoute.params.subscribe((data) => {
-      this.routeGuid = data["id"];
+      this.routeGuid = data['id'];
       this._overlayService.show();
       this.getSurveyFeedbacks(this.routeGuid);
     });
@@ -76,7 +76,7 @@ export class ResultSurveyComponent implements OnInit {
         },
         (error) => {
           this._overlayService.hide();
-          this.openDismiss(error.error, "Dismiss");
+          this.openDismiss(error.error, 'Dismiss');
         }
       );
   }
@@ -96,14 +96,14 @@ export class ResultSurveyComponent implements OnInit {
       },
       (error) => {
         this._overlayService.hide();
-        this.openDismiss(error.error, "Dismiss");
+        this.openDismiss(error.error, 'Dismiss');
       }
     );
     this.renderChart();
   }
 
   getSurveyUserFeedback(surveyUserGuid) {
-    this._router.navigate(["survey/feedback/", surveyUserGuid]);
+    this._router.navigate(['survey/feedback/', surveyUserGuid]);
   }
 
   renderChart() {
@@ -144,35 +144,35 @@ export class ResultSurveyComponent implements OnInit {
     this.feedbackMetrics.forEach((element, i) => {
       let tempChart;
       if (
-        element.questionType == "radiobuttons" ||
-        element.questionType == "multiple"
+        element.questionType == 'radiobuttons' ||
+        element.questionType == 'multiple'
       ) {
         tempChart = this.createChart(
-          "chart-" + element.questionType + "-" + i,
+          'chart-' + element.questionType + '-' + i,
           Constants.HorizontalBarChart,
           horizontalBarChartOptions.options,
           horizontalBarChartOptions.data
         );
       }
-      if (element.questionType == "slider") {
+      if (element.questionType == 'slider') {
         tempChart = this.createChart(
-          "chart-" + element.questionType + "-" + i,
-          Constants.LineChart,
-          lineChartOptions.options,
-          lineChartOptions.data
-        );
-      }
-      if (element.questionType == "rangeslider2") {
-        tempChart = this.createChart(
-          "chart-" + element.questionType + "-" + i,
+          'chart-' + element.questionType + '-' + i,
           Constants.LineChart,
           twoLineChartOptions.options,
           twoLineChartOptions.data
         );
       }
-      if (element.questionType == "rangeslider") {
+      if (element.questionType == 'rangeslider2') {
         tempChart = this.createChart(
-          "chart-" + element.questionType + "-" + i,
+          'chart-' + element.questionType + '-' + i,
+          Constants.LineChart,
+          twoLineChartOptions.options,
+          twoLineChartOptions.data
+        );
+      }
+      if (element.questionType == 'rangeslider') {
+        tempChart = this.createChart(
+          'chart-' + element.questionType + '-' + i,
           Constants.ScatterChart,
           scatterPlot.options,
           scatterPlot.data
@@ -184,13 +184,13 @@ export class ResultSurveyComponent implements OnInit {
 
   getColor() {
     return (
-      "hsl(" +
+      'hsl(' +
       360 * Math.random() +
-      "," +
+      ',' +
       (15 + 70 * Math.random()) +
-      "%," +
+      '%,' +
       (85 + 10 * Math.random()) +
-      "%)"
+      '%)'
     );
   }
 
@@ -200,8 +200,8 @@ export class ResultSurveyComponent implements OnInit {
       let dataValues = [];
       let colors = [];
       if (
-        element.questionType == "radiobuttons" ||
-        element.questionType == "multiple"
+        element.questionType == 'radiobuttons' ||
+        element.questionType == 'multiple'
       ) {
         let maxElementCount = 0;
         element.options.forEach((element2) => {
@@ -216,20 +216,20 @@ export class ResultSurveyComponent implements OnInit {
           if (element2.optionCount != maxElementCount) {
             colors.push(this.getColor());
           } else {
-            colors.push("red");
+            colors.push('red');
           }
         });
 
         this.updateOptions(i, labels, dataValues, colors);
       }
 
-      if (element.questionType == "slider") {
+      if (element.questionType == 'slider') {
         let minValue = parseInt(
-          element.originalQuestionOptions.filter((x) => x.optionKey == "min")[0]
+          element.originalQuestionOptions.filter((x) => x.optionKey == 'min')[0]
             .optionValue
         );
         let maxValue = parseInt(
-          element.originalQuestionOptions.filter((x) => x.optionKey == "max")[0]
+          element.originalQuestionOptions.filter((x) => x.optionKey == 'max')[0]
             .optionValue
         );
         for (let index = minValue; index < maxValue; index++) {
@@ -250,14 +250,14 @@ export class ResultSurveyComponent implements OnInit {
         this.updateOptions(i, labels, dataValues, colors);
       }
 
-      if (element.questionType == "rangeslider2") {
+      if (element.questionType == 'rangeslider2') {
         let dataValues2 = [];
         let minValue = parseInt(
-          element.originalQuestionOptions.filter((x) => x.optionKey == "min")[0]
+          element.originalQuestionOptions.filter((x) => x.optionKey == 'min')[0]
             .optionValue
         );
         let maxValue = parseInt(
-          element.originalQuestionOptions.filter((x) => x.optionKey == "max")[0]
+          element.originalQuestionOptions.filter((x) => x.optionKey == 'max')[0]
             .optionValue
         );
         for (let index = minValue; index < maxValue; index++) {
@@ -268,7 +268,7 @@ export class ResultSurveyComponent implements OnInit {
 
         element.options.forEach((element2) => {
           if (
-            element2.optionText == "min" &&
+            element2.optionText == 'min' &&
             !Number.isNaN(element2.optionCount) &&
             element2.optionCount >= minValue &&
             element2.optionCount <= maxValue
@@ -278,7 +278,7 @@ export class ResultSurveyComponent implements OnInit {
               dataValues[element2.optionCount - minValue] + 1;
           }
           if (
-            element2.optionText == "max" &&
+            element2.optionText == 'max' &&
             !Number.isNaN(element2.optionCount) &&
             element2.optionCount >= minValue &&
             element2.optionCount <= maxValue
@@ -293,14 +293,14 @@ export class ResultSurveyComponent implements OnInit {
         this.updateOptions(i, labels, dataValues2, colors, 1);
       }
 
-      if (element.questionType == "rangeslider") {
+      if (element.questionType == 'rangeslider') {
         let dataValues2 = [];
         let minValue = parseInt(
-          element.originalQuestionOptions.filter((x) => x.optionKey == "min")[0]
+          element.originalQuestionOptions.filter((x) => x.optionKey == 'min')[0]
             .optionValue
         );
         let maxValue = parseInt(
-          element.originalQuestionOptions.filter((x) => x.optionKey == "max")[0]
+          element.originalQuestionOptions.filter((x) => x.optionKey == 'max')[0]
             .optionValue
         );
         for (let index = minValue; index < maxValue; index++) {
@@ -311,7 +311,7 @@ export class ResultSurveyComponent implements OnInit {
 
         element.options.forEach((element2) => {
           if (
-            element2.optionText == "min" &&
+            element2.optionText == 'min' &&
             !isNaN(element2.optionCount) &&
             element2.optionCount >= minValue &&
             element2.optionCount <= maxValue
@@ -322,7 +322,7 @@ export class ResultSurveyComponent implements OnInit {
               dataValues[element2.optionCount - minValue] + 1;
           }
           if (
-            element2.optionText == "max" &&
+            element2.optionText == 'max' &&
             !isNaN(element2.optionCount) &&
             element2.optionCount >= minValue &&
             element2.optionCount <= maxValue
@@ -339,7 +339,7 @@ export class ResultSurveyComponent implements OnInit {
         dataValues.forEach((element, i) => {
           if (element != 0) {
             finalPlot.push({ x: i, y: element });
-            colors.push("#EFAA1A");
+            colors.push('#EFAA1A');
             if (totalValues < element) {
               totalValues = element;
             }
@@ -349,7 +349,7 @@ export class ResultSurveyComponent implements OnInit {
         dataValues2.forEach((element, i) => {
           if (element != 0) {
             finalPlot.push({ x: i, y: element });
-            colors.push("#E6302D");
+            colors.push('#E6302D');
             if (totalValues < element) {
               totalValues = element;
             }
