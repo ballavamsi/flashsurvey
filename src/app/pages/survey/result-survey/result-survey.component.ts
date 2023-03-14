@@ -145,7 +145,8 @@ export class ResultSurveyComponent implements OnInit {
       let tempChart;
       if (
         element.questionType == 'radiobuttons' ||
-        element.questionType == 'multiple'
+        element.questionType == 'multiple' ||
+        element.questionType == 'slider'
       ) {
         tempChart = this.createChart(
           'chart-' + element.questionType + '-' + i,
@@ -154,14 +155,14 @@ export class ResultSurveyComponent implements OnInit {
           horizontalBarChartOptions.data
         );
       }
-      if (element.questionType == 'slider') {
-        tempChart = this.createChart(
-          'chart-' + element.questionType + '-' + i,
-          Constants.LineChart,
-          twoLineChartOptions.options,
-          twoLineChartOptions.data
-        );
-      }
+      // if (element.questionType == "slider") {
+      //   tempChart = this.createChart(
+      //     "chart-" + element.questionType + "-" + i,
+      //     Constants.LineChart,
+      //     lineChartOptions.options,
+      //     lineChartOptions.data
+      //   );
+      // }
       if (element.questionType == 'rangeslider2') {
         tempChart = this.createChart(
           'chart-' + element.questionType + '-' + i,
