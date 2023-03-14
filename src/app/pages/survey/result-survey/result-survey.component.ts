@@ -232,7 +232,7 @@ export class ResultSurveyComponent implements OnInit {
           element.originalQuestionOptions.filter((x) => x.optionKey == 'max')[0]
             .optionValue
         );
-        for (let index = minValue; index < maxValue; index++) {
+        for (let index = minValue; index <= maxValue; index++) {
           labels.push(index);
           dataValues.push(0);
         }
@@ -260,7 +260,7 @@ export class ResultSurveyComponent implements OnInit {
           element.originalQuestionOptions.filter((x) => x.optionKey == 'max')[0]
             .optionValue
         );
-        for (let index = minValue; index < maxValue; index++) {
+        for (let index = minValue; index <= maxValue; index++) {
           labels.push(index);
           dataValues.push(0);
           dataValues2.push(0);
