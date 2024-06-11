@@ -7,7 +7,7 @@ export const environment = {
   // API_URL: "http://localhost:6611/api",
   //API_URL: "http://localhost:5000/api",
   // API_URL: "https://freepoll-api.loca.lt/api",
-  API_URL: 'https://oneapigw-api.loca.lt/api',
+  API_URL: 'https://oneapigw.loca.lt/api',
 };
 
 /*
