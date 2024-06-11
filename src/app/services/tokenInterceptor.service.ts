@@ -56,11 +56,14 @@ export class TokenInterceptorService implements HttpInterceptor {
       return request.clone({
         headers: request.headers
           .set('UserToken', userDetails?.userGuid)
-          .set('Bypass-Tunnel-Reminder', 'True'),
+          .set('Bypass-Tunnel-Reminder', 'True')
+          .set('xapp', 'flashsurvey'),
       });
     } else {
       return request.clone({
-        headers: request.headers.set('Bypass-Tunnel-Reminder', 'True'),
+        headers: request.headers
+          .set('Bypass-Tunnel-Reminder', 'True')
+          .set('xapp', 'flashsurvey'),
       });
     }
   }
